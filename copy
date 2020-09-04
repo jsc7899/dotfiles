@@ -1,2 +1,2 @@
 #!/bin/bash
-cp .bash_profile .bashrc .vimrc  ~/
+cp -R . ~/
