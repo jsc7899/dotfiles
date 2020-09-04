@@ -1,2 +1,2 @@
 #!/bin/bash
-cp .bash_profile .bashrc .p10k.sh .vimrc .zshrc ~/
+cp .bash_profile .bashrc .p10k.zsh .vimrc .zshrc ~/
