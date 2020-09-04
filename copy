@@ -1,2 +1,2 @@
 #!/bin/bash
-cp -r !(copy) . ~/
+cp .bash_profile .bashrc .p10k.sh .vimrc .zshrc ~/
