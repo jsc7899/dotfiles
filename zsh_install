@@ -1,7 +1,7 @@
 # zsh install script for debian
 #!/bin/bash
 
-apt update && apt install zsh git curl wget vim -y
+sudo apt update && sudo apt install zsh git curl wget vim -y
 
 mkdir -p ~/.local/share/fonts && cd ~/.local/share/fonts
 wget "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf"
