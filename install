@@ -6,4 +6,4 @@ ln -sf .vimrc ~/.
 ln -sf .zshrc ~/.
 ln -sf .p1k.zsh ~/.
 ln -sf .tmux.conf.local ~/.
-ln -sf .dotfiles/.tmux/.tmux.conf ~/.
+ln -sf .tmux/.tmux.conf ~/.
