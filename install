@@ -1,5 +1,7 @@
 #!/bin/sh
 
+sudo yum install zsh tmux wget curl git fontconfig
+
 cd $HOME
 
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
