@@ -9,14 +9,14 @@ fi
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/jared/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-# ZSH_THEME="powerlevel10k/powerlevel10k"
-source /usr/local/opt/powerlevel10k/powerlevel10k.zsh-theme
+ZSH_THEME="powerlevel10k/powerlevel10k"
+# source /usr/local/opt/powerlevel10k/powerlevel10k.zsh-theme
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -116,7 +116,7 @@ alias barbatos="ssh jared@barbatos.local"
 alias sandbox="ssh jared@146.6.161.123"
 alias exia="ssh jared@exia.infosec.utexas.edu"
 alias tacc="ssh -i ~/.ssh/tacc_id_ras jsc3642@stampede2.tacc.utexas.edu"
-alias cat="~/.cat"
+# alias cat="~/.cat"
 alias chomp_kinit="sudo kinit -kt /etc/security/keytabs/chomp.headless.keytab chomp"
 alias ip_lookup="ssh -t jared@security-scanner-ch0001.infosec.utexas.edu sudo /opt/chomp/tsc_tools/tsc_tools.py -o --ip_lookup "
 alias ip_bq="ssh -t jared@security-scanner-ch0001.infosec.utexas.edu sudo /opt/chomp/tsc_tools/tsc_tools.py -o --ip_quarantine "
