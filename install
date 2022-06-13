@@ -1,6 +1,6 @@
 #!/bin/sh
 
-sudo yum install zsh tmux wget curl git fontconfig
+sudo brew install zsh tmux wget curl git
 
 cd $HOME
 
