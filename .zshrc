@@ -9,13 +9,14 @@ fi
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="$HOME/.oh-my-zsh"
+export ZSH="/Users/jared/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="powerlevel10k/powerlevel10k"
+# ZSH_THEME="powerlevel10k/powerlevel10k"
+source /usr/local/opt/powerlevel10k/powerlevel10k.zsh-theme
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -75,7 +76,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-syntax-highlighting zsh-autosuggestions nmap colored-man-pages common-aliases osx brew)
+plugins=(git zsh-syntax-highlighting zsh-autosuggestions nmap colored-man-pages common-aliases macos brew kubectl)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -109,10 +110,31 @@ alias chomp2="ssh -i ~/.ssh/jcampbell7899@utexas.edu.pem jared@security-scanner-
 alias pi4="ssh jared@pi4.local"
 alias pi3="ssh jared@pi3.local"
 alias htpc="ssh jared@debian.local"
-alias update="brew update && brew upgrade && brew cask upgrade"
+alias update="brew update && brew upgrade && brew upgrade --cask && brew cleanup && brew autoremove && brew doctor"
 alias gp_ec2="ssh -i "~/.ssh/gp_ec2.pem" ubuntu@ec2-52-87-232-112.compute-1.amazonaws.com"
-alias arch-"ssh jared@192.168.2.234"
+alias barbatos="ssh jared@barbatos.local" 
 alias sandbox="ssh jared@146.6.161.123"
+alias exia="ssh jared@exia.infosec.utexas.edu"
+alias tacc="ssh -i ~/.ssh/tacc_id_ras jsc3642@stampede2.tacc.utexas.edu"
+alias cat="~/.cat"
+alias chomp_kinit="sudo kinit -kt /etc/security/keytabs/chomp.headless.keytab chomp"
+alias ip_lookup="ssh -t jared@security-scanner-ch0001.infosec.utexas.edu sudo /opt/chomp/tsc_tools/tsc_tools.py -o --ip_lookup "
+alias ip_bq="ssh -t jared@security-scanner-ch0001.infosec.utexas.edu sudo /opt/chomp/tsc_tools/tsc_tools.py -o --ip_quarantine "
+alias mac_bq="ssh -t jared@security-scanner-ch0001.infosec.utexas.edu sudo /opt/chomp/tsc_tools/tsc_tools.py -o --mac_quarantine "
+alias eid_bq="ssh -t jared@security-scanner-ch0001.infosec.utexas.edu sudo /opt/chomp/tsc_tools/tsc_tools.py -o --eid_quarantine "
+alias reset_network="sudo route -n flush && sudo dscacheutil -flushcache"
+alias start_meeting="/Users/jared/Documents/scripts/redlight.sh"
+alias stop_meeting="/Users/jared/Documents/scripts/bluelight.sh"
+
+# alias chomp="~/Documents/ssh_alias.sh"
+
+# ctrl+space goes forward one word in autocomplete
+bindkey '^ ' forward-word
+
+# functions
+chomp () {
+	ssh -i ~/.ssh/jcampbell7899@utexas.edu.pem jared@security-scanner-ch00$1.infosec.utexas.edu
+}
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -121,3 +143,6 @@ alias sandbox="ssh jared@146.6.161.123"
 ZSH_HIGHLIGHT_STYLES[suffix-alias]=fg=cyan,underline
 ZSH_HIGHLIGHT_STYLES[precommand]=fg=cyan,underline
 ZSH_HIGHLIGHT_STYLES[arg0]=fg=cyan
+
+export PATH="/usr/local/sbin:$PATH"
+export PATH="/usr/local/opt/curl/bin:$PATH"

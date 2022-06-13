@@ -1,0 +1,9 @@
+#!/bin/sh
+
+ln -sf .bash_profile ~/.
+ln -sf .bashrc ~/.
+ln -sf .vimrc ~/. 
+ln -sf .zshrc ~/.
+ln -sf .p1k.zsh ~/.
+ln -sf .tmux.conf.local ~/.
+ln -sf .dotfiles/.tmux/.tmux.conf ~/.
