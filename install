@@ -1,6 +1,13 @@
 #!/bin/sh
 
-sudo yum install zsh tmux wget curl git fontconfig
+sudo yum install -y zsh tmux wget curl git fontconfig
+
+mkdir -p ~/.local/share/fonts && cd ~/.local/share/fonts
+wget "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf"
+wget "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf"
+wget "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf"
+wget "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf"
+fc-cache -f -v
 
 cd $HOME
 
@@ -16,3 +23,5 @@ ln -sf .dotfiles/.zshrc
 ln -sf .dotfiles/.p10k.zsh
 ln -sf .dotfiles/.tmux.conf.local
 ln -sf .dotfiles/.tmux.conf
+
+sudo usermod -s $(which zsh) $USER
