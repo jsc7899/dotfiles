@@ -125,6 +125,7 @@ alias eid_bq="ssh -t jared@security-scanner-ch0001.infosec.utexas.edu sudo /opt/
 alias reset_network="sudo route -n flush && sudo dscacheutil -flushcache"
 alias start_meeting="/Users/jared/Documents/scripts/redlight.sh"
 alias stop_meeting="/Users/jared/Documents/scripts/bluelight.sh"
+alias proxmox="ssh root@proxmox.local"
 
 # alias chomp="~/Documents/ssh_alias.sh"
 
