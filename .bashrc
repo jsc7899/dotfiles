@@ -10,3 +10,5 @@ export CLICOLOR=1
 export LSCOLORS=ExFxBxDxCxegedabagacad
 # export GREP_OPTIONS='--color=auto'
 
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
