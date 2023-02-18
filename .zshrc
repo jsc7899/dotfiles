@@ -127,6 +127,7 @@ alias eid_bq="ssh -t jared@security-scanner-ch0001.infosec.utexas.edu sudo /opt/
 alias reset_network="sudo route -n flush && sudo dscacheutil -flushcache"
 alias start_meeting="/Users/jared/Documents/scripts/redlight.sh"
 alias stop_meeting="/Users/jared/Documents/scripts/bluelight.sh"
+<<<<<<< HEAD
 alias nmap_ots="ssh -t -i ~/.ssh/jcampbell7899@utexas.edu.pem jared@security-scanner-ch0005.infosec.utexas.edu '/usr/bin/docker run -it --rm --network ots_network -v /etc/krb5.conf:/etc/krb5.conf:ro -v /tmp/krb5cc_0:/tmp/krb5cc_0:ro -v /opt/chomp:/opt/chomp:ro -v /opt/chompout:/opt/chompout:rw --name nmap_ots_jared_\$RANDOM --hostname nmap_ots utexasiso/nmap:latest'"
 alias ks='kubectl -n kube-system'
 alias cat='bat'
@@ -135,6 +136,7 @@ alias du='dust'
 unalias duf
 alias df='duf'
 alias grep='rg'
+alias proxmox="ssh root@proxmox.local"
 
 # alias chomp="~/Documents/ssh_alias.sh"
 
