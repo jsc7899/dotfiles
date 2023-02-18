@@ -76,7 +76,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-syntax-highlighting zsh-autosuggestions nmap colored-man-pages common-aliases macos brew kubectl)
+plugins=(git zsh-syntax-highlighting zsh-autosuggestions colored-man-pages common-aliases macos brew kubectl)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -107,8 +107,15 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias chomp1="ssh -i ~/.ssh/jcampbell7899@utexas.edu.pem jared@security-scanner-ch0001.infosec.utexas.edu"
 alias chomp2="ssh -i ~/.ssh/jcampbell7899@utexas.edu.pem jared@security-scanner-ch0002.infosec.utexas.edu"
+alias sysmgmt-test="ssh jared@sysmgmt-test.infosec.utexas.edu"
+alias risk-students="ssh jared@risk-students.infosec.utexas.edu"
 alias pi4="ssh jared@pi4.local"
+<<<<<<< HEAD
 alias pi3="ssh jared@pi3.local"
+=======
+alias pi3="ssh pi@pi3.local"
+alias htpc="ssh jared@debian.local"
+>>>>>>> 5df84648ae903353c9b48e05c038ac9449e6eeee
 alias update="brew update && brew upgrade && brew upgrade --cask && brew cleanup && brew autoremove && brew doctor"
 alias gp_ec2="ssh -i "~/.ssh/gp_ec2.pem" ubuntu@ec2-52-87-232-112.compute-1.amazonaws.com"
 alias barbatos="ssh jared@barbatos.local" 
@@ -125,6 +132,14 @@ alias reset_network="sudo route -n flush && sudo dscacheutil -flushcache"
 alias start_meeting="/Users/jared/Documents/scripts/redlight.sh"
 alias stop_meeting="/Users/jared/Documents/scripts/bluelight.sh"
 alias tastyfish="ssh jared@tastyfish.local"
+alias nmap_ots="ssh -t -i ~/.ssh/jcampbell7899@utexas.edu.pem jared@security-scanner-ch0005.infosec.utexas.edu '/usr/bin/docker run -it --rm --network ots_network -v /etc/krb5.conf:/etc/krb5.conf:ro -v /tmp/krb5cc_0:/tmp/krb5cc_0:ro -v /opt/chomp:/opt/chomp:ro -v /opt/chompout:/opt/chompout:rw --name nmap_ots_jared_\$RANDOM --hostname nmap_ots utexasiso/nmap:latest'"
+alias ks='kubectl -n kube-system'
+alias cat='bat'
+alias ls='lsd'
+alias du='dust'
+unalias duf
+alias df='duf'
+alias grep='rg'
 alias proxmox="ssh root@proxmox.local"
 alias htpc="ssh -i ~/.ssh/jared_home -p 2225 root@192.168.2.159"
 alias tig="ssh -i ~/.ssh/jared_home -p 2223 root@192.168.2.159"
@@ -151,5 +166,19 @@ ZSH_HIGHLIGHT_STYLES[arg0]=fg=cyan
 
 export PATH="/usr/local/sbin:$PATH"
 export PATH="/usr/local/opt/curl/bin:$PATH"
+<<<<<<< HEAD
 export ITERM_ENABLE_SHELL_INTEGRATION_WITH_TMUX=YES
+
+# brew completions
+if type brew &>/dev/null; then
+	FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
+	autoload -Uz compinit
+	compinit
+fi
+
+# fzf
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+
+# test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
