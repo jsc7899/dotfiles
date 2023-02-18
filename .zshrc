@@ -110,12 +110,7 @@ alias chomp2="ssh -i ~/.ssh/jcampbell7899@utexas.edu.pem jared@security-scanner-
 alias sysmgmt-test="ssh jared@sysmgmt-test.infosec.utexas.edu"
 alias risk-students="ssh jared@risk-students.infosec.utexas.edu"
 alias pi4="ssh jared@pi4.local"
-<<<<<<< HEAD
-alias pi3="ssh jared@pi3.local"
-=======
 alias pi3="ssh pi@pi3.local"
-alias htpc="ssh jared@debian.local"
->>>>>>> 5df84648ae903353c9b48e05c038ac9449e6eeee
 alias update="brew update && brew upgrade && brew upgrade --cask && brew cleanup && brew autoremove && brew doctor"
 alias gp_ec2="ssh -i "~/.ssh/gp_ec2.pem" ubuntu@ec2-52-87-232-112.compute-1.amazonaws.com"
 alias barbatos="ssh jared@barbatos.local" 
@@ -137,7 +132,7 @@ alias ks='kubectl -n kube-system'
 alias cat='bat'
 alias ls='lsd'
 alias du='dust'
-unalias duf
+# unalias duf
 alias df='duf'
 alias grep='rg'
 alias proxmox="ssh root@proxmox.local"
@@ -166,7 +161,7 @@ ZSH_HIGHLIGHT_STYLES[arg0]=fg=cyan
 
 export PATH="/usr/local/sbin:$PATH"
 export PATH="/usr/local/opt/curl/bin:$PATH"
-<<<<<<< HEAD
+export PATH="$PATH:/Users/jared/Library/Python/3.9/bin"
 export ITERM_ENABLE_SHELL_INTEGRATION_WITH_TMUX=YES
 
 # brew completions
