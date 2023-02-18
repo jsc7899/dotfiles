@@ -109,7 +109,6 @@ alias chomp1="ssh -i ~/.ssh/jcampbell7899@utexas.edu.pem jared@security-scanner-
 alias chomp2="ssh -i ~/.ssh/jcampbell7899@utexas.edu.pem jared@security-scanner-ch0002.infosec.utexas.edu"
 alias pi4="ssh jared@pi4.local"
 alias pi3="ssh jared@pi3.local"
-alias htpc="ssh jared@debian.local"
 alias update="brew update && brew upgrade && brew upgrade --cask && brew cleanup && brew autoremove && brew doctor"
 alias gp_ec2="ssh -i "~/.ssh/gp_ec2.pem" ubuntu@ec2-52-87-232-112.compute-1.amazonaws.com"
 alias barbatos="ssh jared@barbatos.local" 
@@ -125,7 +124,12 @@ alias eid_bq="ssh -t jared@security-scanner-ch0001.infosec.utexas.edu sudo /opt/
 alias reset_network="sudo route -n flush && sudo dscacheutil -flushcache"
 alias start_meeting="/Users/jared/Documents/scripts/redlight.sh"
 alias stop_meeting="/Users/jared/Documents/scripts/bluelight.sh"
+alias tastyfish="ssh jared@tastyfish.local"
 alias proxmox="ssh root@proxmox.local"
+alias htpc="ssh -i ~/.ssh/jared_home -p 2225 root@192.168.2.159"
+alias tig="ssh -i ~/.ssh/jared_home -p 2223 root@192.168.2.159"
+alias unifi="ssh -i ~/.ssh/jared_home -p 2224 root@192.168.2.159"
+alias ks="kubectl -n kube-system"
 
 # alias chomp="~/Documents/ssh_alias.sh"
 
@@ -147,3 +151,5 @@ ZSH_HIGHLIGHT_STYLES[arg0]=fg=cyan
 
 export PATH="/usr/local/sbin:$PATH"
 export PATH="/usr/local/opt/curl/bin:$PATH"
+export ITERM_ENABLE_SHELL_INTEGRATION_WITH_TMUX=YES
+
