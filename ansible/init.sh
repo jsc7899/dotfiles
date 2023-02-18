@@ -1,14 +1,14 @@
-#!/bin/bash
-
-# install homebrew
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+#!/bin/sh
 
 # install pip
-python -m ensurepip --upgrade
+python3 -m ensurepip --upgrade
+python3 -m pip install --upgrade pip
 
 # install ansible
-pip install ansible 
+pip3 install ansible
 
 # install ansible community
 ansible-galaxy collection install community.general
 
+# run init playbook
+ansible-playbook -i hosts.ini init.yaml
