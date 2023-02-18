@@ -9,14 +9,14 @@ brew install zsh tmux wget curl git
 #wget "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf"
 #wget "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf"
 
-cd $HOME
-
 # install fonts
 git clone https://github.com/powerline/fonts.git --depth=1
 cd fonts
 ./install.sh
 cd ..
 rm -rf fonts
+
+cd "$HOME" || exit
 
 # install ohmyzsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
@@ -25,10 +25,11 @@ git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-m
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 
 # link dotfiles
-ln -sf .dotfiles/.bash_profile
-ln -sf .dotfiles/.bashrc
-ln -sf .dotfiles/.vimrc
-ln -sf .dotfiles/.zshrc
-ln -sf .dotfiles/.p10k.zsh
-ln -sf .dotfiles/.tmux.conf.local
-ln -sf .dotfiles/.tmux.conf
+cd "$HOME" || exit
+ln -sf .dotfiles/.bash_profile .
+ln -sf .dotfiles/.bashrc .
+ln -sf .dotfiles/.vimrc .
+ln -sf .dotfiles/.zshrc .
+ln -sf .dotfiles/.p10k.zsh .
+ln -sf .dotfiles/.tmux.conf.local .
+ln -sf .dotfiles/.tmux.conf .
