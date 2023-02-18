@@ -1,0 +1,60 @@
+---
+- name: 'provision macos hosts'
+  hosts: 'macos'
+  tasks:
+    - name: 'install homebrew'
+      shell: '/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"'
+    
+    - name: 'install casks'
+      brew_cask:
+        state: present
+        update_homebrew: true
+        name:
+          - balenaetcher
+          - iterm2
+          - mactex-no-gui
+          - vagrant
+          - virtualbox
+          - vlc
+          - wireshark
+    - name: 'install formulae'
+      brew:
+        state: present
+        update_homebrew: true
+        sudo_password: "{{ ansible_become_pass }}"
+        name:
+          - btop
+          - docker
+          - fontconfig
+          - fzf
+          - gcc
+          - git
+          - helm
+          - htop
+          - iperf
+          - jq
+          - kubectx
+          - kubernetes-cli
+          - kubeseal
+          - ncdu
+          - nmap
+          - openconnect
+          - andoc
+          - owerlevel10k
+          - proxychains-ng
+          - pygments
+          - reattach-to-user-namespace
+          - rich-cli
+          - speedtest
+          - sshuttle
+          - tmux
+          - wakeonlan
+          - watch
+          - wget
+          - bat
+          - lsd
+          - dust
+          - duf
+          - ripgrep
+          - tldr
+          - dog
