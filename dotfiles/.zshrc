@@ -50,10 +50,10 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
+ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
+COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
@@ -76,7 +76,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-syntax-highlighting zsh-autosuggestions nmap colored-man-pages common-aliases macos brew kubectl)
+plugins=(git zsh-syntax-highlighting zsh-autosuggestions colored-man-pages common-aliases macos brew kubectl)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -107,9 +107,10 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias chomp1="ssh -i ~/.ssh/jcampbell7899@utexas.edu.pem jared@security-scanner-ch0001.infosec.utexas.edu"
 alias chomp2="ssh -i ~/.ssh/jcampbell7899@utexas.edu.pem jared@security-scanner-ch0002.infosec.utexas.edu"
+alias sysmgmt-test="ssh jared@sysmgmt-test.infosec.utexas.edu"
+alias risk-students="ssh jared@risk-students.infosec.utexas.edu"
 alias pi4="ssh jared@pi4.local"
-alias pi3="ssh jared@pi3.local"
-alias htpc="ssh jared@debian.local"
+alias pi3="ssh pi@pi3.local"
 alias update="brew update && brew upgrade && brew upgrade --cask && brew cleanup && brew autoremove && brew doctor"
 alias gp_ec2="ssh -i "~/.ssh/gp_ec2.pem" ubuntu@ec2-52-87-232-112.compute-1.amazonaws.com"
 alias barbatos="ssh jared@barbatos.local" 
@@ -125,8 +126,20 @@ alias eid_bq="ssh -t jared@security-scanner-ch0001.infosec.utexas.edu sudo /opt/
 alias reset_network="sudo route -n flush && sudo dscacheutil -flushcache"
 alias start_meeting="/Users/jared/Documents/scripts/redlight.sh"
 alias stop_meeting="/Users/jared/Documents/scripts/bluelight.sh"
-
-# alias chomp="~/Documents/ssh_alias.sh"
+alias tastyfish="ssh jared@tastyfish.local"
+alias nmap_ots="ssh -t -i ~/.ssh/jcampbell7899@utexas.edu.pem jared@security-scanner-ch0005.infosec.utexas.edu '/usr/bin/docker run -it --rm --network ots_network -v /etc/krb5.conf:/etc/krb5.conf:ro -v /tmp/krb5cc_0:/tmp/krb5cc_0:ro -v /opt/chomp:/opt/chomp:ro -v /opt/chompout:/opt/chompout:rw --name nmap_ots_jared_\$RANDOM --hostname nmap_ots utexasiso/nmap:latest'"
+alias ks='kubectl -n kube-system'
+alias cat='bat'
+alias ls='lsd'
+alias du='dust'
+# unalias duf
+alias df='duf'
+alias grep='rg'
+alias proxmox="ssh root@proxmox.local"
+alias htpc="ssh -i ~/.ssh/jared_home -p 2225 root@192.168.2.159"
+alias tig="ssh -i ~/.ssh/jared_home -p 2223 root@192.168.2.159"
+alias unifi="ssh -i ~/.ssh/jared_home -p 2224 root@192.168.2.159"
+alias ks="kubectl -n kube-system"
 
 # ctrl+space goes forward one word in autocomplete
 bindkey '^ ' forward-word
@@ -146,3 +159,8 @@ ZSH_HIGHLIGHT_STYLES[arg0]=fg=cyan
 
 export PATH="/usr/local/sbin:$PATH"
 export PATH="/usr/local/opt/curl/bin:$PATH"
+export PATH="$PATH:/Users/jared/Library/Python/3.9/bin"
+export ITERM_ENABLE_SHELL_INTEGRATION_WITH_TMUX=YES
+
+# fzf
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

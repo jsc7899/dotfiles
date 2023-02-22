@@ -1,2 +1,0 @@
-#!/bin/bash
-cp .bash_profile .bashrc .p10k.zsh .vimrc .zshrc ~/

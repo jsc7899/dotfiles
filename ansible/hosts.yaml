@@ -1,0 +1,9 @@
+[macos]
+localhost ansible_connection=local
+
+[proxmox-lxc]
+debian-testing-ct  ansible_host=10.0.0.145  ansible_port
+
+[atlanta:vars]
+ntp_server=ntp.atlanta.example.com
+proxy=proxy.atlanta.example.com

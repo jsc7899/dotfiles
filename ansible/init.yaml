@@ -1,0 +1,65 @@
+---
+- name: 'provision macos hosts.ini'
+  hosts: 'macos'
+  tasks:
+    - name: 'install homebrew'
+      shell: |
+        if ! command -v brew >/dev/null 2>&1
+        then
+            echo "brew not found. installing now"
+            /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+        fi
+
+    - name: 'install casks'
+      community.general.homebrew_cask:
+        state: latest
+        update_homebrew: true
+        name:
+          - balenaetcher
+          - vagrant
+          - vlc
+          - wireshark
+          # - virtualbox
+          # - iterm2
+          # - spotify
+          # - slack
+          # - mactex-no-gui
+
+    - name: 'install formulae'
+      community.general.homebrew:
+        state: latest
+        update_homebrew: true
+        name:
+          - btop
+          - docker
+          - fontconfig
+          - fzf
+          - gcc
+          - git
+          - helm
+          - htop
+          - iperf
+          - jq
+          - kubectx
+          - kubernetes-cli
+          - kubeseal
+          - ncdu
+          - nmap
+          - openconnect
+          - pandoc
+          - proxychains-ng
+          - pygments
+          - reattach-to-user-namespace
+          - rich-cli
+          - sshuttle
+          - tmux
+          - wakeonlan
+          - watch
+          - wget
+          - bat
+          - lsd
+          - dust
+          - duf
+          - ripgrep
+          - tldr
+          - dog
