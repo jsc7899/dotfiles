@@ -1,65 +1,69 @@
 ---
-- name: 'provision macos hosts.ini'
-  hosts: 'macos'
+- name: provision hosts.yaml
+  hosts: proxmox
   tasks:
-    - name: 'install homebrew'
-      shell: |
-        if ! command -v brew >/dev/null 2>&1
-        then
-            echo "brew not found. installing now"
-            /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-        fi
-
-    - name: 'install casks'
-      community.general.homebrew_cask:
+    - name: install packages
+      apt:
         state: latest
-        update_homebrew: true
+        update_cache: true
         name:
-          - balenaetcher
-          - vagrant
-          - vlc
-          - wireshark
-          # - virtualbox
-          # - iterm2
-          # - spotify
-          # - slack
-          # - mactex-no-gui
-
-    - name: 'install formulae'
-      community.general.homebrew:
-        state: latest
-        update_homebrew: true
-        name:
-          - btop
-          - docker
+          - zsh
+          - curl
           - fontconfig
           - fzf
           - gcc
           - git
-          - helm
           - htop
           - iperf
           - jq
-          - kubectx
-          - kubernetes-cli
-          - kubeseal
           - ncdu
           - nmap
-          - openconnect
-          - pandoc
           - proxychains-ng
-          - pygments
-          - reattach-to-user-namespace
-          - rich-cli
           - sshuttle
           - tmux
-          - wakeonlan
+          - screen
           - watch
           - wget
           - bat
-          - lsd
-          - dust
-          - duf
           - ripgrep
-          - tldr
-          - dog
+
+    - name: Update all packages to their latest version
+      ansible.builtin.apt:
+        name: "*"
+        state: latest
+
+    - name: install fonts
+      shell: |
+        if [ ! -f "$HOME/.local/share/fonts/MesloLGS NF Regular.ttf" ]; 
+        then
+          mkdir -p ~/.local/share/fonts && cd ~/.local/share/fonts
+          wget "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf"
+          wget "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf"
+          wget "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf"
+          wget "https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf"
+          fc-cache -f -v
+        fi
+
+    - name: Install ZSH plugins
+      shell: |
+        cd $HOME
+        [ -d "$HOME/.oh-my-zsh" ] || sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+        [ -d "$HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting" ] || git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+        [ -d "$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions" ] || git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-$HOME//.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+        [ -d "$HOME/.oh-my-zsh/custom/themes/powerlevel10k" ] || git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME//.oh-my-zsh/custom}/themes/powerlevel10k
+
+    - name: Create symbolic links
+      copy:
+        src: '../dotfiles/{{ item }}'
+        dest: '~/{{ item }}'
+      with_items:
+        - '.bash_profile'
+        - '.bashrc'
+        - '.vimrc'
+        - '.zshrc'
+        - '.p10k.zsh'
+        - '.tmux.conf.local'
+        - '.tmux.conf'
+
+    - name: change shell to zsh
+      shell: 'chsh -s /bin/zsh'

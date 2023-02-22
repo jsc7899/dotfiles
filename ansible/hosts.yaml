@@ -1,9 +1,37 @@
-[macos]
-localhost ansible_connection=local
+all:
+  children:
+    macos:
+      hosts:
+        localhost:
+          ansible_connection: local
+    proxmox:
+      children:
+        proxmox_node:
+          hosts:
+            proxmox_1:
+              ansible_host: 192.168.2.159
+              ansible_port: 22
+        proxmox_lxc:
+          hosts:
+            debian-testing-ct:
+              ansible_host: 192.168.2.159
+              ansible_port: 2226
+        proxmox_vm:
+          hosts:
+            htpc:
+              ansible_host: 192.168.2.159
+              ansible_port: 2225
+            tig:
+              ansible_host: 192.168.2.159
+              ansible_port: 2223
+            unifi:
+              ansible_host: 192.168.2.159
+              ansible_port: 2224
 
-[proxmox-lxc]
-debian-testing-ct  ansible_host=10.0.0.145  ansible_port
+      vars:
+        ansible_user: root
+        ansible_ssh_private_key_file: ~/.ssh/jared_home
 
-[atlanta:vars]
-ntp_server=ntp.atlanta.example.com
-proxy=proxy.atlanta.example.com
+
+
+

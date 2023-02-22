@@ -1,16 +1,17 @@
 #!/bin/sh
 
-cd $HOME
+cd $HOME || exit
 
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 
-ln -sf .dotfiles/.bash_profile
-ln -sf .dotfiles/.bashrc
-ln -sf .dotfiles/.vimrc
-ln -sf .dotfiles/.zshrc
-ln -sf .dotfiles/.p10k.zsh
-ln -sf .dotfiles/.tmux.conf.local
-ln -sf .dotfiles/.tmux.conf
+- .bash_profile .
+- .bashrc .
+- .vimrc .
+- .zshrc .
+- .p10k.zsh .
+- .tmux.conf.local .
+- .tmux.conf .
+- ansible/hosts.yaml /etc/ansible/hosts

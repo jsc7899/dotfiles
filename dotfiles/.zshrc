@@ -130,10 +130,6 @@ alias tastyfish="ssh jared@tastyfish.local"
 alias nmap_ots="ssh -t -i ~/.ssh/jcampbell7899@utexas.edu.pem jared@security-scanner-ch0005.infosec.utexas.edu '/usr/bin/docker run -it --rm --network ots_network -v /etc/krb5.conf:/etc/krb5.conf:ro -v /tmp/krb5cc_0:/tmp/krb5cc_0:ro -v /opt/chomp:/opt/chomp:ro -v /opt/chompout:/opt/chompout:rw --name nmap_ots_jared_\$RANDOM --hostname nmap_ots utexasiso/nmap:latest'"
 alias ks='kubectl -n kube-system'
 alias cat='bat'
-alias ls='lsd'
-alias du='dust'
-# unalias duf
-alias df='duf'
 alias grep='rg'
 alias proxmox="ssh root@proxmox.local"
 alias htpc="ssh -i ~/.ssh/jared_home -p 2225 root@192.168.2.159"
