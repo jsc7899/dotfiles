@@ -4,6 +4,10 @@ all:
       hosts:
         localhost:
           ansible_connection: local
+    linux:
+      hosts:
+        void:
+          ansible_host: 192.168.2.159
     proxmox:
       children:
         proxmox_node:
