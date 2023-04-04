@@ -129,7 +129,7 @@ alias stop_meeting="/Users/jared/Documents/scripts/bluelight.sh"
 alias tastyfish="ssh jared@tastyfish.local"
 alias nmap_ots="ssh -t -i ~/.ssh/jcampbell7899@utexas.edu.pem jared@security-scanner-ch0005.infosec.utexas.edu '/usr/bin/docker run -it --rm --network ots_network -v /etc/krb5.conf:/etc/krb5.conf:ro -v /tmp/krb5cc_0:/tmp/krb5cc_0:ro -v /opt/chomp:/opt/chomp:ro -v /opt/chompout:/opt/chompout:rw --name nmap_ots_jared_\$RANDOM --hostname nmap_ots utexasiso/nmap:latest'"
 alias ks='kubectl -n kube-system'
-alias cat='bat'
+alias cat='bat -pp'
 alias ls='lsd'
 alias du='dust'
 # unalias duf
@@ -140,6 +140,9 @@ alias htpc="ssh -i ~/.ssh/jared_home -p 2225 root@192.168.2.159"
 alias tig="ssh -i ~/.ssh/jared_home -p 2223 root@192.168.2.159"
 alias unifi="ssh -i ~/.ssh/jared_home -p 2224 root@192.168.2.159"
 alias ks="kubectl -n kube-system"
+alias dc="docker-compose"
+alias oci="ssh ubuntu@144.24.61.0"
+alias void="ssh 192.168.2.159"
 
 # alias chomp="~/Documents/ssh_alias.sh"
 
