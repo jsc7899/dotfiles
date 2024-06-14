@@ -21,3 +21,5 @@ if [[ -f /etc/debian_version ]]; then
 fi
 
 alias ll='ls -lah'
+
+# TODO: copy rest of config from fish
