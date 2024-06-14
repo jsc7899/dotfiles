@@ -1,0 +1,23 @@
+# install ble.sh if needed
+if [ ! -f ~/.local/share/blesh/ble.sh ]; then
+    cd ~/.cache/ || exit
+    git clone --recursive --depth 1 --shallow-submodules https://github.com/akinomyoga/ble.sh.git
+    make -C ble.sh install PREFIX=~/.local
+fi
+# source ble.sh
+[[ -r "/opt/homebrew/etc/profile.d/bash_completion.sh" ]] && . "/opt/homebrew/etc/profile.d/bash_completion.sh"
+source ~/.local/share/blesh/ble.sh
+
+set -o vi
+# set -o emacs
+export EDITOR='nvim'
+# export PS1="\[\033[36m\]\u\[\033[m\]@\[\033[32m\]\h:\[\033[33;1m\]\w\[\033[m\]\$ "
+export PS1='\[\e[38;5;64m\]\u\[\e[37m\]@\[\e[38;5;64m\]\h\[\e[37m\]:/\[\e[38;5;30m\]\W\[\e[37;3m\]\$\[\e[0m\] '
+export CLICOLOR=1
+export LSCOLORS=ExFxBxDxCxegedabagacad
+
+if [[ -f /etc/debian_version ]]; then
+    export PATH="$PATH:/opt/nvim-linux64/bin"
+fi
+
+alias ll='ls -lah'
