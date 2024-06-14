@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# TODO minimal install
+# TODO direnv
+
 common_pkgs=(
     # shell-related
     "bash" # install latest
@@ -77,15 +80,15 @@ install_debian() {
         s=""
     fi
     export DEBIAN_FRONTEND=noninteractive
-    # $s apt-get update
-    # # $s apt-get install -y ${common_pkgs[*]} ${debian_pkgs[*]}
-    # apt-get install -y curl git
-    # # install latest nvim
-    # if command -v nvim &>/dev/null; then
-    #     cd /tmp || exit 1
-    #     curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz
-    #     $s tar -C /opt -xzf nvim-linux64.tar.gz
-    # fi
+    $s apt-get update
+    $s apt-get install -y ${common_pkgs[*]} ${debian_pkgs[*]}
+    apt-get install -y curl git
+    # install latest nvim
+    if command -v nvim &>/dev/null; then
+        cd /tmp || exit 1
+        curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz
+        $s tar -C /opt -xzf nvim-linux64.tar.gz
+    fi
 
     # install tmux
     if [ ! -d ~/.tmux/plugins/tmp ]; then
