@@ -77,8 +77,11 @@ install_nvim() {
     installed_version=$(convert_version "$nvim_version")
     required_version=$(convert_version "0.10.0")
     if [ "$installed_version" -lt "$required_version" ]; then
+        echo "removing previously installed neovim version..."
+        $(check_sudo) apt remove -y nvim
+        echo "install latest version of neovim..."
         cd /tmp || exit 1
-        curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz
+        curl -s -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz
         $(check_sudo) tar -C /opt -xzf nvim-linux64.tar.gz
     fi
 }
