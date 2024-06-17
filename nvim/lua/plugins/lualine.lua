@@ -2,11 +2,15 @@
 return {
   'nvim-lualine/lualine.nvim',
   dependencies = { 'nvim-tree/nvim-web-devicons' },
+
   config = function()
+    local custom_codedark = require 'lualine.themes.codedark'
+    custom_codedark.normal.a.bg = '#5f8700'
+    custom_codedark.normal.b.fg = '#5f8700'
     require('lualine').setup {
       options = {
         icons_enabled = true,
-        theme = 'codedark',
+        theme = custom_codedark,
         -- https://github.com/scottmckendry/cyberdream.nvim/blob/main/lua/lualine/themes/cyberdream.lua
         -- component_separators = { left = '', right = '' },
         -- section_separators = { left = '', right = '' },
