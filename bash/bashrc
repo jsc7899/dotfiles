@@ -1,25 +1,97 @@
+## BLE.SH ##
+# https://github.com/akinomyoga/ble.sh/wiki/Manual-%C2%A71-Introduction
 # install ble.sh if needed
 if [ ! -f ~/.local/share/blesh/ble.sh ]; then
     cd ~/.cache/ || exit
     git clone --recursive --depth 1 --shallow-submodules https://github.com/akinomyoga/ble.sh.git
     make -C ble.sh install PREFIX=~/.local
 fi
-# source ble.sh
+# source bash-completion
 [[ -r "/opt/homebrew/etc/profile.d/bash_completion.sh" ]] && . "/opt/homebrew/etc/profile.d/bash_completion.sh"
-source ~/.local/share/blesh/ble.sh
+# source ble.sh and config
+[[ $- == *i* ]] &&
+    source "$HOME/.local/share/blesh/ble.sh" --rcfile "$HOME/.blerc"
 
-set -o vi
-# set -o emacs
-export EDITOR='nvim'
-# export PS1="\[\033[36m\]\u\[\033[m\]@\[\033[32m\]\h:\[\033[33;1m\]\w\[\033[m\]\$ "
-export PS1='\[\e[38;5;64m\]\u\[\e[37m\]@\[\e[38;5;64m\]\h\[\e[37m\]:/\[\e[38;5;30m\]\W\[\e[37;3m\]\$\[\e[0m\] '
-export CLICOLOR=1
-export LSCOLORS=ExFxBxDxCxegedabagacad
+set -o vi # use vi mode for bash keys
+# set -o emacs # use emacs mode (default) for bash keys
 
+# use the latest version of nvim on debian
 if [[ -f /etc/debian_version ]]; then
     export PATH="$PATH:/opt/nvim-linux64/bin"
 fi
 
-alias ll='ls -lah'
+## PATH ##
+export PATH="/opt/homebrew/sbin:$PATH"
+export PATH="/opt/homebrew/bin:$PATH"
 
-# TODO: copy rest of config from fish
+## EXPORT ##
+# export PS1="\[\033[36m\]\u\[\033[m\]@\[\033[32m\]\h:\[\033[33;1m\]\w\[\033[m\]\$ "
+# export CLICOLOR=1
+# export LSCOLORS=ExFxBxDxCxegedabagacad
+export EDITOR='nvim'
+# export PS1='\[\e[38;5;64m\]\u\[\e[37m\]@\[\e[38;5;64m\]\h\[\e[37m\]:\[\e[38;5;30m\]\W\[\e[0m\] ❯ \[\e[0m\]'
+# export PS1='\[\e[38;5;30m\]\W\[\e[0m\]\[\e[38;5;64;1m\] ❯ \[\e[0m\]'
+export OPENAI_API_KEY=$(security find-generic-password -s openai -a autocomplete -w)
+export OBJC_DISABLE_INITIALIZE_FORK_SAFETY="YES"
+
+## Functions ##
+get_column() {
+    if [ "$#" -lt 2 ]; then
+        echo "Usage: get_column <file> <column_number>"
+        exit 1
+    fi
+
+    file=$1
+    column=$2
+
+    if [ ! -f "$file" ]; then
+        echo "File not found: $file"
+        exit 1
+    fi
+
+    awk -v col=$column -F ' ' '{print $col}' "$file"
+}
+
+## GO config ##
+export GOPATH="$HOME/go"
+export GOCACHE="$HOME/.cache/go"
+export GOMAXPROCS=$(nproc)
+export PATH="$PATH:$GOPATH/bin"
+
+## ALIAS ##
+alias ll='ls -lah'
+alias gs="git status"
+alias update='~/.config/scripts/update_macos.sh'
+alias tacc="ssh -i ~/.ssh/tacc_id_ras jsc3642@stampede2.tacc.utexas.edu"
+alias ip_lookup="/opt/chomp/.venv/bin/python3 /opt/chomp/tsc_tools/tsc_tools.py -o --ip_lookup "
+alias ip_bq="/opt/chomp/.venv/bin/python3 /opt/chomp/tsc_tools/tsc_tools.py -o --ip_quarantine"
+alias reset_network="sudo route -n flush && sudo dscacheutil -flushcache"
+alias start_meeting="/Users/jared/Documents/scripts/redlight.sh"
+alias stop_meeting="/Users/jared/Documents/scripts/bluelight.sh"
+alias tastyfish="ssh jared@tastyfish.local"
+alias ks='kubectl -n kube-system'
+alias cat='bat -pp'
+alias ls='lsd -A'
+alias du='dust'
+alias df='duf'
+alias grep='rg'
+alias crawfish="ssh -i ~/.ssh/jcampbell7899@utexas.edu.pem -p6137 jared@crawfish.infosec.utexas.edu"
+alias prox_ssh="ssh -o StrictHostKeyChecking=false -J void-jumpbox-01 "
+alias notes="vim ~/Documents/Notes/documentation/notes.md"
+alias ansible_site="/opt/ansible/site.yaml"
+alias nomad_ots="ssh -t nomad-client-001 'podman run -it --rm --network=ots_network --dns=1.1.1.1 --cap-add=NET_RAW -v /opt/chomp:/opt/chomp:ro -v /opt/chompout:/opt/chompout:rw iso-registry.infosec.utexas.edu/utexasiso-default /bin/bash'"
+alias nmap_ots="ssh -t nomad-client-001 'podman run -it --rm --network=ots_network --dns=1.1.1.1 --cap-add=NET_RAW -v /opt/chomp:/opt/chomp:ro -v /opt/chompout:/opt/chompout:rw iso-registry.infosec.utexas.edu/utexasiso-scavenger /bin/bash'"
+alias nomad_git='ansible nomad_clients -m shell -a "git -C /opt/nomad pull; git -C /opt/chomp pull; git -C /opt/chomptest pull" -e "ansible_user=root"'
+alias diff='colordiff -y --suppress-common-lines'
+alias refresh_dns='~/.config/scripts/refresh_dns.sh'
+alias pansible='~/.config/scripts/pansible.sh'
+alias lg='lazygit'
+alias x='exit'
+alias ta='tmux a -t'
+alias v='nvim'
+alias ans='source .venv/bin/activate.fish && source setup/.env.jared'
+alias j='jq -C'
+alias less='less -R'
+alias gb='go build -v'
+alias rb='exec bash' # reload bash
+[[ ${BLE_VERSION-} ]] && ble-attach
