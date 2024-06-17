@@ -130,6 +130,10 @@ if [ ! -L "$HOME/.bash_profile" ]; then
     ln -s "$dotfiles/bash/bash_profile" "$HOME/.bash_profile"
 fi
 
+if [ ! -L "$HOME/.blerc" ]; then
+    [ -f "$HOME/.blerc" ] && mv "$HOME/.blerc" "$HOME/.blerc.bak"
+    ln -s "$dotfiles/bash/blerc" "$HOME/.blerc"
+fi
 # nvim
 if [ ! -L "$conf_dir/nvim" ]; then
     ln -s "$dotfiles/nvim" "$conf_dir/"
