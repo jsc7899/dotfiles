@@ -55,6 +55,34 @@ debian_pkgs=()
 
 redhat_pkgs=()
 
+# use sudo if it's installed - sometimes it's not like containers and first boot debs
+check_sudo() {
+    if command -v sudo &>/dev/null; then
+        echo "sudo"
+    else
+        echo ""
+    fi
+
+}
+
+install_nvim() {
+    # Get the installed version of Neovim
+    nvim_version=$(nvim --version | head -n 1 | awk '{print $2}')
+
+    # Convert version to comparable format (e.g., 0.10.0 -> 00010)
+    convert_version() {
+        echo "$1" | awk -F. '{printf("%d%02d%02d\n", $1,$2,$3)}'
+    }
+
+    installed_version=$(convert_version "$nvim_version")
+    required_version=$(convert_version "0.10.0")
+    if [ "$installed_version" -lt "$required_version" ]; then
+        cd /tmp || exit 1
+        curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz
+        $(check_sudo) tar -C /opt -xzf nvim-linux64.tar.gz
+    fi
+}
+
 install_macos() {
     echo "Installing prerequisites for macOS..."
 
@@ -73,22 +101,11 @@ install_macos() {
 
 install_debian() {
     echo "Installing prerequisites for Debian-based systems..."
-    # use sudo if it's installed - sometimes it's not like containers and first boot debs
-    if command -v sudo &>/dev/null; then
-        s=sudo
-    else
-        s=""
-    fi
     export DEBIAN_FRONTEND=noninteractive
-    $s apt-get update
-    $s apt-get install -y ${common_pkgs[*]} ${debian_pkgs[*]}
+    $(check_sudo) apt-get update
+    $(check_sudo) apt-get install -y ${common_pkgs[*]} ${debian_pkgs[*]}
     # install latest nvim
-    if command -v nvim &>/dev/null; then
-        cd /tmp || exit 1
-        curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz
-        $s tar -C /opt -xzf nvim-linux64.tar.gz
-    fi
-
+    install_nvim
     # install tpm
     if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
         git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
