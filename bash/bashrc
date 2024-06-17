@@ -23,6 +23,7 @@ fi
 ## PATH ##
 export PATH="/opt/homebrew/sbin:$PATH"
 export PATH="/opt/homebrew/bin:$PATH"
+export PATH="$PATH:/opt/nvim-linux64/bin"
 
 ## EXPORT ##
 # export PS1="\[\033[36m\]\u\[\033[m\]@\[\033[32m\]\h:\[\033[33;1m\]\w\[\033[m\]\$ "
