@@ -1,0 +1,15 @@
+bleopt input_encoding=UTF-8
+ble-face auto_complete=fg=145
+
+function my/vim-load-hook {
+  bleopt keymap_vi_mode_string_nmap=$'\e[1m NORMAL \e[m'
+  # bleopt prompt_vi_mode_indicator='\[\e[38;5;234;48;5;64m\]\q{keymap:vi/mode-indicator}\[\e[0m\]'
+  bleopt prompt_vi_mode_indicator=''
+  bleopt prompt_rps1='\[\e[38;5;234;48;5;64m\]\q{keymap:vi/mode-indicator}\[\e[0m\]'
+  ble-import lib/vim-surround
+}
+blehook/eval-after-load keymap_vi my/vim-load-hook
+
+PS1='\[\e[38;5;30m\]\W\[\e[0m\]\[\e[38;5;64;1m\] ❯ \[\e[0m\]'
+bleopt prompt_ps1_transient=always
+bleopt prompt_rps1_transient=always
