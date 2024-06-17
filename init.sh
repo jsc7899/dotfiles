@@ -90,7 +90,7 @@ install_debian() {
     fi
 
     # install tpm
-    if [ ! -d ~/.tmux/plugins/tmp ]; then
+    if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
         git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
     fi
 }
