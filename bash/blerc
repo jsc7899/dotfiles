@@ -10,6 +10,5 @@ function my/vim-load-hook {
 }
 blehook/eval-after-load keymap_vi my/vim-load-hook
 
-PS1='\[\e[38;5;30m\]\W\[\e[0m\]\[\e[38;5;64;1m\] ❯ \[\e[0m\]'
 bleopt prompt_ps1_transient=always
 bleopt prompt_rps1_transient=always
