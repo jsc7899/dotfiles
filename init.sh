@@ -82,7 +82,6 @@ install_debian() {
     export DEBIAN_FRONTEND=noninteractive
     $s apt-get update
     $s apt-get install -y ${common_pkgs[*]} ${debian_pkgs[*]}
-    apt-get install -y curl git
     # install latest nvim
     if command -v nvim &>/dev/null; then
         cd /tmp || exit 1
@@ -90,7 +89,7 @@ install_debian() {
         $s tar -C /opt -xzf nvim-linux64.tar.gz
     fi
 
-    # install tmux
+    # install tpm
     if [ ! -d ~/.tmux/plugins/tmp ]; then
         git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
     fi
