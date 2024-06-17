@@ -28,12 +28,14 @@ export PATH="/opt/homebrew/bin:$PATH"
 # export PS1="\[\033[36m\]\u\[\033[m\]@\[\033[32m\]\h:\[\033[33;1m\]\w\[\033[m\]\$ "
 # export CLICOLOR=1
 # export LSCOLORS=ExFxBxDxCxegedabagacad
-export EDITOR='nvim'
 # export PS1='\[\e[38;5;64m\]\u\[\e[37m\]@\[\e[38;5;64m\]\h\[\e[37m\]:\[\e[38;5;30m\]\W\[\e[0m\] ❯ \[\e[0m\]'
 # export PS1='\[\e[38;5;30m\]\W\[\e[0m\]\[\e[38;5;64;1m\] ❯ \[\e[0m\]'
-export OPENAI_API_KEY=$(security find-generic-password -s openai -a autocomplete -w)
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY="YES"
-
+# conditional open api key - only works on macos with pw set va keychain
+OPENAI_API_KEY=$(security find-generic-password -s openai -a autocomplete -w)
+if [ -n "$OPENAI_API_KEY" ]; then
+    export OPENAI_API_KEY
+fi
 ## Functions ##
 get_column() {
     if [ "$#" -lt 2 ]; then
