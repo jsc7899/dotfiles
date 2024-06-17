@@ -47,7 +47,7 @@ PS1_BASE='\[\e[38;5;30m\]\W\[\e[0m\]\[\e[38;5;64;1m\] ❯ \[\e[0m\]'
 
 # Check if an SSH session is active and include the short hostname if it is
 if [[ -n "$SSH_CONNECTION" ]]; then
-    PS1="${ORANGE}\h:${RESET} $PS1_BASE"
+    PS1="${ORANGE}\h${RESET}:$PS1_BASE"
 else
     PS1=$PS1_BASE
 fi
