@@ -116,7 +116,7 @@ fi
 
 echo "Linking config files"
 mkdir -p "$HOME/.config"
-dotfiles="/opt/workstations"
+dotfiles="$HOME/.workstations"
 conf_dir="$HOME/.config"
 
 # bash
