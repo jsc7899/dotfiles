@@ -36,6 +36,17 @@ OPENAI_API_KEY=$(security find-generic-password -s openai -a autocomplete -w)
 if [ -n "$OPENAI_API_KEY" ]; then
     export OPENAI_API_KEY
 fi
+
+## Prompt ##
+PS1_BASE='\[\e[38;5;30m\]\W\[\e[0m\]\[\e[38;5;64;1m\] ❯ \[\e[0m\]'
+
+# Check if an SSH session is active and include the short hostname if it is
+if [[ -n "$SSH_CONNECTION" ]]; then
+    PS1='\[\e[38;5;30m\]\h \[\e[0m\]:'$PS1_BASE
+else
+    PS1=$PS1_BASE
+fi
+
 ## Functions ##
 get_column() {
     if [ "$#" -lt 2 ]; then
