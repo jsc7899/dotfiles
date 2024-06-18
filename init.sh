@@ -106,10 +106,10 @@ install_debian() {
     echo "Installing prerequisites for Debian-based systems..."
     export DEBIAN_FRONTEND="noninteractive"
     # $(check_sudo) apt-get update
-    apt-get update
+    sudo apt-get update
     echo "updated apt cache"
     # $(check_sudo) apt-get install -y ${common_pkgs[*]} ${debian_pkgs[*]}
-    apt-get install -y ${common_pkgs[*]} ${debian_pkgs[*]}
+    sudo apt-get install -y ${common_pkgs[*]} ${debian_pkgs[*]}
     echo "installed packages"
     # install latest nvim
     # install_nvim
