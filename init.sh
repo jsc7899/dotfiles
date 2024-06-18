@@ -134,9 +134,9 @@ else
 fi
 
 echo "Linking config files"
-mkdir -p "$HOME/.config"
-dotfiles="$HOME/.workstations"
+dotfiles="$HOME/.dotfiles"
 conf_dir="$HOME/.config"
+mkdir -p "$conf_dir"
 
 # bash
 if [ ! -L "$HOME/.bashrc" ]; then
