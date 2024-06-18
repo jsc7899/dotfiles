@@ -11,8 +11,6 @@ if [ ! -f "$HOME/.local/share/blesh/ble.sh" ]; then
     git clone --recursive --depth 1 --shallow-submodules https://github.com/akinomyoga/ble.sh.git
     make -C ble.sh install PREFIX="$HOME/.local"
 fi
-# source bash-completion
-[[ -r "/opt/homebrew/etc/profile.d/bash_completion.sh" ]] && . "/opt/homebrew/etc/profile.d/bash_completion.sh"
 # source ble.sh and config
 [[ $- == *i* ]] &&
     source "$HOME/.local/share/blesh/ble.sh" --rcfile "$HOME/.blerc"
@@ -26,16 +24,13 @@ if [[ -f /etc/debian_version ]]; then
 fi
 
 ## EXPORT ##
-# export PS1="\[\033[36m\]\u\[\033[m\]@\[\033[32m\]\h:\[\033[33;1m\]\w\[\033[m\]\$ "
-# export CLICOLOR=1
-# export LSCOLORS=ExFxBxDxCxegedabagacad
-# export PS1='\[\e[38;5;64m\]\u\[\e[37m\]@\[\e[38;5;64m\]\h\[\e[37m\]:\[\e[38;5;30m\]\W\[\e[0m\] ❯ \[\e[0m\]'
-# export PS1='\[\e[38;5;30m\]\W\[\e[0m\]\[\e[38;5;64;1m\] ❯ \[\e[0m\]'
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY="YES"
 # conditional open api key - only works on macos with pw set va keychain
-OPENAI_API_KEY=$(security find-generic-password -s openai -a autocomplete -w)
-if [ -n "$OPENAI_API_KEY" ]; then
-    export OPENAI_API_KEY
+if [ command -v security ] &>/dev/null; then
+    OPENAI_API_KEY=$(security find-generic-password -s openai -a autocomplete -w)
+    if [ -n "$OPENAI_API_KEY" ]; then
+        export OPENAI_API_KEY
+    fi
 fi
 
 ## Prompt ##
@@ -80,6 +75,7 @@ export PATH="$PATH:$GOPATH/bin"
 ## ALIAS ##
 # macos
 if [ "$(uname)" == "Darwin" ]; then
+    export SHELL="/opt/homebrew/bin/bash"
     alias update='$HOME/.config/scripts/update_macos.sh'
     alias start_meeting="/Users/jared/Documents/scripts/redlight.sh"
     alias stop_meeting="/Users/jared/Documents/scripts/bluelight.sh"
