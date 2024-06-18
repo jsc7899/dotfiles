@@ -10,7 +10,6 @@ common_pkgs=(
     "tldr"
     # editing tools
     # "luarocks"
-    "neovim"
     "gawk" # required for ble.sh
     # dev tools
     "make" # required for ble.sh
@@ -41,6 +40,7 @@ common_pkgs=(
 )
 
 macos_pkgs=(
+    "neovim"
     "font-hasklug-nerd-font"
     "font-0xproto-nerd-font"
     "fd"
@@ -108,11 +108,11 @@ install_debian() {
     $(check_sudo) apt-get update
     $(check_sudo) apt-get install -y ${common_pkgs[*]} ${debian_pkgs[*]}
     # install latest nvim
-    install_nvim
-    # install tpm
-    if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
-        git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-    fi
+    # install_nvim
+    # # install tpm
+    # if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
+    #     git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+    # fi
 }
 
 install_redhat() {
@@ -139,26 +139,26 @@ conf_dir="$HOME/.config"
 mkdir -p "$conf_dir"
 
 # bash
-if [ ! -L "$HOME/.bashrc" ]; then
-    [ -f "$HOME/.bashrc" ] && mv "$HOME/.bashrc" "$HOME/.bashrc.bak"
-    ln -s "$dotfiles/bash/bashrc" "$HOME/.bashrc"
-fi
-
-if [ ! -L "$HOME/.bash_profile" ]; then
-    [ -f "$HOME/.bash_profile" ] && mv "$HOME/.bash_profile" "$HOME/.bash_profile.bak"
-    ln -s "$dotfiles/bash/bash_profile" "$HOME/.bash_profile"
-fi
-
-if [ ! -L "$HOME/.blerc" ]; then
-    [ -f "$HOME/.blerc" ] && mv "$HOME/.blerc" "$HOME/.blerc.bak"
-    ln -s "$dotfiles/bash/blerc" "$HOME/.blerc"
-fi
-# nvim
-if [ ! -L "$conf_dir/nvim" ]; then
-    ln -s "$dotfiles/nvim" "$conf_dir/"
-fi
-
-# tmux
-if [ ! -L "$conf_dir/tmux" ]; then
-    ln -s "$dotfiles/tmux" "$conf_dir/"
-fi
+# if [ ! -L "$HOME/.bashrc" ]; then
+#     [ -f "$HOME/.bashrc" ] && mv "$HOME/.bashrc" "$HOME/.bashrc.bak"
+#     ln -s "$dotfiles/bash/bashrc" "$HOME/.bashrc"
+# fi
+#
+# if [ ! -L "$HOME/.bash_profile" ]; then
+#     [ -f "$HOME/.bash_profile" ] && mv "$HOME/.bash_profile" "$HOME/.bash_profile.bak"
+#     ln -s "$dotfiles/bash/bash_profile" "$HOME/.bash_profile"
+# fi
+#
+# if [ ! -L "$HOME/.blerc" ]; then
+#     [ -f "$HOME/.blerc" ] && mv "$HOME/.blerc" "$HOME/.blerc.bak"
+#     ln -s "$dotfiles/bash/blerc" "$HOME/.blerc"
+# fi
+# # nvim
+# if [ ! -L "$conf_dir/nvim" ]; then
+#     ln -s "$dotfiles/nvim" "$conf_dir/"
+# fi
+#
+# # tmux
+# if [ ! -L "$conf_dir/tmux" ]; then
+#     ln -s "$dotfiles/tmux" "$conf_dir/"
+# fi
