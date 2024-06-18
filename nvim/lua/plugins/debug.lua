@@ -46,10 +46,13 @@ return {
         'debugpy',
       },
     }
-
+    -- Keybindings to open, close, and toggle DAP UI
+    vim.api.nvim_set_keymap('n', '<leader>dui', ':lua require("dapui").open()<CR>', { noremap = true, silent = true })
+    vim.api.nvim_set_keymap('n', '<leader>duc', ':lua require("dapui").close()<CR>', { noremap = true, silent = true })
+    vim.api.nvim_set_keymap('n', '<leader>dut', ':lua require("dapui").toggle()<CR>', { noremap = true, silent = true })
     -- Basic debugging keymaps, feel free to change to your liking!
     vim.keymap.set('n', '<leader>dbc', dap.continue, { desc = 'Debug: Start/Continue' })
-    vim.keymap.set('n', '<leader>dbs', dap.stop, { desc = 'Debug: Stop' })
+    vim.keymap.set('n', '<leader>dbs', dap.close, { desc = 'Debug: Close' })
     vim.keymap.set('n', '<leader>dbt', dap.terminate, { desc = 'Debug: Terminate' })
     vim.keymap.set('n', '<F1>', dap.step_into, { desc = 'Debug: Step Into' })
     vim.keymap.set('n', '<F2>', dap.step_over, { desc = 'Debug: Step Over' })
