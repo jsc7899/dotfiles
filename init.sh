@@ -104,9 +104,11 @@ install_macos() {
 
 install_debian() {
     echo "Installing prerequisites for Debian-based systems..."
-    export DEBIAN_FRONTEND=noninteractive
+    export DEBIAN_FRONTEND="noninteractive"
     $(check_sudo) apt-get update
+    echo "updated apt cache"
     $(check_sudo) apt-get install -y ${common_pkgs[*]} ${debian_pkgs[*]}
+    echo "installed packages"
     # install latest nvim
     # install_nvim
     # # install tpm
@@ -123,21 +125,24 @@ install_redhat() {
 }
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
+    echo "OS is macos"
     install_macos
 elif [[ -f /etc/debian_version ]]; then
+    echo "OS is debian"
     install_debian
 elif [[ -f /etc/redhat-release ]]; then
     install_redhat
+    echo "OS is redhat"
 else
     echo "Unsupported operating system."
     exit 1
 fi
 
-echo "Linking config files"
-dotfiles="$HOME/.dotfiles"
-conf_dir="$HOME/.config"
-mkdir -p "$conf_dir"
-
+# echo "Linking config files"
+# dotfiles="$HOME/.dotfiles"
+# conf_dir="$HOME/.config"
+# mkdir -p "$conf_dir"
+#
 # bash
 # if [ ! -L "$HOME/.bashrc" ]; then
 #     [ -f "$HOME/.bashrc" ] && mv "$HOME/.bashrc" "$HOME/.bashrc.bak"
