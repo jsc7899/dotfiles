@@ -66,26 +66,32 @@ check_sudo() {
 }
 
 install_nvim() {
-    # Get the installed version of Neovim
-    nvim_version=$(nvim --version | head -n 1 | awk '{print $2}')
+    # Check if nvim is installed
+    if command -v nvim &>/dev/null; then
+        nvim_installed=true
+        # Get the installed version of Neovim
+        nvim_version=$(nvim --version | head -n 1 | awk '{print $2}')
 
-    # Convert version to comparable format (e.g., 0.10.0 -> 00010)
-    convert_version() {
-        echo "$1" | awk -F. '{printf("%d%02d%02d\n", $1,$2,$3)}'
-    }
+        # Convert version to comparable format (e.g., 0.10.0 -> 00010)
+        convert_version() {
+            echo "$1" | awk -F. '{printf("%d%02d%02d\n", $1,$2,$3)}'
+        }
 
-    installed_version=$(convert_version "$nvim_version")
-    required_version=$(convert_version "0.10.0")
-    if [ "$installed_version" -lt "$required_version" ]; then
-        echo "removing previously installed neovim version..."
+        installed_version=$(convert_version "$nvim_version")
+        required_version=$(convert_version "0.10.0")
+    else
+        nvim_installed=false
+    fi
+
+    if [ "$nvim_installed" = false ] || [ "$installed_version" -lt "$required_version" ]; then
+        echo "Removing previously installed Neovim version..."
         $(check_sudo) apt-get remove -y neovim
-        echo "install latest version of neovim..."
+        echo "Installing latest version of Neovim..."
         cd /tmp || exit 1
         curl -s -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz
         $(check_sudo) tar -C /opt -xzf nvim-linux64.tar.gz
     fi
 }
-
 install_macos() {
     echo "Installing prerequisites for macOS..."
 
