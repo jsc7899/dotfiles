@@ -15,7 +15,6 @@ return {
       'vimdoc',
       'python',
       'yaml',
-      'haskell',
       'hcl',
       'tmux',
       'markdown',
