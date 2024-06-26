@@ -1,15 +1,7 @@
 -- debug.lua
---
--- Shows how to use the DAP plugin to debug your code.
---
--- Primarily focused on configuring the debugger for Go, but can
--- be extended to other languages as well. That's why it's called
--- kickstart.nvim and not kitchen-sink.nvim ;)
 
 return {
-  -- NOTE: Yes, you can install new plugins here!
   'mfussenegger/nvim-dap',
-  -- NOTE: And you can specify dependencies as well
   dependencies = {
     -- Creates a beautiful debugger UI
     'rcarriga/nvim-dap-ui',
@@ -24,11 +16,13 @@ return {
     -- Add your own debuggers here
     'leoluz/nvim-dap-go',
     'mfussenegger/nvim-dap-python',
+
+    'theHamsta/nvim-dap-virtual-text', -- https://github.com/theHamsta/nvim-dap-virtual-text
+    'Weissle/persistent-breakpoints.nvim',
   },
   config = function()
+    -- DAP config
     local dap = require 'dap'
-    local dapui = require 'dapui'
-
     require('mason-nvim-dap').setup {
       -- Makes a best effort to setup the various debuggers with
       -- reasonable debug configurations
@@ -46,29 +40,33 @@ return {
         'debugpy',
       },
     }
-    -- Keybindings to open, close, and toggle DAP UI
-    vim.api.nvim_set_keymap('n', '<leader>dui', ':lua require("dapui").open()<CR>', { noremap = true, silent = true })
-    vim.api.nvim_set_keymap('n', '<leader>duc', ':lua require("dapui").close()<CR>', { noremap = true, silent = true })
-    vim.api.nvim_set_keymap('n', '<leader>dut', ':lua require("dapui").toggle()<CR>', { noremap = true, silent = true })
-    -- Basic debugging keymaps, feel free to change to your liking!
-    vim.keymap.set('n', '<leader>dbc', dap.continue, { desc = 'Debug: Start/Continue' })
-    vim.keymap.set('n', '<leader>dbs', dap.close, { desc = 'Debug: Close' })
+    vim.keymap.set('n', '<leader>dbo', dap.continue, { desc = 'Debug: Start/Continue' })
+    vim.keymap.set('n', '<leader>dbc', dap.close, { desc = 'Debug: Close' })
     vim.keymap.set('n', '<leader>dbt', dap.terminate, { desc = 'Debug: Terminate' })
-    vim.keymap.set('n', '<F1>', dap.step_into, { desc = 'Debug: Step Into' })
-    vim.keymap.set('n', '<F2>', dap.step_over, { desc = 'Debug: Step Over' })
-    vim.keymap.set('n', '<F3>', dap.step_out, { desc = 'Debug: Step Out' })
-    vim.keymap.set('n', '<leader>b', dap.toggle_breakpoint, { desc = 'Debug: Toggle Breakpoint' })
-
-    vim.keymap.set('n', '<leader>B', function()
-      dap.set_breakpoint(vim.fn.input 'Breakpoint condition: ')
-    end, { desc = 'Debug: Set Breakpoint' })
-
+    vim.keymap.set('n', '<leader>dbr', dap.restart, { desc = 'Debug: Restart' })
+    vim.keymap.set('n', '<leader>dbsi', dap.step_into, { desc = 'Debug: Step Into' })
+    vim.keymap.set('n', '<leader>dbsv', dap.step_over, { desc = 'Debug: Step Over' })
+    vim.keymap.set('n', '<leader>dbb', dap.step_out, { desc = 'Debug: Step Out' })
     vim.keymap.set('n', '<leader>dbl', function()
       if vim.fn.filereadable '.vscode/launch.json' then
         require('dap.ext.vscode').load_launchjs(nil, { cpptools = { 'c', 'cpp' } })
       end
       require('dap').continue()
     end, { desc = 'load debug config' })
+
+    -- DAPUI config
+    local dapui = require 'dapui'
+    -- Keybindings to open, close, and toggle DAP UI
+    vim.api.nvim_set_keymap('n', '<leader>dui', ':lua require("dapui").open()<CR>', { noremap = true, silent = true })
+    vim.api.nvim_set_keymap('n', '<leader>duc', ':lua require("dapui").close()<CR>', { noremap = true, silent = true })
+    vim.api.nvim_set_keymap('n', '<leader>dut', ':lua require("dapui").toggle()<CR>', { noremap = true, silent = true })
+    vim.api.nvim_set_keymap('n', '<leader>dur', ":lua require('dapui').open({reset = true})<CR>", { noremap = true })
+    -- Toggle to see last session result. Without this, you can't see session output in case of unhandled exception.
+    vim.keymap.set('n', '<leader>dul', dapui.toggle, { desc = 'Debug: See last session result.' })
+
+    require('nvim-dap-virtual-text').setup { virt_text_pos = 'inline' }
+
+    vim.fn.sign_define('DapBreakpoint', { text = '⭕', texthl = 'DapBreakpoint', linehl = 'DapBreakpoint', numhl = 'DapBreakpoint' })
 
     -- Dap UI setup
     -- For more information, see |:help nvim-dap-ui|
@@ -114,12 +112,30 @@ return {
       },
     }
 
-    -- Toggle to see last session result. Without this, you can't see session output in case of unhandled exception.
-    vim.keymap.set('n', '<F7>', dapui.toggle, { desc = 'Debug: See last session result.' })
-
     dap.listeners.after.event_initialized['dapui_config'] = dapui.open
     dap.listeners.before.event_terminated['dapui_config'] = dapui.close
     dap.listeners.before.event_exited['dapui_config'] = dapui.close
+
+    -- persistent breakpoints
+    require('persistent-breakpoints').setup {
+      save_dir = vim.fn.stdpath 'data' .. '/nvim_checkpoints',
+      -- when to load the breakpoints? "BufReadPost" is recommended.
+      load_breakpoints_event = 'BufReadPost',
+      -- record the performance of different function. run :lua require('persistent-breakpoints.api').print_perf_data() to see the result.
+      perf_record = false,
+      -- perform callback when loading a persisted breakpoint
+      --- @param opts DAPBreakpointOptions options used to create the breakpoint ({condition, logMessage, hitCondition})
+      --- @param buf_id integer the buffer the breakpoint was set on
+      --- @param line integer the line the breakpoint was set on
+      on_load_breakpoint = nil,
+    }
+
+    local opts = { noremap = true, silent = true }
+    local keymap = vim.api.nvim_set_keymap
+    -- Save breakpoints to file automatically.
+    keymap('n', '<leader>b', "<cmd>lua require('persistent-breakpoints.api').toggle_breakpoint()<cr>", opts)
+    keymap('n', '<leader>dbp', "<cmd>lua require('persistent-breakpoints.api').set_conditional_breakpoint()<cr>", opts)
+    keymap('n', '<leader>dbcl', "<cmd>lua require('persistent-breakpoints.api').clear_all_breakpoints()<cr>", opts)
 
     -- Install golang specific config
     require('dap-go').setup {
