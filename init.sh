@@ -173,3 +173,6 @@ fi
 if [ ! -L "$conf_dir/tmux" ]; then
     ln -s "$dotfiles/tmux" "$conf_dir/"
 fi
+if [ ! -L "$HOME/.tmux.conf" ]; then
+    ln -s "$dotfiles/tmux/tmux.conf" "$HOME/.tmux.conf"
+fi
