@@ -78,6 +78,7 @@ export PATH="$PATH:$GOPATH/bin"
 
 ## ALIAS ##
 # common
+alias ls='ls --color=auto'
 alias ll='ls -lah'
 alias gs="git status"
 alias ks='kubectl -n kube-system'
