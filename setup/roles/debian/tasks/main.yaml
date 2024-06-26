@@ -1,0 +1,20 @@
+- name: install debian pkgs
+  apt:
+    update_cache: true
+    name: "{{ debian_pkgs }}"
+
+- name: install latest nvim
+  ansible.builtin.get_url:
+    url: https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz
+    dest: /tmp/
+
+- name: extract nvim
+  ansible.builtin.unarchive:
+    src: /tmp/nvim-linux64.tar.gz
+    dest: /tmp/
+
+- name: copy binary
+  copy:
+    src: /tmp/nvim-linux64/bin/nvim
+    dest: /usr/bin/nvim
+    mode: '0755'

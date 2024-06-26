@@ -1,0 +1,13 @@
+- name: check if homebrew is installed
+  stat:
+    path: /opt/homebrew/bin/brew
+  register: hb_installed
+
+- name: install homebrew
+  when: not hb_installed.stat.exists
+  command: |
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+- name: install macos pkgs
+  homebrew:
+    name: "{{ macos_pkgs }}"

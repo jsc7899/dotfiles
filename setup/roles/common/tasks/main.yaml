@@ -1,0 +1,23 @@
+- name: install common packages
+  package:
+    name: "{{ common_pkgs }}"
+
+- name: create config dir if not present
+  file:
+    path: ~/.config
+    state: directory
+
+- name: config bash
+  file:
+    src: "~/.workstations/bash/{{ item }}"
+    dest: "~/.{{ item }}"
+    state: link
+  loop:
+    - bashrc
+    - bash_profile
+
+- name: config neovim
+  file:
+    src: "~/.workstations/nvim"
+    dest: "~/.config/nvim"
+    state: link

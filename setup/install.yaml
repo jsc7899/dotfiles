@@ -1,0 +1,65 @@
+---
+- hosts: localhost
+  become: true
+  gather_facts: true
+  vars:
+    common_pkgs:
+      # shell-related
+      - bash # install latest
+      - bash-completion
+      - tldr
+      # editing tools
+      # - luarocks
+      - gawk # required for ble.sh
+      # dev tools
+      - make # required for ble.sh
+      - git
+      - unzip
+      # cli tools
+      - watch
+      - tree
+      - tmux
+      - fzf
+      - parallel
+      - bat
+      - curl
+      - wget
+      - jq
+      - ripgrep
+      # network tools
+      - nmap
+      - iperf3
+      # monitoring tools
+      - htop
+      - ncdu
+      # languages
+      - python3
+      - python3-pip
+      - python3-venv
+      - golang
+
+    macos_pkgs:
+      - neovim
+      - font-hasklug-nerd-font
+      - font-0xproto-nerd-font
+      - fd
+      - lazygit
+      - lsd
+      - tpm
+      - coreutils
+      - ruff
+
+    debian_pkgs:
+
+    redhat_pkgs:
+
+
+  roles:
+    - common
+    - role: macos
+      when: ansible_facts['os_family'] == 'Darwin'
+    - role: debian 
+      when: ansible_facts['os_family'] == 'Debian'
+    - role: redhat
+      when: ansible_facts['os_family'] == 'RedHat'
+
