@@ -25,6 +25,7 @@ if [[ -f /etc/debian_version ]]; then
 fi
 
 ## EXPORT ##
+export EDITOR=nvim
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY="YES"
 # conditional open api key - only works on macos with pw set va keychain
 
@@ -93,6 +94,8 @@ alias jq='jq -C'
 alias less='less -R'
 alias gb='go build -v'
 alias rb='exec bash' # reload bash
+alias gpl='git pull'
+alias gph='git push'
 
 # macos
 if [ "$(uname)" == "Darwin" ]; then
@@ -120,6 +123,9 @@ if [ "$(uname)" == "Darwin" ]; then
     alias ls='lsd -A'
     alias cat='bat -pp'
 fi
+
+# load direnv
+eval "$(direnv hook bash)"
 
 # needs to be at end of file
 [[ ${BLE_VERSION-} ]] && ble-attach
