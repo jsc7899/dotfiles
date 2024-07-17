@@ -88,3 +88,6 @@ vim.opt.scrolloff = 10
 
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
+
+-- theme options
+vim.opt.termguicolors = true
