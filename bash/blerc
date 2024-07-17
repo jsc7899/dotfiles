@@ -3,7 +3,8 @@ ble-face auto_complete=fg=145
 
 function my/vim-load-hook {
   bleopt keymap_vi_mode_string_nmap=$'\e[1m NORMAL \e[m'
-  bleopt prompt_vi_mode_indicator='\[\e[38;5;234;48;5;64m\]\q{keymap:vi/mode-indicator}\[\e[0m\]'
+  # bleopt prompt_vi_mode_indicator='\[\e[38;5;234;48;5;64m\]\q{keymap:vi/mode-indicator}\[\e[0m\]'
+  bleopt prompt_vi_mode_indicator='\[\e[38;5;249;48;5;237m\]\q{keymap:vi/mode-indicator}\[\e[0m\]'
   # bleopt prompt_vi_mode_indicator=''
   # bleopt prompt_rps1='\[\e[38;5;234;48;5;64m\]\q{keymap:vi/mode-indicator}\[\e[0m\]'
   ble-import lib/vim-surround
