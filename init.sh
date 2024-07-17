@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# TODO: minimal install
-# TODO: direnv
-
 common_pkgs=(
     # shell-related
     "bash" # install latest
