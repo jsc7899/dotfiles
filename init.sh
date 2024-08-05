@@ -5,6 +5,7 @@ common_pkgs=(
     "bash" # install latest
     "bash-completion"
     "tldr"
+    "direnv"
     # editing tools
     # "luarocks"
     "gawk" # required for ble.sh
