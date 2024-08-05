@@ -233,12 +233,13 @@ return {
       'black',
       'darker',
       'beautysh',
+      'prettier',
       --'hclfmt',
 
       -- linters
       -- note: lsps handle most linting
       'shellcheck',
-      'ansible-lint',
+      -- 'ansible-lint',
       --'luacheck',
       'markdownlint-cli2',
       --'ruff',
