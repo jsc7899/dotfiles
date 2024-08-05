@@ -7,7 +7,7 @@ return {
       local lint = require 'lint'
       lint.linters_by_ft = {
         bash = { 'shellcheck' },
-        ansible = { 'ansible_lint' },
+        -- ansible = { 'ansible_lint' },
         --lua = { 'luacheck' },
         markdown = { 'markdownlint-cli2' },
         -- python = { 'ruff' },
@@ -44,7 +44,7 @@ return {
       -- lint.linters_by_ft['ruby'] = nil
       -- lint.linters_by_ft['terraform'] = nil
       -- lint.linters_by_ft['text'] = nil
-
+      lint.linters_by_ft['yaml'] = nil
       -- Create autocommand which carries out the actual linting
       -- on the specified events.
       local lint_augroup = vim.api.nvim_create_augroup('lint', { clear = true })
