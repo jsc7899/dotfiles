@@ -3,6 +3,7 @@ return {
     'lukas-reineke/indent-blankline.nvim',
     -- Enable `lukas-reineke/indent-blankline.nvim`
     -- See `:help ibl`
+    event = { 'BufRead', 'BufWinEnter' },
     main = 'ibl',
     opts = {},
   },

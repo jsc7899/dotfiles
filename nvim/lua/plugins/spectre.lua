@@ -1,5 +1,6 @@
 return {
   'nvim-pack/nvim-spectre',
+  cmd = { 'Spectre', 'SpectreOpen', 'SpectreToggle' },
   dependencies = {
     'nvim-lua/plenary.nvim',
   },
