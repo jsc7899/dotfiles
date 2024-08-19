@@ -149,7 +149,7 @@ dotfiles="$HOME/.dotfiles"
 conf_dir="$HOME/.config"
 mkdir -p "$conf_dir"
 
-bash
+# bash
 if [ ! -L "$HOME/.bashrc" ]; then
     [ -f "$HOME/.bashrc" ] && mv "$HOME/.bashrc" "$HOME/.bashrc.bak"
     ln -s "$dotfiles/bash/bashrc" "$HOME/.bashrc"
