@@ -234,7 +234,7 @@ return {
       'darker',
       'beautysh',
       'prettier',
-      --'hclfmt',
+      'hclfmt',
 
       -- linters
       -- note: lsps handle most linting
