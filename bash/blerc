@@ -14,6 +14,6 @@ blehook/eval-after-load keymap_vi my/vim-load-hook
 bleopt prompt_ps1_transient=always
 bleopt prompt_rps1_transient=always
 
-source /etc/profile.d/bash_completion.sh
+source /opt/homebrew/etc/profile.d/bash_completion.sh
 # ble-import -d integration/fzf-completion
 ble-import -d integration/fzf-key-bindings
