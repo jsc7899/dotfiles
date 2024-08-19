@@ -32,8 +32,6 @@ common_pkgs=(
     "ncdu"
     # languages
     "python3"
-    "python3-pip"
-    "python3-venv"
     "golang"
 )
 
@@ -49,7 +47,10 @@ macos_pkgs=(
     "ruff"
 )
 
-debian_pkgs=()
+debian_pkgs=(
+    "python3-pip"
+    "python3-venv"
+)
 
 redhat_pkgs=()
 
@@ -102,7 +103,8 @@ install_macos() {
         echo "Homebrew is already installed."
     fi
 
-    brew install ${macos_pkgs[*]}
+    brew install "${common_pkgs[*]}"
+    brew install "${macos_pkgs[*]}"
 
 }
 
@@ -111,7 +113,7 @@ install_debian() {
     export DEBIAN_FRONTEND="noninteractive"
     $(check_sudo) apt-get update
     echo "updated apt cache"
-    $(check_sudo) apt-get install -y ${common_pkgs[*]} ${debian_pkgs[*]}
+    $(check_sudo) apt-get install -y "${common_pkgs[*]}" "${debian_pkgs[*]}"
     echo "installed packages"
     # install latest nvim
     install_nvim
