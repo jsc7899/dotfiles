@@ -103,9 +103,12 @@ install_macos() {
         echo "Homebrew is already installed."
     fi
 
-    brew install "${common_pkgs[*]}"
-    brew install "${macos_pkgs[*]}"
-
+    brew update
+    brew upgrade
+    brew install "${common_pkgs[@]}"
+    brew install "${macos_pkgs[@]}"
+    brew cleanup
+    brew doctor
 }
 
 install_debian() {
