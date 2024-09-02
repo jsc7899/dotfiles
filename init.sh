@@ -103,9 +103,12 @@ install_macos() {
         echo "Homebrew is already installed."
     fi
 
-    brew install "${common_pkgs[*]}"
-    brew install "${macos_pkgs[*]}"
-
+    brew update
+    brew upgrade
+    brew install "${common_pkgs[@]}"
+    brew install "${macos_pkgs[@]}"
+    brew cleanup
+    brew doctor
 }
 
 install_debian() {
@@ -166,7 +169,7 @@ if [ ! -L "$HOME/.blerc" ]; then
 fi
 # nvim
 if [ ! -L "$conf_dir/nvim" ]; then
-    ln -s "$dotfiles/nvim" "$conf_dir/"
+    ln -s "$dotfiles/nvim" "$conf_dir"
 fi
 
 # tmux
