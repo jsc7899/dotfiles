@@ -96,7 +96,7 @@ install_macos() {
 
     xcode-select --install
 
-    if ! command -v brew &>/dev/null; then
+    if ! [ d "/opt/homebrew" ]; then
         echo "Homebrew not found. Installing..."
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     else
