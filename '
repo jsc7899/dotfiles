@@ -1,9 +1,0 @@
-#!/bin/bash
-
-
-
-
-for pkg in "${common_pkgs[@]}"; do
-    brew install "$pkg"
-done
-
