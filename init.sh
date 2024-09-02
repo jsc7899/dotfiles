@@ -166,7 +166,7 @@ if [ ! -L "$HOME/.blerc" ]; then
 fi
 # nvim
 if [ ! -L "$conf_dir/nvim" ]; then
-    ln -s "$dotfiles/nvim" "$conf_dir/"
+    ln -s "$dotfiles/nvim" "$conf_dir"
 fi
 
 # tmux
