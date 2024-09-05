@@ -7,14 +7,12 @@ export PATH="$PATH:/opt/nvim-linux64/bin"
 # https://github.com/akinomyoga/ble.sh/wiki/Manual-%C2%A71-Introduction
 # install ble.sh if needed
 if [ ! -f "$HOME/.local/share/blesh/ble.sh" ]; then
-    cd /tmp || exit
-    git clone --recursive --depth 1 --shallow-submodules https://github.com/akinomyoga/ble.sh.git
-    make -C ble.sh install PREFIX="$HOME/.local"
-    cd "$HOME" || exit
+    git clone --recursive --depth 1 --shallow-submodules https://github.com/akinomyoga/ble.sh.git /tmp/ble.sh
+    make -C /tmp/ble.sh install PREFIX="$HOME/.local"
 fi
 # source ble.sh and config
 [[ $- == *i* ]] &&
-    source "$HOME/.local/share/blesh/ble.sh" --rcfile "$HOME/.blerc"
+    source "$HOME/.local/share/blesh/ble.sh" --rcfile "$HOME/.blerc" --noattach
 
 set -o vi # use vi mode for bash keys
 # set -o emacs # use emacs mode (default) for bash keys
@@ -146,4 +144,4 @@ fi
 eval "$(direnv hook bash)"
 
 # needs to be at end of file
-[[ ${BLE_VERSION-} ]] && ble-attach
+[[ ! ${BLE_VERSION-} ]] || ble-attach
