@@ -128,7 +128,7 @@ if [ "$(uname)" == "Darwin" ]; then
     alias ip_bq="/opt/chomp/.venv/bin/python3 /opt/chomp/tsc_tools/tsc_tools.py -o --ip_quarantine"
     alias mac_bq="/opt/chomp/.venv/bin/python3 /opt/chomp/tsc_tools/tsc_tools.py -o --mac_quarantine"
     alias nomad_ots="ssh -t nomad-client-001 'podman run -it --rm --network=ots_network --dns=1.1.1.1 --cap-add=NET_RAW -v /opt/chomp:/opt/chomp:ro -v /opt/chompout:/opt/chompout:rw void-registry.infosec.utexas.edu/utexasiso-default /bin/bash'"
-    alias nmap_ots="ssh -J void-jumpbox-03 -t nomad-client-001 'podman run -it --rm --network=ots_network --dns=1.1.1.1 --cap-add=NET_RAW -v /opt/chomp:/opt/chomp:ro -v /opt/chompout:/opt/chompout:rw void-registry.infosec.utexas.edu/utexasiso-scavenger /bin/bash'"
+    alias nmap_ots="ssh -J void-jumpbox-03 -t nomad-client-001 'sudo podman run -it --rm --network=ots_network --dns=1.1.1.1 --cap-add=NET_RAW -v /opt/chomp:/opt/chomp:ro -v /opt/chompout:/opt/chompout:rw void-registry.infosec.utexas.edu/utexasiso-scavenger:production /bin/bash'"
     alias nomad_git='ansible nomad_clients,nomad_baremetal -b -m shell -a "git -C /opt/nomad pull; git -C /opt/chomp pull; git -C /opt/chomptest pull"'
     alias refresh_dns='$HOME/.config/scripts/refresh_dns.sh'
     alias pansible='$HOME/.config/scripts/pansible.sh'
