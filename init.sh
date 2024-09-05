@@ -96,16 +96,19 @@ install_macos() {
 
     xcode-select --install
 
-    if ! command -v brew &>/dev/null; then
+    if [ ! -d "/opt/homebrew" ]; then
         echo "Homebrew not found. Installing..."
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     else
         echo "Homebrew is already installed."
     fi
 
-    brew install "${common_pkgs[*]}"
-    brew install "${macos_pkgs[*]}"
-
+    brew update
+    brew upgrade
+    brew install "${common_pkgs[@]}"
+    brew install "${macos_pkgs[@]}"
+    brew cleanup
+    brew doctor
 }
 
 install_debian() {
@@ -166,7 +169,7 @@ if [ ! -L "$HOME/.blerc" ]; then
 fi
 # nvim
 if [ ! -L "$conf_dir/nvim" ]; then
-    ln -s "$dotfiles/nvim" "$conf_dir/"
+    ln -s "$dotfiles/nvim" "$conf_dir"
 fi
 
 # tmux
