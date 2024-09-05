@@ -1,5 +1,6 @@
 bleopt input_encoding=UTF-8
 ble-face auto_complete=fg=145
+bleopt history_share=1
 
 function my/vim-load-hook {
   bleopt keymap_vi_mode_string_nmap=$'\e[1m NORMAL \e[m'
