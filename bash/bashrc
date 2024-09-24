@@ -37,10 +37,9 @@ fi
 ## EXPORT ##
 export EDITOR=nvim
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY="YES"
-# conditional open api key - only works on macos with pw set va keychain
 
 if command -v security &>/dev/null; then
-    OPENAI_API_KEY=$(security find-generic-password -s openai -a autocomplete -w)
+    OPENAI_API_KEY=$(security find-generic-password -s openai -a autocomplete -w &>/dev/null)
 else
     OPENAI_API_KEY=""
 fi
