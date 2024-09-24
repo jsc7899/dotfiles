@@ -4,6 +4,17 @@ export PATH="/opt/homebrew/bin:$PATH"
 export PATH="$PATH:/opt/nvim-linux64/bin"
 export PATH="$PATH:/Library/NessusAgent/run/sbin"
 
+## Update Dotfiles ##
+if [ -d "$HOME/.dotfiles" ]; then
+    if [ ! -f "$HOME/.dotfiles/.ts" ]; then
+        touch "$HOME/.dotfiles/.ts"
+    fi
+    # if file is older than one hour
+    if find ~/.dotfiles/.ts -mmin 60 | grep ts; then
+        git -C "$HOME/.dotfiles" pull >/dev/null
+    fi
+fi
+
 ## BLE.SH ##
 # https://github.com/akinomyoga/ble.sh/wiki/Manual-%C2%A71-Introduction
 # install ble.sh if needed
