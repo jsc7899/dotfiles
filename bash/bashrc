@@ -45,23 +45,6 @@ else
 fi
 export OPENAI_API_KEY
 
-## Prompt ##
-# Define color codes
-ORANGE="\[\e[38;5;214m\]"
-RESET="\[\e[0m\]"
-
-# Define the base part of the prompt
-PROMPT_COMMAND='PS1_CMD1=\($(git branch --show-current 2>/dev/null)\)'
-# PS1='\[\e[38;5;34;3m\]${PS1_CMD1}\[\e[0m\]'
-# PS1_BASE='\[\e[38;5;30m\]\W\[\e[0m\] \[\e[38;5;34;2;3m\]${PS1_CMD1}\[\e[0m\]\[\e[38;5;64;1m\] ❯ \[\e[0m\]'
-PS1_BASE='\[\e[38;5;249;1m\]\W\[\e[0m\] \[\e[90;2;3m\]${PS1_CMD1}\[\e[0m\]\[\e[38;5;64;1m\] ❯ \[\e[0m\]'
-# Check if an SSH session is active and include the short hostname if it is
-# if [[ -n "$SSH_CONNECTION" ]]; then
-#     PS1="${ORANGE}\h${RESET}:$PS1_BASE"
-# else
-#     PS1=$PS1_BASE
-# fi
-
 ## Functions ##
 get_column() {
     if [ "$#" -lt 2 ]; then
@@ -123,6 +106,8 @@ alias gpl='git pull'
 alias gph='git push'
 alias sshkeygen='ssh-keygen -t ed25519 -a 100'
 alias makepasswd='openssl passwd -6 --salt'
+alias tput.sh='~/.dotfiles/scripts/tput.sh'
+alias colors='/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/gawin/bash-colors-256/master/colors)"'
 
 # macos
 if [ "$(uname)" == "Darwin" ]; then
