@@ -39,15 +39,3 @@ vim.api.nvim_create_autocmd({ 'FileType', 'BufRead', 'BufNewFile' }, {
     vim.opt_local.spelllang = { 'en_us' }
   end,
 })
-
--- add .nomad to hcl filetype
-vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
-  pattern = { '*.nomad' },
-  command = 'set filetype=hcl',
-})
-
--- add splunk searches to spl filetype
-vim.api.nvim_create_autocmd({ 'FileType', 'BufRead', 'BufNewFile' }, {
-  pattern = { '/opt/*/searches/*' },
-  command = 'set filetype=spl',
-})
