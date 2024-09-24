@@ -1,0 +1,4 @@
+config:
+  line-length: true
+
+fix: true
