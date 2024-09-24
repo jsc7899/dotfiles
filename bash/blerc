@@ -3,18 +3,55 @@ ble-face auto_complete=fg=145
 bleopt history_share=1
 
 function my/vim-load-hook {
-  bleopt keymap_vi_mode_string_nmap=$'\e[1m NORMAL \e[m'
+  # bleopt keymap_vi_mode_string_nmap=$'\e[91m     \e[m'
+  # bleopt prompt_vi_mode_indicator='\[\e[34m\]\q{keymap:vi/mode-indicator}\[\e[0m\]'  
+  # bleopt prompt_vi_mode_indicator='\[\e[34m\]\q{keymap:vi/mode-indicator}\[\e[0m\]'  # Blue for vi mode indicator
   # bleopt prompt_vi_mode_indicator='\[\e[38;5;234;48;5;64m\]\q{keymap:vi/mode-indicator}\[\e[0m\]'
-  bleopt prompt_vi_mode_indicator='\[\e[38;5;249;48;5;237m\]\q{keymap:vi/mode-indicator}\[\e[0m\]'
+  # bleopt prompt_vi_mode_indicator='\[\e[38;5;249;48;5;237m\]\q{keymap:vi/mode-indicator}\[\e[0m\]'
   # bleopt prompt_vi_mode_indicator=''
   # bleopt prompt_rps1='\[\e[38;5;234;48;5;64m\]\q{keymap:vi/mode-indicator}\[\e[0m\]'
   ble-import lib/vim-surround
 }
-blehook/eval-after-load keymap_vi my/vim-load-hook
 
-bleopt prompt_ps1_transient=always
-bleopt prompt_rps1_transient=always
+# Define prompt sequence \q{my/vim-mode}
+function ble/prompt/backslash:my/vim-mode {
+  bleopt keymap_vi_mode_update_prompt:=1
+  case $_ble_decode_keymap in
+  (vi_[on]map) ble/prompt/print "$(tput setaf 4)" ;;
+  (vi_imap) ble/prompt/print '' ;;
+  (vi_smap) ble/prompt/print '(sel)' ;;
+  (vi_xmap) ble/prompt/print '(vis)' ;;
+  esac
+}
+
+## Prompt ##
+# Define color codes
+ORANGE="\[\e[38;5;214m\]"
+RESET="\[\e[0m\]"
+
+# Define the base part of the prompt
+PROMPT_COMMAND='PS1_CMD1=\($(git branch --show-current 2>/dev/null)\)'
+# PS1='\[\e[38;5;34;3m\]${PS1_CMD1}\[\e[0m\]'
+# PS1_BASE='\[\e[38;5;30m\]\W\[\e[0m\] \[\e[38;5;34;2;3m\]${PS1_CMD1}\[\e[0m\]\[\e[38;5;64;1m\] ❯ \[\e[0m\]'
+PS1_BASE='\[\e[38;5;249;1m\]\W\[\e[0m\] \[\e[90;2;3m\]${PS1_CMD1}\[\e[0m\]\[\e[38;5;64;1m\]\q{my/vim-mode} ❯ \[\e[0m\]'
+# Check if an SSH session is active and include the short hostname if it is
+if [[ -n "$SSH_CONNECTION" ]]; then
+    PS1="${ORANGE}\h${RESET}:$PS1_BASE"
+else
+    PS1=$PS1_BASE
+fi
+
+
+# Do not show mode line
+bleopt keymap_vi_mode_show:=
+
+
+# blehook/eval-after-load keymap_vi my/vim-load-hook
+
+# bleopt prompt_ps1_transient=always
+# bleopt prompt_rps1_transient=always
 
 source /opt/homebrew/etc/profile.d/bash_completion.sh
 # ble-import -d integration/fzf-completion
 ble-import -d integration/fzf-key-bindings
+
