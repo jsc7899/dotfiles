@@ -52,15 +52,15 @@ RESET="\[\e[0m\]"
 
 # Define the base part of the prompt
 PROMPT_COMMAND='PS1_CMD1=\($(git branch --show-current 2>/dev/null)\)'
-PS1='\[\e[38;5;34;3m\]${PS1_CMD1}\[\e[0m\]'
+# PS1='\[\e[38;5;34;3m\]${PS1_CMD1}\[\e[0m\]'
 # PS1_BASE='\[\e[38;5;30m\]\W\[\e[0m\] \[\e[38;5;34;2;3m\]${PS1_CMD1}\[\e[0m\]\[\e[38;5;64;1m\] ❯ \[\e[0m\]'
 PS1_BASE='\[\e[38;5;249;1m\]\W\[\e[0m\] \[\e[90;2;3m\]${PS1_CMD1}\[\e[0m\]\[\e[38;5;64;1m\] ❯ \[\e[0m\]'
 # Check if an SSH session is active and include the short hostname if it is
-if [[ -n "$SSH_CONNECTION" ]]; then
-    PS1="${ORANGE}\h${RESET}:$PS1_BASE"
-else
-    PS1=$PS1_BASE
-fi
+# if [[ -n "$SSH_CONNECTION" ]]; then
+#     PS1="${ORANGE}\h${RESET}:$PS1_BASE"
+# else
+#     PS1=$PS1_BASE
+# fi
 
 ## Functions ##
 get_column() {
@@ -121,6 +121,8 @@ alias gb='go build -v'
 alias rb='exec bash' # reload bash
 alias gpl='git pull'
 alias gph='git push'
+alias sshkeygen='ssh-keygen -t ed25519 -a 100'
+alias makepasswd='openssl passwd -6 --salt'
 
 # macos
 if [ "$(uname)" == "Darwin" ]; then
@@ -149,6 +151,7 @@ if [ "$(uname)" == "Darwin" ]; then
     alias ls='lsd -A'
     alias cat='bat -pp'
     alias vha="./site.yaml --limit=load_balancers --tags=haproxy"
+    alias flush_dns="sudo killall -HUP mDNSResponder"
 fi
 
 # load direnv
