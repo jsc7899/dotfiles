@@ -91,3 +91,14 @@ vim.o.completeopt = 'menuone,noselect'
 
 -- theme options
 vim.opt.termguicolors = true
+
+-- filetypes
+vim.filetype.add {
+  extension = {
+    nomad = 'hcl',
+    blerc = 'bash',
+  },
+  pattern = {
+    ['/opt/.*/searches/.*'] = 'spl',
+  },
+}
