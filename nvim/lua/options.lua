@@ -96,9 +96,9 @@ vim.opt.termguicolors = true
 vim.filetype.add {
   extension = {
     nomad = 'hcl',
-    blerc = 'bash',
   },
   pattern = {
     ['/opt/.*/searches/.*'] = 'spl',
+    ['[.]?blerc'] = 'bash',
   },
 }
