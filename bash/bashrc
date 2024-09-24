@@ -2,6 +2,7 @@
 export PATH="/opt/homebrew/sbin:$PATH"
 export PATH="/opt/homebrew/bin:$PATH"
 export PATH="$PATH:/opt/nvim-linux64/bin"
+export PATH="$PATH:/Library/NessusAgent/run/sbin"
 
 ## BLE.SH ##
 # https://github.com/akinomyoga/ble.sh/wiki/Manual-%C2%A71-Introduction
@@ -97,7 +98,7 @@ alias ls='ls --color=auto'
 alias ll='ls -lah'
 alias gs="git status"
 alias ks='kubectl -n kube-system'
-alias grep='rg'
+# alias grep='rg'
 alias cat='batcat -pp'
 alias diff='colordiff -y --suppress-common-lines'
 alias lg='lazygit'
@@ -133,7 +134,7 @@ if [ "$(uname)" == "Darwin" ]; then
     alias refresh_dns='$HOME/.config/scripts/refresh_dns.sh'
     alias pansible='$HOME/.config/scripts/pansible.sh'
     alias ans='source .venv/bin/activate.fish && source setup/.env.jared'
-    alias du='dust'
+    alias du='dust -r'
     alias df='duf'
     alias ls='lsd -A'
     alias cat='bat -pp'
