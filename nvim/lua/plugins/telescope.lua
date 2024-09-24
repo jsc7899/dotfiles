@@ -98,6 +98,9 @@ return {
         },
       },
       pickers = {
+        find_files = {
+          follow = true,
+        },
         help_tags = { -- Customize behavior for 'help_tags' specifically
           attach_mappings = function(prompt_bufnr, map)
             actions.select_default:replace(function()

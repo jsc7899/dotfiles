@@ -251,6 +251,7 @@ return {
       'basedpyright',
       'bash-language-server',
       'gopls',
+      -- 'marksman',
     })
     require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 

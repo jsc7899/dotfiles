@@ -29,7 +29,7 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 
 -- save and quit keymaps
 vim.keymap.set('n', '<leader>W', ':w<CR>', { desc = 'save to file' })
-vim.keymap.set('n', '<leader>Q', ':q<CR>', { desc = 'quit' })
+vim.keymap.set('n', '<leader>Q', ':qa<CR>', { desc = 'quit' })
 
 -- <space> ex opens file explorer
 vim.keymap.set('n', '<leader>ex', vim.cmd.Ex)
@@ -58,3 +58,6 @@ vim.keymap.set('n', '<leader>gB', ':G blame<CR>', { silent = true, noremap = tru
 
 -- keymap  leader gpt to run :Chatgpt
 vim.keymap.set('n', '<leader>gpt', ':Chatgpt<CR>', { silent = true, noremap = true })
+
+-- markdown
+vim.keymap.set('n', '<leader>toc', ':MDToc<CR><C-W>L:vertical resize 35<CR>', { noremap = true, silent = true })

@@ -12,6 +12,10 @@ return {
         markdown = { 'markdownlint-cli2' },
         -- python = { 'ruff' },
       }
+      -- require('lint').linters['markdownlint-cli2'].args = {
+      --   '--config',
+      --   '~/.config/.markdownlint-cli2.yaml',
+      -- }
 
       -- To allow other plugins to add linters to require('lint').linters_by_ft,
       -- instead set linters_by_ft like this:
@@ -44,7 +48,7 @@ return {
       -- lint.linters_by_ft['ruby'] = nil
       -- lint.linters_by_ft['terraform'] = nil
       -- lint.linters_by_ft['text'] = nil
-      lint.linters_by_ft['yaml'] = nil
+      -- lint.linters_by_ft['yaml'] = nil
       -- Create autocommand which carries out the actual linting
       -- on the specified events.
       local lint_augroup = vim.api.nvim_create_augroup('lint', { clear = true })
