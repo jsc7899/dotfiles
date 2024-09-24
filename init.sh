@@ -45,6 +45,7 @@ macos_pkgs=(
     "tpm"
     "coreutils"
     "ruff"
+    "ansible-lint"
 )
 
 debian_pkgs=(
