@@ -137,6 +137,7 @@ if [ "$(uname)" == "Darwin" ]; then
     alias cat='bat -pp'
     alias vha="./site.yaml --limit=load_balancers --tags=haproxy"
     alias flush_dns="sudo killall -HUP mDNSResponder"
+    alias rsync='/opt/homebrew/bin/rsync'
 fi
 
 # load direnv
