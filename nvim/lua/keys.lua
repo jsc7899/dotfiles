@@ -61,3 +61,8 @@ vim.keymap.set('n', '<leader>gpt', ':Chatgpt<CR>', { silent = true, noremap = tr
 
 -- markdown
 vim.keymap.set('n', '<leader>toc', ':MDToc<CR><C-W>L:vertical resize 35<CR>', { noremap = true, silent = true })
+
+-- seach next newline
+
+-- Map a key to search for empty lines and go to the next occurrence
+vim.keymap.set('n', '<leader>sln', '/^\\n<CR>', { noremap = true, silent = true })
