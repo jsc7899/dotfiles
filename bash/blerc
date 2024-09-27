@@ -34,7 +34,7 @@ ORANGE="\[\e[38;5;214m\]"
 RESET="\[\e[0m\]"
 
 # Define the base part of the prompt
-PS1_BASE='$(tput bold; tput setaf 249) \w$(tput sgr0) $(tput setaf 90; tput dim)$(tput bold; tput setaf 160)\q{my/vim-mode} $(tput sgr0)'
+PS1_BASE='$(tput bold; tput setaf 249) \W$(tput sgr0) $(tput setaf 90; tput dim)$(tput bold; tput setaf 160)\q{my/vim-mode} $(tput sgr0)'
 
 # Check if an SSH session is active and include the short hostname if it is
 if [[ -n "$SSH_CONNECTION" ]]; then
