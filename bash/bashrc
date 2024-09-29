@@ -3,6 +3,7 @@ export PATH="/opt/homebrew/sbin:$PATH"
 export PATH="/opt/homebrew/bin:$PATH"
 export PATH="$PATH:/opt/nvim-linux64/bin"
 export PATH="$PATH:/Library/NessusAgent/run/sbin"
+export PATH="$PATH:$HOME/.dotfiles/scripts"
 
 ## Update Dotfiles ##
 if [ -d "$HOME/.dotfiles" ]; then
@@ -39,7 +40,7 @@ export EDITOR=nvim
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY="YES"
 
 if command -v security &>/dev/null; then
-    OPENAI_API_KEY=$(security find-generic-password -s openai -a autocomplete -w &>/dev/null)
+    OPENAI_API_KEY=$(security find-generic-password -s openai -a autocomplete -w)
 else
     OPENAI_API_KEY=""
 fi
@@ -112,7 +113,7 @@ alias colors='/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/g
 # macos
 if [ "$(uname)" == "Darwin" ]; then
     export SHELL="/opt/homebrew/bin/bash"
-    alias update='$HOME/.config/scripts/update_macos.sh'
+    alias update='$HOME/.dotfiles/scripts/update_macos.sh'
     alias start_meeting="/Users/jared/Documents/scripts/redlight.sh"
     alias stop_meeting="/Users/jared/Documents/scripts/bluelight.sh"
     alias tacc="ssh -i $HOME/.ssh/tacc_id_ras jsc3642@stampede2.tacc.utexas.edu"
@@ -128,7 +129,7 @@ if [ "$(uname)" == "Darwin" ]; then
     alias nomad_ots="ssh -t nomad-client-001 'podman run -it --rm --network=ots_network --dns=1.1.1.1 --cap-add=NET_RAW -v /opt/chomp:/opt/chomp:ro -v /opt/chompout:/opt/chompout:rw void-registry.infosec.utexas.edu/utexasiso-default /bin/bash'"
     alias nmap_ots="ssh -J void-jumpbox-03 -t nomad-client-001 'sudo podman run -it --rm --network=ots_network --dns=1.1.1.1 --cap-add=NET_RAW -v /opt/chomp:/opt/chomp:ro -v /opt/chompout:/opt/chompout:rw void-registry.infosec.utexas.edu/utexasiso-scavenger:production /bin/bash'"
     alias nomad_git='ansible nomad_clients,nomad_baremetal -b -m shell -a "git -C /opt/nomad pull; git -C /opt/chomp pull; git -C /opt/chomptest pull"'
-    alias refresh_dns='$HOME/.config/scripts/refresh_dns.sh'
+    alias refresh_dns='$HOME/.dotfiles/scripts/refresh_dns.sh'
     alias pansible='$HOME/.config/scripts/pansible.sh'
     alias ans='source .venv/bin/activate.fish && source setup/.env.jared'
     alias du='dust -r'
@@ -138,6 +139,8 @@ if [ "$(uname)" == "Darwin" ]; then
     alias vha="./site.yaml --limit=load_balancers --tags=haproxy"
     alias flush_dns="sudo killall -HUP mDNSResponder"
     alias rsync='/opt/homebrew/bin/rsync'
+    alias vpn="$HOME/.dotfiles/.venv/bin/python3 $HOME/.dotfiles/scripts/openconnect-sso.py"
+    alias sgpt="$HOME/.dotfiles/.venv/bin/python3 -m sgpt"
 fi
 
 # load direnv
