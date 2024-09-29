@@ -8,7 +8,7 @@ return {
   api_key_cmd = '',
   yank_register = '+',
   edit_with_instructions = {
-    diff = false,
+    diff = true,
     keymaps = {
       close = '<C-c>',
       accept = '<C-y>',
