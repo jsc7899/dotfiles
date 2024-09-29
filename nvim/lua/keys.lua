@@ -57,12 +57,13 @@ vim.keymap.set('n', '<leader>gb', ':Telescope git_branches<CR>', { silent = true
 vim.keymap.set('n', '<leader>gB', ':G blame<CR>', { silent = true, noremap = true })
 
 -- keymap  leader gpt to run :Chatgpt
-vim.keymap.set('n', '<leader>gpt', ':Chatgpt<CR>', { silent = true, noremap = true })
+vim.keymap.set('n', '<leader>cc', ':ChatGPT<CR>', { silent = true, noremap = true })
+vim.keymap.set('v', '<leader>ce', ':ChatGPTEditWithInstructions<CR>', { silent = true, noremap = true })
+vim.keymap.set('v', '<leader><tab>', ':ChatGPTRun complete_code<CR>', { silent = true, noremap = true })
+vim.keymap.set('v', '<leader>cf', ':ChatGPTRun fix_bugs<CR>', { silent = true, noremap = true })
 
 -- markdown
 vim.keymap.set('n', '<leader>toc', ':MDToc<CR><C-W>L:vertical resize 35<CR>', { noremap = true, silent = true })
 
 -- seach next newline
-
--- Map a key to search for empty lines and go to the next occurrence
-vim.keymap.set('n', '<leader>sln', '/^\\n<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>n', '/^\\n<CR>', { noremap = true, silent = true })
