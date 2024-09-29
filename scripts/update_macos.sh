@@ -20,6 +20,23 @@ update_brew() {
     brew doctor
 }
 
+update_local_pip() {
+    VENV_LOCAL="$HOME/.dotfiles/.venv"
+    REQS="$HOME/.dotfiles/config/requirements.txt"
+
+    if [ ! -d "$VENV_LOCAL" ]; then
+        python3 -m venv "$VENV_LOCAL"
+    fi
+
+    source "$VENV_LOCAL/bin/activate"
+
+    pip install --upgrade pip
+    pip install --upgrade -r "$REQS"
+    pip freeze >"$REQS"
+
+    deactivate
+}
+
 update_venvs() {
     venvs=("/opt/chomp/" "/opt/ansible/" "/opt/nomad/")
     for venv in "${venvs[@]}"; do
@@ -64,8 +81,8 @@ print_help() {
 while [[ "$#" -gt 0 ]]; do
     case $1 in
     -b | --brew) BREW=true ;;
-    -v | --venvs) VENVS=true ;;
-    -z | --zsh) ZSH=true ;;
+    -p | --python) VENVS=true ;;
+    # -z | --zsh) ZSH=true ;;
     -a | --all) ALL=true ;;
     -h | --help)
         print_help
@@ -86,9 +103,10 @@ if [[ "$ALL" == true || "$BREW" == true ]]; then
 fi
 
 if [[ "$ALL" == true || "$VENVS" == true ]]; then
-    update_venvs
+    update_local_pip
+    # update_venvs
 fi
 
-if [[ "$ALL" == true || "$ZSH" == true ]]; then
-    update_zsh_plugins
-fi
+# if [[ "$ALL" == true || "$ZSH" == true ]]; then
+#     update_zsh_plugins
+# fi
