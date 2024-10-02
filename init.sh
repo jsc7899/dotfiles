@@ -174,3 +174,9 @@ fi
 if [ ! -L "$HOME/.tmux.conf" ]; then
     ln -s "$dotfiles/tmux/tmux.conf" "$HOME/.tmux.conf"
 fi
+
+# create default venv
+python3 -m venv "$HOME/.dotfiles/.venv"
+source "$HOME/.dotfiles/.venv"
+pip install -r "$HOME/.dotfiles/config/requirements.txt"
+deactivate
