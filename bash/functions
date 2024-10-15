@@ -49,3 +49,16 @@ ai_git_commit() {
         git commit -m "$commit_message" "$file"
     done
 }
+
+format_mac() {
+    if [ -f "$1" ]; then
+        rex='s/(..)/\1:/g' # add colon after every 2 chars
+        # If the input is a file, read and format each MAC address in the file
+        while read -r mac; do
+            echo "$mac" | sed -E "$rex" | sed 's/:$//' | tr 'a-f' 'A-F' # second `sed` removes any extra colons
+        done <"$1"
+    else
+        # If the input is a single MAC address, format it directly
+        echo "$1" | sed -E "$rex" | sed 's/:$//' | tr 'a-f' 'A-F'
+    fi
+}
