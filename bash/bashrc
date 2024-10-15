@@ -83,6 +83,7 @@ alias sshkeygen='ssh-keygen -t ed25519 -a 100'
 alias makepasswd='openssl passwd -6 --salt'
 alias tput.sh='~/.dotfiles/scripts/tput.sh'
 alias colors='/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/gawin/bash-colors-256/master/colors)"'
+alias node_elig='nomad node eligibility # -self -enable -disable'
 
 # macos
 if [ "$(uname)" == "Darwin" ]; then
@@ -117,6 +118,12 @@ if [ "$(uname)" == "Darwin" ]; then
     alias sgpt="$HOME/.dotfiles/.venv/bin/python3 -m sgpt"
     alias gac='ai_git_commit'
 
+fi
+
+# linux
+if [ "$(uname)" == "Linux" ]; then
+    alias test_ots_net='sudo podman run -it --rm --network=ots_network --dns=1.1.1.1 --cap-add=NET_RAW -v /opt/chomp:/opt/chomp:ro -v /opt/chompout:/opt/chompout:rw void-registry.infosec.utexas.edu/utexasiso-scavenger:production curl ifconfig.me'
+    alias test_cluster_net='sudo podman run -it --rm --network=cluster_network --cap-add=NET_RAW -v /opt/chomp:/opt/chomp:ro -v /opt/chompout:/opt/chompout:rw void-registry.infosec.utexas.edu/utexasiso-scavenger:production ping -c1 128.83.185.40'
 fi
 
 # load direnv
