@@ -2410,7 +2410,7 @@ Password Manager</string>
 			<key>HotKey Window Animates</key>
 			<true/>
 			<key>HotKey Window AutoHides</key>
-			<false/>
+			<true/>
 			<key>HotKey Window Dock Click Action</key>
 			<integer>0</integer>
 			<key>HotKey Window Floats</key>
@@ -2789,7 +2789,7 @@ Password Manager</string>
 			<key>Rows</key>
 			<integer>52</integer>
 			<key>Screen</key>
-			<integer>2</integer>
+			<integer>1</integer>
 			<key>Scrollback Lines</key>
 			<integer>0</integer>
 			<key>Selected Text Color</key>
@@ -5939,7 +5939,7 @@ Password Manager</string>
 			<key>Rows</key>
 			<integer>25</integer>
 			<key>Screen</key>
-			<integer>2</integer>
+			<integer>1</integer>
 			<key>Scrollback Lines</key>
 			<integer>0</integer>
 			<key>Selected Text Color</key>
@@ -8588,19 +8588,19 @@ Password Manager</string>
 			<key>Horizontal Spacing</key>
 			<real>1</real>
 			<key>HotKey Activated By Modifier</key>
-			<false/>
+			<true/>
 			<key>HotKey Alternate Shortcuts</key>
 			<array/>
 			<key>HotKey Characters</key>
-			<string></string>
+			<string></string>
 			<key>HotKey Characters Ignoring Modifiers</key>
-			<string>a</string>
+			<string></string>
 			<key>HotKey Key Code</key>
 			<integer>0</integer>
 			<key>HotKey Modifier Activation</key>
-			<integer>0</integer>
+			<integer>2</integer>
 			<key>HotKey Modifier Flags</key>
-			<integer>262144</integer>
+			<integer>0</integer>
 			<key>HotKey Window Animates</key>
 			<true/>
 			<key>HotKey Window AutoHides</key>
@@ -8983,7 +8983,7 @@ Password Manager</string>
 			<key>Rows</key>
 			<integer>30</integer>
 			<key>Screen</key>
-			<integer>2</integer>
+			<integer>1</integer>
 			<key>Scrollback Lines</key>
 			<integer>0</integer>
 			<key>Selected Text Color</key>
@@ -9359,6 +9359,8 @@ Password Manager</string>
 	<key>Print In Black And White</key>
 	<true/>
 	<key>PromptOnQuit</key>
+	<false/>
+	<key>ShowFullScreenTabBar</key>
 	<false/>
 	<key>SoundForEsc</key>
 	<false/>
