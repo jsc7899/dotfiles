@@ -48,7 +48,7 @@ func main() {
 		log.Fatalf("could not create page: %v", err)
 	}
 
-	if _, err = page.Goto("https://vpn.utexas.edu", playwright.PageGotoOptions{
+	if _, err = page.Goto("https://vpn.utexas.edu/iso-staff", playwright.PageGotoOptions{
 		WaitUntil: playwright.WaitUntilStateDomcontentloaded,
 	}); err != nil {
 		log.Fatalf("could not goto: %v", err)
