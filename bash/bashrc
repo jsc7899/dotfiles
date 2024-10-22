@@ -114,7 +114,8 @@ if [ "$(uname)" == "Darwin" ]; then
     alias vha="./site.yaml --limit=load_balancers --tags=haproxy"
     alias flush_dns="sudo killall -HUP mDNSResponder"
     alias rsync='/opt/homebrew/bin/rsync'
-    alias vpn="$HOME/.dotfiles/.venv/bin/python3 $HOME/.dotfiles/scripts/openconnect-sso.py"
+    # alias vpn="$HOME/.dotfiles/.venv/bin/python3 $HOME/.dotfiles/scripts/openconnect-sso.py"
+    alias vpn='cd ~/.dotfiles/scripts/ocgo && ./ocgo || ./reset_dns.sh'
     alias sgpt="$HOME/.dotfiles/.venv/bin/python3 -m sgpt"
     alias gac='ai_git_commit'
 
