@@ -18,10 +18,12 @@ var colorReset = "\033[0m"
 
 func main() {
 	// Start Playwright
-	pw, err := playwright.Run()
+	var pw *playwright.Playwright
+	var err error
+
+	pw, err = playwright.Run()
 	if err != nil {
-		log.Fatalf("could not start Playwright: %v", err)
-		installPlaywright()
+		pw = installPlaywright()
 	}
 
 	username, password := getUserInput()
@@ -103,13 +105,18 @@ func main() {
 
 }
 
-func installPlaywright() {
+func installPlaywright() *playwright.Playwright {
 	println("installing playwright and it's depedencies...")
 	runOption := &playwright.RunOptions{}
 	err := playwright.Install(runOption)
 	if err != nil {
 		log.Fatalf("could not install playwright dependencies: %v", err)
 	}
+	pw, err := playwright.Run()
+	if err != nil {
+		log.Fatalf("could not start playwright %v", err)
+	}
+	return pw
 }
 
 func getUserInput() (string, string) {
