@@ -1,0 +1,10 @@
+image: golang:latest
+
+pipelines:
+  default:
+    - parallel:
+      - step:
+          name: Build ocgo
+          image: golang:latest
+          script:
+            - ./build.sh
