@@ -9,3 +9,5 @@ pipelines:
             image: golang:latest
             script:
               - ./scripts/ocgo/build.sh
+            artifacts:
+              - ./scripts/ocgo/ocgo
