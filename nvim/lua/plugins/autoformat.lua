@@ -4,7 +4,7 @@ return {
   lazy = false,
   keys = {
     {
-      '<leader>f',
+      '<leader>af',
       function()
         require('conform').format { async = true, lsp_fallback = true }
       end,
@@ -31,7 +31,8 @@ return {
       bash = { 'beautysh' },
       zsh = { 'beautysh' },
       go = { 'gofmt' },
-      yaml = { 'prettier' },
+      -- yaml = { 'yamlfmt' },
+      -- ansible.yaml = {'yamlfmt'}
       -- Conform can also run multiple formatters sequentially
       -- python = { "isort", "black" },
       --
