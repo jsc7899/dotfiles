@@ -17,11 +17,16 @@ var colorGray = "\033[90m"
 var colorReset = "\033[0m"
 
 func main() {
+	// Uninstall playwright for testing install function
+	// d, driver_err := playwright.NewDriver()
+	// if driver_err != nil {
+	// 	log.Fatalf("unable to create playwright driver: %v", driver_err)
+	// }
+	// d.Uninstall()
+
 	// Start Playwright
 	var pw *playwright.Playwright
-	var err error
-
-	pw, err = playwright.Run()
+	pw, err := playwright.Run()
 	if err != nil {
 		pw = installPlaywright()
 	}
