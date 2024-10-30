@@ -32,10 +32,10 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 -- })
 
 -- Enable spell checking for markdown and .md files
-vim.api.nvim_create_autocmd({ 'FileType', 'BufRead', 'BufNewFile' }, {
-  pattern = { 'markdown', '*.md' },
-  callback = function()
-    vim.opt_local.spell = true
-    vim.opt_local.spelllang = { 'en_us' }
-  end,
-})
+-- vim.api.nvim_create_autocmd({ 'FileType', 'BufRead', 'BufNewFile' }, {
+--   pattern = { 'markdown', '*.md' },
+--   callback = function()
+--     vim.opt_local.spell = true
+--     vim.opt_local.spelllang = { 'en_us' }
+--   end,
+-- })
