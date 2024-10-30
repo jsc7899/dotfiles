@@ -17,6 +17,10 @@ get_column() {
     awk -v col="$column" -F ' ' '{print $col}' "$file"
 }
 
+col() {
+    awk '{print $1}'
+}
+
 gwt() {
     local REPO=$1
     local WORKING_BRANCH=$2
