@@ -201,21 +201,30 @@ return {
           },
         },
       },
-
-      basedpyright = {
-        settings = {
-          python = {
-            analysis = {
-              typeCheckingMode = 'basic', -- Set the type checking mode to "basic"
-              diagnosticSeverityOverrides = {
-                reportMissingTypeStubs = 'none', -- Disable missing type stubs
-                reportMissingTypeArgument = 'none', -- Disable missing type arguments
-                reportMissingTypeAnnotation = 'none', -- Disable missing type annotations
-              },
-            },
+      pyright = {
+        python = {
+          analysis = {
+            diagnosticMode = 'off',
+            typeCheckingMode = 'off',
           },
         },
       },
+      -- basedpyright = {
+      --   settings = {
+      --     python = {
+      --       analysis = {
+      --         typeCheckingMode = 'off', -- Set the type checking mode to "basic"
+      --         autoImportCompletions = true,
+      --         diagnosticMode = 'off',
+      --         diagnosticSeverityOverrides = {
+      --           reportMissingTypeStubs = 'none', -- Disable missing type stubs
+      --           reportMissingTypeArgument = 'none', -- Disable missing type arguments
+      --           reportMissingTypeAnnotation = 'none', -- Disable missing type annotations
+      --         },
+      --       },
+      --     },
+      --   },
+      -- },
       gopls = {
         settings = {
           gopls = {
@@ -263,7 +272,8 @@ return {
       'lua-language-server',
       'ansible-language-server',
       --'haskell-language-server',
-      'basedpyright',
+      'pyright',
+      -- 'basedpyright',
       'bash-language-server',
       'gopls',
       -- 'marksman',
