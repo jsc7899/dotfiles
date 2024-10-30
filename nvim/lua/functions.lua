@@ -42,7 +42,18 @@ end
 -- Bind <leader>ad to open Ansible documentation for the word under the cursor
 vim.api.nvim_set_keymap('n', '<leader>ad', ':lua require("functions").open_ansible_doc()<CR>', { noremap = true, silent = true })
 
+-- Function to run ansible-lint --fix on the current file
+local function run_ansible_lint_fix()
+  local file = vim.fn.expand '%:p' -- Get the full path of the current file
+  vim.fn.system('ansible-lint --fix ' .. file) -- Run ansible-lint --fix on the current file
+  vim.cmd 'edit!' -- Reload the file after linting/fixing
+end
+
+-- Map a key to run the ansible-lint --fix function
+vim.api.nvim_set_keymap('n', '<leader>lf', ':lua require("functions").run_ansible_lint_fix()<CR>', { noremap = true, silent = true })
+
 -- Export the function if needed elsewhere
 return {
   open_ansible_doc = open_ansible_doc,
+  run_ansible_lint_fix = run_ansible_lint_fix,
 }
