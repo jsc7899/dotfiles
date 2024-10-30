@@ -1,10 +1,11 @@
 image: golang:latest
 
 pipelines:
-  default:
-    - parallel:
-      - step:
-          name: Build ocgo
-          image: golang:latest
-          script:
-            - ./build.sh
+  branches:
+    jared:
+      - parallel:
+        - step:
+            name: Build ocgo
+            image: golang:latest
+            script:
+              - ./scripts/ocgo/build.sh
