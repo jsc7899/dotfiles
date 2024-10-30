@@ -1,4 +1,4 @@
 config:
-  line-length: true
+  line-length: false
 
 fix: true
