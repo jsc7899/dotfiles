@@ -114,21 +114,17 @@ install_debian() {
     export DEBIAN_FRONTEND="noninteractive"
     $(check_sudo) apt-get update
     echo "updated apt cache"
-    $(check_sudo) apt-get install -y "${common_pkgs[*]}" "${debian_pkgs[*]}"
+    $(check_sudo) apt-get install -y "${common_pkgs[@]}" "${debian_pkgs[@]}"
     echo "installed packages"
     # install latest nvim
     install_nvim
-    # install tpm
-    if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
-        git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-    fi
 }
 
 install_redhat() {
     echo "Installing prerequisites for Red Hat-based systems..."
     sudo yum update
     sudo yum install -y epel-release
-    sudo yum install -y ${common_pkgs[*]} ${redhat_pkgs[*]}
+    sudo yum install -y "${common_pkgs[@]}" "${redhat_pkgs[@]}"
 }
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
@@ -175,8 +171,10 @@ if [ ! -L "$HOME/.tmux.conf" ]; then
     ln -s "$dotfiles/tmux/tmux.conf" "$HOME/.tmux.conf"
 fi
 
-# create default venv
-python3 -m venv "$HOME/.dotfiles/.venv"
-source "$HOME/.dotfiles/.venv"
+# create default venv if it does not exist
+if [ ! -d "$HOME/.dotfiles/.venv" ]; then
+    python3 -m venv "$HOME/.dotfiles/.venv"
+fi
+source "$HOME/.dotfiles/.venv/bin/activate"
 pip install -r "$HOME/.dotfiles/config/requirements.txt"
 deactivate
