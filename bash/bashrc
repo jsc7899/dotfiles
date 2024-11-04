@@ -120,6 +120,7 @@ if [ "$(uname)" == "Darwin" ]; then
     alias sgpt="$HOME/.dotfiles/.venv/bin/python3 -m sgpt"
     alias gac='ai_git_commit'
     alias alf='ansible-lint --fix'
+    export NOMAD_ADDR=http://192.168.1.41:4646
 
 fi
 
