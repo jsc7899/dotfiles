@@ -26,7 +26,7 @@ return {
     end,
     formatters_by_ft = {
       lua = { 'stylua' },
-      python = { 'black' },
+      python = { 'ruff' },
       markdown = { 'markdownlint-cli2' },
       bash = { 'beautysh' },
       zsh = { 'beautysh' },

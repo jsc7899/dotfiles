@@ -10,7 +10,7 @@ return {
         markdown = { 'markdownlint-cli2' },
         -- ansible = { 'ansible_lint' },
         -- lua = { 'luacheck' },
-        -- python = { 'ruff' },
+        python = { 'ruff' },
       }
       local markdownlint_cli2 = require('lint').linters['markdownlint-cli2']
       markdownlint_cli2.args = {
