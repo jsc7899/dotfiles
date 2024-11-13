@@ -1,5 +1,7 @@
 #!/bin/bash
 
+export DEBIAN_FRONTEND=noninteractive
+
 common_pkgs=(
     # shell-related
     "bash"            # install latest version of the Bourne Again SHell
