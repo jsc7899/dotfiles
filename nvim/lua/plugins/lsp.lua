@@ -254,7 +254,7 @@ return {
       -- formatters
       'stylua', -- Used to format Lua code
       'shfmt',
-      'black',
+      -- 'black',
       'darker',
       'beautysh',
       'prettier',
@@ -266,7 +266,7 @@ return {
       -- 'ansible-lint',
       --'luacheck',
       'markdownlint-cli2',
-      --'ruff',
+      'ruff',
 
       -- language servers
       'lua-language-server',
