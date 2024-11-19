@@ -47,7 +47,7 @@ export OBJC_DISABLE_INITIALIZE_FORK_SAFETY="YES"
 if command -v security &>/dev/null; then
     OPENAI_API_KEY=$(security find-generic-password -s openai -a autocomplete -w)
 else
-    OPENAI_API_KEY=""
+    source ~/.env
 fi
 export OPENAI_API_KEY
 
