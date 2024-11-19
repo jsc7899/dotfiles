@@ -36,6 +36,10 @@ gwt() {
 
     # Change directory and allow direnv
     cd "/opt/$REPO/" && direnv allow
+
+    if [[ $REPO = "chomp" ]]; then
+        touch /opt/chomp/etc/excludes.txt
+    fi
 }
 
 ai_git_commit() {
