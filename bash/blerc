@@ -54,6 +54,7 @@ bleopt prompt_ps1_transient=always
 bleopt prompt_rps1_transient=always
 
 # source /opt/homebrew/etc/profile.d/bash_completion.sh
-# ble-import -d integration/fzf-completion
-# ble-import -d integration/fzf-key-bindings
+# Setup fzf
+ble-import -d integration/fzf-completion
+ble-import -d integration/fzf-key-bindings
 
