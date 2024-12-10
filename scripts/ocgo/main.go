@@ -55,7 +55,7 @@ func main() {
 		log.Fatalf("could not create page: %v", err)
 	}
 
-	if _, err = page.Goto("https://vpn.utexas.edu/iso-staff", playwright.PageGotoOptions{
+	if _, err = page.Goto("https://vpn.utexas.edu/vpn-iso-staff", playwright.PageGotoOptions{
 		WaitUntil: playwright.WaitUntilStateDomcontentloaded,
 	}); err != nil {
 		log.Fatalf("could not goto: %v", err)
@@ -148,7 +148,7 @@ func getUserInput() (string, string) {
 }
 
 func launchOpenconnect(cookie string) {
-	cmd := exec.Command("sudo", "openconnect", "vpn.utexas.edu/iso-staff", "-v", fmt.Sprintf("--cookie=%s", cookie))
+	cmd := exec.Command("sudo", "openconnect", "vpn.utexas.edu/vpn-iso-staff", "-v", fmt.Sprintf("--cookie=%s", cookie))
 
 	stdout, err := cmd.StdoutPipe()
 	if err != nil {
