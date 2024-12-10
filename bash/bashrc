@@ -84,6 +84,8 @@ alias makepasswd='openssl passwd -6 --salt'
 alias tput.sh='~/.dotfiles/scripts/tput.sh'
 alias colors='/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/gawin/bash-colors-256/master/colors)"'
 alias node_elig='nomad node eligibility # -self -enable -disable'
+alias nomad_run='cd /opt/ansible && sleep 1 && ansible nomad_clients -b -m shell -a'
+alias nomad_secrets='cd /opt/ansible && /opt/ansible/plays/void/nomad/nomad_clients.yaml --tags=secrets --limit=nomad_clients && cd -'
 
 # macos
 if [ "$(uname)" == "Darwin" ]; then
@@ -92,12 +94,12 @@ if [ "$(uname)" == "Darwin" ]; then
     alias update='$HOME/.dotfiles/scripts/update_macos.sh'
     alias start_meeting="/Users/jared/Documents/scripts/redlight.sh"
     alias stop_meeting="/Users/jared/Documents/scripts/bluelight.sh"
-    alias tacc="ssh -i $HOME/.ssh/tacc_id_ras jsc3642@stampede2.tacc.utexas.edu"
+    alias tacc='ssh -i $HOME/.ssh/tacc_id_ras jsc3642@stampede2.tacc.utexas.edu'
     alias reset_network="sudo route -n flush && sudo dscacheutil -flushcache"
     alias tastyfish="ssh jared@tastyfish.local"
-    alias crawfish="ssh -i $HOME/.ssh/jcampbell7899@utexas.edu.pem -p6137 jared@crawfish.infosec.utexas.edu"
+    alias crawfish='ssh -i $HOME/.ssh/jcampbell7899@utexas.edu.pem -p6137 jared@crawfish.infosec.utexas.edu'
     alias pssh="ssh -o StrictHostKeyChecking=false -J void-jumpbox-01 "
-    alias notes="vim $HOME/Documents/Notes/documentation/notes.md"
+    alias notes='vim $HOME/Documents/Notes/documentation/notes.md'
     alias ansible_site="/opt/ansible/site.yaml"
     alias ip_lookup="/opt/chomp/.venv/bin/python3 /opt/chomp/tsc_tools/tsc_tools.py -o --ip_lookup "
     alias ip_bq="/opt/chomp/.venv/bin/python3 /opt/chomp/tsc_tools/tsc_tools.py -o --ip_quarantine"
@@ -117,7 +119,7 @@ if [ "$(uname)" == "Darwin" ]; then
     alias rsync='/opt/homebrew/bin/rsync'
     # alias vpn="$HOME/.dotfiles/.venv/bin/python3 $HOME/.dotfiles/scripts/openconnect-sso.py"
     alias vpn='cd ~/.dotfiles/scripts/ocgo && ./ocgo || ./reset_dns.sh'
-    alias sgpt="$HOME/.dotfiles/.venv/bin/python3 -m sgpt"
+    alias sgpt='$HOME/.dotfiles/.venv/bin/python3 -m sgpt'
     alias gac='ai_git_commit'
     alias alf='ansible-lint --fix'
     export NOMAD_ADDR=http://192.168.1.41:4646
