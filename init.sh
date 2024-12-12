@@ -179,9 +179,9 @@ if [ ! -L "$conf_dir/nvim" ]; then
 fi
 
 # tmux
-# if [ ! -L "$HOME/.tmux.conf" ]; then
-#     ln -s "$dotfiles/tmux/tmux.conf" "$HOME/.tmux.conf"
-# fi
+if [ ! -L "$HOME/.tmux.conf" ]; then
+    ln -s "$dotfiles/tmux/tmux.conf" "$HOME/.tmux.conf"
+fi
 
 # create default venv if it does not exist
 if [ ! -d "$HOME/.dotfiles/.venv" ]; then

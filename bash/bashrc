@@ -133,9 +133,9 @@ if [ "$(uname)" == "Linux" ]; then
 fi
 
 # attach to tmux on SSH
-if [[ -z $TMUX ]] && [[ -n $SSH_TTY ]]; then
-    exec tmux new-session -A -s main
-fi
+# if [[ -z $TMUX ]] && [[ -n $SSH_TTY ]]; then
+#     exec tmux new-session -A -s main
+# fi
 
 # load direnv
 eval "$(direnv hook bash)"
