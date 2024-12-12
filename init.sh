@@ -94,7 +94,7 @@ install_nvim() {
 
 install_fzf() {
     git clone --depth 1 https://github.com/junegunn/fzf.git "$HOME"/.fzf
-    "$HOME"/.fzf/install --bin --xdg --key-bindings --completion --no-update-rc --no-zsh --no-fish
+    "$HOME"/.fzf/install --all
 }
 
 install_macos() {
