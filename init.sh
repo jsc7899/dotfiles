@@ -93,8 +93,8 @@ install_nvim() {
 }
 
 install_fzf() {
-    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-    ~/.fzf/install --bin --xdg --key-bindings --completion --no-update-rc --no-zsh --no-fish
+    git clone --depth 1 https://github.com/junegunn/fzf.git "$HOME"/.fzf
+    "$HOME"/.fzf/install --bin --xdg --key-bindings --completion --no-update-rc --no-zsh --no-fish
 }
 
 install_macos() {
@@ -190,3 +190,5 @@ fi
 source "$HOME/.dotfiles/.venv/bin/activate"
 pip install -r "$HOME/.dotfiles/config/requirements.txt"
 deactivate
+
+$(check_sudo) chown -R jared:jared /home/jared
