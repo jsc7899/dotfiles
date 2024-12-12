@@ -15,7 +15,6 @@ common_pkgs=(
     "watch"           # execute a program periodically
     "tree"            # display directory tree structure
     "tmux"            # terminal multiplexer
-    "fzf"             # command-line fuzzy finder
     "parallel"        # command-line CPU load balancer
     "bat"             # cat clone with syntax highlighting
     "curl"            # command-line tool for transferring data with URLs
@@ -45,6 +44,7 @@ macos_pkgs=(
     "hyperfine"              # measure runtime
     "dust"                   # du alternative
     "duf"                    # df alternative
+    "fzf"                    # command-line fuzzy finder
 )
 
 debian_pkgs=(
@@ -91,6 +91,12 @@ install_nvim() {
         $(check_sudo) tar -C /opt -xzf nvim-linux64.tar.gz
     fi
 }
+
+install_fzf() {
+    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+    ~/.fzf/install
+}
+
 install_macos() {
     echo "Installing prerequisites for macOS..."
 
@@ -118,8 +124,8 @@ install_debian() {
     echo "updated apt cache"
     $(check_sudo) apt-get install -y "${common_pkgs[@]}" "${debian_pkgs[@]}"
     echo "installed packages"
-    # install latest nvim
     install_nvim
+    install_fzf
 }
 
 install_redhat() {

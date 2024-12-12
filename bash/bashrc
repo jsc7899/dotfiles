@@ -140,5 +140,8 @@ fi
 # load direnv
 eval "$(direnv hook bash)"
 
+# set up fzf key bindings and fuzzy completion
+eval "$(fzf --bash)"
+
 # needs to be at end of file
 [[ ! ${BLE_VERSION-} ]] || ble-attach
