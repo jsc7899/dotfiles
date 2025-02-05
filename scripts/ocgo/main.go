@@ -125,6 +125,13 @@ func installPlaywright() *playwright.Playwright {
 }
 
 func getUserInput() (string, string) {
+	// Check for credentials in environment variables
+	usernameEnv := os.Getenv("EID_USERNAME")
+	passwordEnv := os.Getenv("EID_PASSWORD")
+	if usernameEnv != "" && passwordEnv != "" {
+		fmt.Println("Using credentials from environment variables.")
+		return usernameEnv, passwordEnv
+	}
 	// Prompt the user for username
 	reader := bufio.NewReader(os.Stdin)
 
