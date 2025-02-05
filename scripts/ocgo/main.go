@@ -128,19 +128,26 @@ func getUserInput() (string, string) {
 	// Check for credentials in environment variables
 	usernameEnv := os.Getenv("EID_USERNAME")
 	passwordEnv := os.Getenv("EID_PASSWORD")
-	if usernameEnv != "" && passwordEnv != "" {
-		fmt.Println("Using credentials from environment variables.")
-		return usernameEnv, passwordEnv
+	var username string
+	if usernameEnv != "" {
+		username = usernameEnv
+		if passwordEnv != "" {
+			fmt.Println("Using credentials from environment variables.")
+			return username, passwordEnv
+		} else {
+			fmt.Printf("Using username from environment variable: %s\n", username)
+		}
 	}
-	// Prompt the user for username
-	reader := bufio.NewReader(os.Stdin)
-
-	fmt.Print("Enter EID: ")
-	username, err := reader.ReadString('\n')
-	if err != nil {
-		log.Fatalf("could not read username: %v", err)
+	// If username was not set via env, prompt for it.
+	if username == "" {
+		reader := bufio.NewReader(os.Stdin)
+		fmt.Print("Enter EID: ")
+		u, err := reader.ReadString('\n')
+		if err != nil {
+			log.Fatalf("could not read username: %v", err)
+		}
+		username = strings.TrimSpace(u)
 	}
-	username = strings.TrimSpace(username) // Trim any newline or space characters
 
 	// Prompt for the password securely (no echo)
 	fmt.Print("Enter EID password: ")
@@ -148,8 +155,8 @@ func getUserInput() (string, string) {
 	if err != nil {
 		log.Fatalf("could not read password: %v", err)
 	}
-	password := strings.TrimSpace(string(bytePassword)) // Convert to string and trim spaces
-	fmt.Println()                                       // Print a newline after password input
+	password := strings.TrimSpace(string(bytePassword))
+	fmt.Println() // Print a newline after password input
 
 	return username, password
 }
