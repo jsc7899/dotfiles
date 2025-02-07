@@ -70,3 +70,8 @@ format_mac() {
         echo "$1" | sed -E "$rex" | sed 's/:$//' | tr 'a-f' 'A-F'
     fi
 }
+
+sgpt() {
+    local query="$*"
+    "$HOME/.dotfiles/.venv/bin/python3" -m sgpt "$query"
+}
