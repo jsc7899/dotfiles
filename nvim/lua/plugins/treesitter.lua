@@ -23,7 +23,6 @@ return {
       'ssh_config',
       'fish',
       'go',
-      'haskell',
       'git_config',
       'git_rebase',
       'gitattributes',
