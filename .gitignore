@@ -3,3 +3,4 @@ tmux/plugins
 .ts
 .venv/
 .secret*
+.aider*
