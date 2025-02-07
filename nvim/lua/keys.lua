@@ -60,7 +60,7 @@ vim.keymap.set('n', '<leader>gB', ':G blame<CR>', { silent = true, noremap = tru
 vim.keymap.set('n', '<leader>cc', ':ChatGPT<CR>', { silent = true, noremap = true })
 vim.keymap.set('v', '<leader>ce', ':ChatGPTEditWithInstructions<CR>', { silent = true, noremap = true })
 vim.keymap.set('v', '<leader><tab>', ':ChatGPTRun complete_code<CR>', { silent = true, noremap = true })
-vim.keymap.set('v', '<leader>cf', ':ChatGPTRun fix_bugs<CR>', { silent = true, noremap = true })
+vim.keymap.set('v', '<leader>cf', ':ChatGPTRun fix_code_issues<CR>', { silent = true, noremap = true })
 
 -- markdown
 vim.keymap.set('n', '<leader>toc', ':MDToc<CR><C-W>L:vertical resize 35<CR>', { noremap = true, silent = true })
