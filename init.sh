@@ -38,7 +38,7 @@ macos_pkgs=(
     "ruff"                   # network troubleshooting
     "ansible-lint"           # linting for Ansible
     "httpie"                 # HTTP client
-    "tlxs"                   # TLS scanner
+    "tlsx"                   # TLS scanner
     "httpx"                  # HTTP discovery
     "naabu"                  # port scanner
     "hyperfine"              # measure runtime
@@ -192,4 +192,5 @@ source "$HOME/.dotfiles/.venv/bin/activate"
 pip install -r "$HOME/.dotfiles/config/requirements.txt"
 deactivate
 
+# todo fix for macos
 $(check_sudo) chown -R jared:jared /home/jared
