@@ -45,5 +45,5 @@ alias o1='llm -m o1 | glow'
 alias o3h='llm -m o3-mini -o reasoning_effort high | glow'
 alias o3m='llm -m o3-mini -o reasoning_effort medium | glow'
 alias o3l='llm -m o3-mini -o reasoning_effort low | glow'
-alias aider='aider --model 4o --vim --dark-mode --no-auto-commits --reasoning-effort medium'
+alias aider='aider --model 4o --vim --dark-mode --no-auto-commits'
 
