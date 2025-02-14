@@ -127,6 +127,12 @@ if [ "$(uname)" == "Darwin" ]; then
     alias alf='ansible-lint --fix'
     export NOMAD_ADDR=http://192.168.1.41:4646
     alias mount_nas='sudo mount -o rw,resvport,noowners -t nfs impulse.local:/NAS/Notes /Volumes/NAS/notes'
+    alias 4o='llm -m 4o'
+    alias 4om='llm -m 4o-mini'
+    alias o1='llm -m o1 | glow'
+    alias o3h='llm -m o3-mini -o reasoning_effort high | glow'
+    alias o3m='llm -m o3-mini -o reasoning_effort medium | glow'
+    alias o3l='llm -m o3-mini -o reasoning_effort low | glow'
 
 fi
 
