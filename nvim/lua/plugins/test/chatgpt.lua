@@ -8,7 +8,7 @@ return {
   api_key_cmd = '',
   yank_register = '+',
   edit_with_instructions = {
-    diff = false,
+    diff = true,
     keymaps = {
       close = '<C-c>',
       accept = '<C-y>',
@@ -175,7 +175,8 @@ return {
     'nvim-telescope/telescope.nvim',
   },
   use_openai_functions_for_edits = false,
-  actions_paths = {},
+  ignore_default_actions_path = true,
+  actions_paths = { '/Users/jared/.dotfiles/nvim/lua/plugins/ai_actions.json' },
   show_quickfixes_cmd = 'Trouble quickfix',
   predefined_chat_gpt_prompts = 'https://raw.githubusercontent.com/f/awesome-chatgpt-prompts/main/prompts.csv',
   highlights = {
