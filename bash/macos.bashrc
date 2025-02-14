@@ -1,0 +1,49 @@
+# macos
+ulimit -n 65536 # ansible needs to open lots of files
+
+# exports
+export SHELL="/opt/homebrew/bin/bash"
+export NOMAD_ADDR=http://192.168.1.41:4646
+
+# aliases
+alias update='$HOME/.dotfiles/scripts/update_macos.sh'
+alias start_meeting="/Users/jared/Documents/scripts/redlight.sh"
+alias stop_meeting="/Users/jared/Documents/scripts/bluelight.sh"
+alias tacc='ssh -i $HOME/.ssh/tacc_id_ras jsc3642@stampede2.tacc.utexas.edu'
+alias reset_network="sudo route -n flush && sudo dscacheutil -flushcache"
+alias tastyfish="ssh jared@tastyfish.local"
+alias crawfish='ssh -i $HOME/.ssh/jcampbell7899@utexas.edu.pem -p6137 jared@crawfish.infosec.utexas.edu'
+alias pssh="ssh -o StrictHostKeyChecking=false -J void-jumpbox-01 "
+alias notes='vim $HOME/Documents/Notes/documentation/notes.md'
+alias ansible_site="/opt/ansible/site.yaml"
+alias ip_lookup="/opt/chomp/.venv/bin/python3 /opt/chomp/tsc_tools/tsc_tools.py -o --ip_lookup "
+alias ip_bq="/opt/chomp/.venv/bin/python3 /opt/chomp/tsc_tools/tsc_tools.py -o --ip_quarantine"
+alias mac_bq="/opt/chomp/.venv/bin/python3 /opt/chomp/tsc_tools/tsc_tools.py -o --mac_quarantine"
+alias nomad_ots="ssh -t nomad-client-001 'podman run -it --rm --network=ots_network --dns=1.1.1.1 --cap-add=NET_RAW -v /opt/chomp:/opt/chomp:ro -v /opt/chompout:/opt/chompout:rw void-registry.infosec.utexas.edu/utexasiso-default /bin/bash'"
+alias nmap_ots="ssh -J void-jumpbox-03 -t nomad-client-001 'sudo podman run -it --rm --network=ots_network --dns=1.1.1.1 --cap-add=NET_RAW -v /opt/chomp:/opt/chomp:ro -v /opt/chompout:/opt/chompout:rw void-registry.infosec.utexas.edu/utexasiso-scavenger:production /bin/bash'"
+alias nomad_git='ansible nomad_clients,nomad_baremetal -b -m shell -a "git -C /opt/chomp pull; git -C /opt/chomptest pull"'
+alias refresh_dns='$HOME/.dotfiles/scripts/refresh_dns.sh'
+alias pansible='$HOME/.config/scripts/pansible.sh'
+alias ans='source .venv/bin/activate.fish && source setup/.env.jared'
+alias du='dust -r'
+alias df='duf'
+alias ls='lsd -AF'
+alias cat='bat -pp'
+alias vha="./site.yaml --limit=load_balancers --tags=haproxy"
+alias flush_dns="sudo killall -HUP mDNSResponder"
+alias rsync='/opt/homebrew/bin/rsync'
+# alias vpn="$HOME/.dotfiles/.venv/bin/python3 $HOME/.dotfiles/scripts/openconnect-sso.py"
+alias vpn='cd ~/.dotfiles/scripts/ocgo && ./ocgo || ./reset_dns.sh'
+# using a function now
+# alias sgpt='$HOME/.dotfiles/.venv/bin/python3 -m sgpt'
+alias gac='ai_git_commit'
+alias alf='ansible-lint --fix'
+alias mount_nas='sudo mount -o rw,resvport,noowners -t nfs impulse.local:/NAS/Notes /Volumes/NAS/notes'
+alias 4o='llm -m 4o | glow'
+alias 4om='llm -m 4o-mini | glow'
+alias o1='llm -m o1 | glow'
+alias o3h='llm -m o3-mini -o reasoning_effort high | glow'
+alias o3m='llm -m o3-mini -o reasoning_effort medium | glow'
+alias o3l='llm -m o3-mini -o reasoning_effort low | glow'
+alias aider='aider --model 4o --vim --dark-mode --no-auto-commits --reasoning-effort medium'
+
