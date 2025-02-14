@@ -184,6 +184,16 @@ if [ ! -L "$HOME/.tmux.conf" ]; then
     ln -s "$dotfiles/tmux/tmux.conf" "$HOME/.tmux.conf"
 fi
 
+# aider
+if [ ! -L "$HOME/.aider.conf.yml" ]; then
+    ln -s "$dotfiles/aider/aider.conf.yml" "$HOME/.aider.config.yml"
+fi
+
+# llm templates
+# if command -v llm &>/dev/null; then
+#     ln -s "$dotfiles/llm/templates/*" "$(dirname "$(llm template paths)")"
+# fi
+
 # create default venv if it does not exist
 if [ ! -d "$HOME/.dotfiles/.venv" ]; then
     python3 -m venv "$HOME/.dotfiles/.venv"
