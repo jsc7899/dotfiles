@@ -100,6 +100,7 @@ vim.filetype.add {
   pattern = {
     ['/opt/.*/searches/.*'] = 'spl',
     ['[.]?blerc'] = 'bash',
+    ['.bashrc'] = 'bash',
   },
 }
 
