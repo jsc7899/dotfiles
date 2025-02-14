@@ -57,13 +57,20 @@ vim.keymap.set('n', '<leader>gb', ':Telescope git_branches<CR>', { silent = true
 vim.keymap.set('n', '<leader>gB', ':G blame<CR>', { silent = true, noremap = true })
 
 -- keymap  leader gpt to run :Chatgpt
-vim.keymap.set('n', '<leader>cc', ':ChatGPT<CR>', { silent = true, noremap = true })
-vim.keymap.set('v', '<leader>ce', ':ChatGPTEditWithInstructions<CR>', { silent = true, noremap = true })
-vim.keymap.set('v', '<leader><tab>', ':ChatGPTRun complete_code<CR>', { silent = true, noremap = true })
-vim.keymap.set('v', '<leader>cf', ':ChatGPTRun fix_code_issues<CR>', { silent = true, noremap = true })
+-- vim.keymap.set('n', '<leader>cc', ':ChatGPT<CR>', { silent = true, noremap = true })
+-- vim.keymap.set('v', '<leader>ce', ':ChatGPTEditWithInstructions<CR>', { silent = true, noremap = true })
+-- vim.keymap.set('v', '<leader><tab>', ':ChatGPTRun complete_code<CR>', { silent = true, noremap = true })
+-- vim.keymap.set('v', '<leader>cf', ':ChatGPTRun fix_code_issues<CR>', { silent = true, noremap = true })
 
 -- markdown
 vim.keymap.set('n', '<leader>toc', ':MDToc<CR><C-W>L:vertical resize 35<CR>', { noremap = true, silent = true })
 
 -- seach next newline
-vim.keymap.set('n', '<leader>n', '/^\\n<CR>', { noremap = true, silent = true })
+-- vim.keymap.set('n', '<leader>n', '/^\\n<CR>', { noremap = true, silent = true })
+
+-- insert bash header
+vim.keymap.set('n', '<leader>sh', function()
+  local lines = { '#!/usr/bin/env bash', 'set -euo pipefail', '' }
+  vim.api.nvim_buf_set_lines(0, 0, 0, false, lines)
+  vim.cmd 'startinsert'
+end, { silent = true, noremap = true, desc = 'Insert Bash header' })
