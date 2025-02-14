@@ -90,6 +90,7 @@ return {
           --height = 0.80,
           preview_cutoff = 100,
         },
+        file_ignore_patterns = { ".git/" },
         mappings = {
           i = { ['<c-enter>'] = 'to_fuzzy_refine' },
           -- ['<CR>'] = open_in_right_split
