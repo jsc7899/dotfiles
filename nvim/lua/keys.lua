@@ -28,7 +28,7 @@ vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower win
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
 -- save and quit keymaps
--- vim.keymap.set('n', '<leader>W', ':w<CR>', { desc = 'save to file' })
+vim.api.nvim_set_keymap('n', '<leader>x', ':w<CR>', { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>Q', ':qa<CR>', { desc = 'quit' })
 
 -- <space> ex opens file explorer
