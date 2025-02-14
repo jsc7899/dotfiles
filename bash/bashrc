@@ -89,6 +89,12 @@ alias node_elig='nomad node eligibility # -self -enable -disable'
 alias nomad_run='cd /opt/ansible && sleep 1 && ansible nomad_clients -b -m shell -a'
 alias nomad_secrets='cd /opt/ansible && /opt/ansible/plays/void/nomad/nomad_clients.yaml --tags=secrets --limit=nomad_clients && cd -'
 
+# llm
+alias bashllm='llm -m o3-mini -o reasoning_effort low --system \
+    "You are an expert in Bash scripting and Linux command-line operations. Your goal is to provide clear, accurate, and efficient solutions to user queries about accomplishing tasks in Bash." '
+alias ansiblellm='llm -m o3-mini -o reasoning_effort low --system \
+    "You are an expert in Ansible. Your goal is to write Ansible tasks. Only output the task. Use fully qualified module names and lint appropriately ." '
+
 # macos
 if [ "$(uname)" == "Darwin" ]; then
     export SHELL="/opt/homebrew/bin/bash"
@@ -137,9 +143,9 @@ if [ "$(uname)" == "Linux" ]; then
 fi
 
 # attach to tmux on SSH
-# if [[ -z $TMUX ]] && [[ -n $SSH_TTY ]]; then
-#     exec tmux new-session -A -s main
-# fi
+if [[ -z $TMUX ]] && [[ -n $SSH_TTY ]]; then
+    exec tmux new-session -A -s main
+fi
 
 # load direnv
 eval "$(direnv hook bash)"
