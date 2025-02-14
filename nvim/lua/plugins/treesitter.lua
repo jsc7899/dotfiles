@@ -5,7 +5,6 @@ return {
   opts = {
     ensure_installed = {
       'bash',
-      'c',
       'diff',
       'html',
       'lua',
@@ -21,7 +20,6 @@ return {
       'requirements',
       'regex',
       'ssh_config',
-      'fish',
       'go',
       'git_config',
       'git_rebase',

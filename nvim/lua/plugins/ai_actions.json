@@ -1,0 +1,14 @@
+{
+  "fix_code_issues": {
+    "type": "chat",
+    "opts": {
+      "template": "Please fix any issues in the following {{filetype}} code:\n\n{{input}}",
+      "strategy": "replace",
+      "params": {
+        "model": "o3-mini",
+        "reasoning": "low",
+        "stop": ["```"]
+      }
+    }
+  }
+}
