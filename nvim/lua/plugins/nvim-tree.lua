@@ -34,6 +34,15 @@ return {
       filters = {
         dotfiles = false,
       },
+      open_on_tab = false,
+      update_focused_file = {
+        enable = false,
+      },
+      actions = {
+        open_file = {
+          quit_on_open = true,
+        },
+      },
     }
   end,
 }
