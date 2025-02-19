@@ -23,10 +23,10 @@ return {
           return require('codecompanion.adapters').extend('openai', {
             schema = {
               model = {
-                default = 'o3-mini',
+                default = 'gpt-4o',
               },
               reasoning_effort = {
-                default = 'low',
+                default = 'high',
               },
             },
           })
