@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # macos
 ulimit -n 65536 # ansible needs to open lots of files
 
@@ -33,19 +35,9 @@ alias cat='bat -pp'
 alias vha="./site.yaml --limit=load_balancers --tags=haproxy"
 alias flush_dns="sudo killall -HUP mDNSResponder"
 alias rsync='/opt/homebrew/bin/rsync'
-# alias vpn="$HOME/.dotfiles/.venv/bin/python3 $HOME/.dotfiles/scripts/openconnect-sso.py"
-alias vpn='cd ~/.dotfiles/scripts/ocgo && ./ocgo || ./reset_dns.sh'
-# using a function now
-# alias sgpt='$HOME/.dotfiles/.venv/bin/python3 -m sgpt'
+alias vpn='cd ~/.dotfiles/scripts/ocgo && ./ocgo;./reset_dns.sh'
 alias gac='ai_git_commit'
 alias alf='ansible-lint --fix'
 alias mount_nas='sudo mount -o rw,resvport,noowners -t nfs impulse.local:/NAS/Notes /Volumes/NAS/notes'
-alias 4o='llm -m 4o | glow'
-alias 4om='llm -m 4o-mini | glow'
-alias o1='llm -m o1 | glow'
-alias o3h='llm -m o3-mini -o reasoning_effort high | glow'
-alias o3m='llm -m o3-mini -o reasoning_effort medium | glow'
-alias o3l='llm -m o3-mini -o reasoning_effort low | glow'
-# alias aider='aider --model 4o --reasoning-effort high --vim --dark-mode --no-auto-commits'
 alias mount_nas="mount_smbfs //smbuser:$SMB_PASS@192.168.2.159/NAS /opt/NAS"
 
