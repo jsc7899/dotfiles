@@ -1,0 +1,73 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+debian_pkgs=(
+    "python3-pip"
+    "python3-venv"
+)
+
+redhat_pkgs=()
+
+install_debian() {
+    echo "Installing prerequisites for Debian-based systems..."
+    export DEBIAN_FRONTEND="noninteractive"
+    $(check_sudo) apt-get update
+    echo "updated apt cache"
+    $(check_sudo) apt-get install -y "${common_pkgs[@]}" "${debian_pkgs[@]}"
+    echo "installed packages"
+}
+
+install_redhat() {
+    echo "Installing prerequisites for Red Hat-based systems..."
+    sudo yum update
+    sudo yum install -y epel-release
+    sudo yum install -y "${common_pkgs[@]}" "${redhat_pkgs[@]}"
+}
+
+install_fzf() {
+    echo "installing fzf via apt"
+    $(check_sudo) apt remove -y fzf
+    git clone --depth 1 https://github.com/junegunn/fzf.git "$HOME"/.fzf
+    "$HOME"/.fzf/install --all
+}
+
+install_nvim() {
+    # Check if nvim is installed
+    if command -v nvim &>/dev/null; then
+        nvim_installed=true
+        # Get the installed version of Neovim
+        nvim_version=$(nvim --version | head -n 1 | awk '{print $2}')
+
+        # Convert version to comparable format (e.g., 0.10.0 -> 00010)
+        convert_version() {
+            echo "$1" | awk -F. '{printf("%d%02d%02d\n", $1,$2,$3)}'
+        }
+
+        installed_version=$(convert_version "$nvim_version")
+        required_version=$(convert_version "0.10.0")
+    else
+        nvim_installed=false
+    fi
+
+    if [ "$nvim_installed" = false ] || [ "$installed_version" -lt "$required_version" ]; then
+        echo "Removing previously installed Neovim version..."
+        $(check_sudo) apt-get remove -y neovim
+        echo "Installing latest version of Neovim..."
+        cd /tmp || exit 1
+        curl -s -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz
+        $(check_sudo) tar -C /opt -xzf nvim-linux64.tar.gz
+    fi
+}
+
+if [[ -f /etc/debian_version ]]; then
+    echo "OS is debian"
+    install_debian
+    install_fzf
+    install_nvim
+elif [[ -f /etc/redhat-release ]]; then
+    echo "OS is redhat"
+    install_redhat
+else
+    echo "Unsupported linux operating system."
+    exit 1
+fi
