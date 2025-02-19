@@ -4,6 +4,7 @@ ulimit -n 65536 # ansible needs to open lots of files
 # exports
 export SHELL="/opt/homebrew/bin/bash"
 export NOMAD_ADDR=http://192.168.1.41:4646
+export SMB_PASS="$(security find-generic-password -s smb -a smbuser -w)"
 
 # aliases
 alias update='$HOME/.dotfiles/scripts/update_macos.sh'
@@ -45,5 +46,6 @@ alias o1='llm -m o1 | glow'
 alias o3h='llm -m o3-mini -o reasoning_effort high | glow'
 alias o3m='llm -m o3-mini -o reasoning_effort medium | glow'
 alias o3l='llm -m o3-mini -o reasoning_effort low | glow'
-alias aider='aider --model 4o --vim --dark-mode --no-auto-commits'
+# alias aider='aider --model 4o --reasoning-effort high --vim --dark-mode --no-auto-commits'
+alias mount_nas="mount_smbfs //smbuser:$SMB_PASS@192.168.2.159/NAS /opt/NAS"
 
