@@ -43,6 +43,14 @@ gwt() {
 }
 
 ai_git_commit() {
+    dry_run=false
+    while getopts "d" opt; do
+        case $opt in
+        d) dry_run=true ;;
+        *) ;;
+        esac
+    done
+
     staged_files=$(git diff --name-only --cached)
     if [ -z "$staged_files" ]; then
         echo "No files are staged for commit."
@@ -53,7 +61,11 @@ ai_git_commit() {
 
         commit_message=$(echo "$diff_output" | llm -m 4o -s "Generate a concise git commit message that summarizes the key changes in $file. Stay high-level and combine smaller changes to overarching topics. Skip describing any reformatting changes.")
 
-        git commit -m "$commit_message" "$file"
+        if [ "$dry_run" = true ]; then
+            echo "Dry run: git commit -m \"$commit_message\" \"$file\""
+        else
+            git commit -m "$commit_message" "$file"
+        fi
     done
 }
 
@@ -93,4 +105,27 @@ ai1() {
 
 ai3() {
     llm -s "$system_prompt" -m o3-mini -o reasoning_effort high "$*" | glow
+}
+
+# llm-created PRs
+gpr() {
+    while getopts "d" opt; do
+        case $opt in
+        d) dry_run="--dry-run" ;;
+        *) ;;
+        esac
+    done
+
+    model="4o"
+    base_branch="main"
+    dry_run=""
+    commits=$(git log "$(git merge-base HEAD $base_branch)"..HEAD --pretty=format:"%s")
+
+    echo "generating PR title..."
+    pr_title=$(echo "$commits" | llm -m "$model" -s "Based on these commit messages, generate a concise pull request title:")
+
+    echo "generating PR body..."
+    pr_body=$(echo "$commits" | llm -m "$model" -s "Based on these commit messages, generate a detailed pull request description:")
+
+    gh pr create "$dry_run" -t "$pr_title" -b "$pr_body"
 }
