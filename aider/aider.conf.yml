@@ -114,7 +114,7 @@ model: 4o
 #  - zzz
 
 ## Set the reasoning_effort API parameter (default: not set)
-reasoning-effort: medium
+reasoning-effort: high
 
 ## Verify the SSL cert when connecting to models (default: True)
 #verify-ssl: true
@@ -132,7 +132,7 @@ reasoning-effort: medium
 weak-model: 4o
 
 ## Specify the model to use for editor tasks (default depends on --model)
-#editor-model: xxx
+editor-model: 4o
 
 ## Specify the edit format for the editor model (default: depends on editor model)
 #editor-edit-format: xxx
