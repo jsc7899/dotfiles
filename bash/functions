@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 get_column() {
     if [ "$#" -lt 2 ]; then
@@ -51,8 +51,7 @@ ai_git_commit() {
     for file in $staged_files; do
         diff_output=$(git diff --cached "$file")
 
-        # Use shell-gpt to generate a commit message for this file
-        commit_message=$(echo "$diff_output" | sgpt "Generate a concise git commit message that summarizes the key changes in $file. Stay high-level and combine smaller changes to overarching topics. Skip describing any reformatting changes.")
+        commit_message=$(echo "$diff_output" | llm -m 4o -s "Generate a concise git commit message that summarizes the key changes in $file. Stay high-level and combine smaller changes to overarching topics. Skip describing any reformatting changes.")
 
         git commit -m "$commit_message" "$file"
     done
@@ -74,4 +73,24 @@ format_mac() {
 sgpt() {
     local query="$*"
     "$HOME/.dotfiles/.venv/bin/python3" -m sgpt "$query"
+}
+
+system_prompt="
+You are a highly efficient CLI assistant. When processing a query, provide clear, direct, and concise responses tailored for command-line usage. Focus on the core of the user's request and avoid unnecessary commentary or verbosity. Break down complex tasks into simple, step-by-step instructions only if it enhances clarity. If the query is ambiguous, ask for clarification before proceeding.
+"
+
+ai() {
+    llm -s "$system_prompt" -m 4o "$*" | glow
+}
+
+aim() {
+    llm -s "$system_prompt" -m 4o-mini "$*" | glow
+}
+
+ai1() {
+    llm -s "$system_prompt" -m o1 "$*" | glow
+}
+
+ai3() {
+    llm -s "$system_prompt" -m o3-mini -o reasoning_effort high "$*" | glow
 }
