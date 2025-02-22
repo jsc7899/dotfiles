@@ -128,16 +128,21 @@ gpr() {
         esac
     done
 
+    echo "$dry_run"
+
     model="4o"
     base_branch="main"
-    dry_run=""
     commits=$(git log "$(git merge-base HEAD $base_branch)"..HEAD --pretty=format:"%s")
 
     echo "generating PR title..."
     pr_title=$(echo "$commits" | llm -m "$model" -s "Based on these commit messages, generate a concise pull request title:")
 
     echo "generating PR body..."
-    pr_body=$(echo "$commits" | llm -m "$model" -s "Based on these commit messages, generate a detailed pull request description:")
+    pr_body=$(echo "$commits" | llm -m "$model" -s "Based on these commit messages, generate  pull request description without adding too much detail:")
 
-    gh pr create "$dry_run" -t "$pr_title" -b "$pr_body"
+    if [ -n "$dry_run" ]; then
+        gh pr create "$dry_run" -t "$pr_title" -b "$pr_body"
+    else
+        gh pr create -t "$pr_title" -b "$pr_body"
+    fi
 }
