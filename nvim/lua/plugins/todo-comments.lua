@@ -1,7 +1,7 @@
 -- Highlight todo, notes, etc in comments
 return {
   'folke/todo-comments.nvim',
-  event = { 'BufRead', 'BufWinEnter' },
+  event = { 'BufReadPost', 'BufNewFile' },
   dependencies = { 'nvim-lua/plenary.nvim' },
   opts = {
     signs = true, -- show icons in the signs column
@@ -14,12 +14,14 @@ return {
         alt = { 'FIXME', 'BUG', 'FIXIT', 'ISSUE' }, -- a set of other keywords that all map to this FIX keywords
         -- signs = false, -- configure signs for some keywords individually
       },
+      -- NOTE: you can find more glyph icons here: https://www.nerdfonts.com/cheat-sheet
       TODO = { icon = ' ', color = 'info' },
       HACK = { icon = ' ', color = 'warning' },
       WARN = { icon = ' ', color = 'warning', alt = { 'WARNING', 'XXX' } },
       PERF = { icon = ' ', alt = { 'OPTIM', 'PERFORMANCE', 'OPTIMIZE' } },
       NOTE = { icon = ' ', color = 'hint', alt = { 'INFO' } },
       TEST = { icon = '⏲ ', color = 'test', alt = { 'TESTING', 'PASSED', 'FAILED' } },
+      QUESTION = { icon = '', color = 'question', alt = { 'Q', 'QUEST' } },
     },
     gui_style = {
       fg = 'NONE', -- The gui style to use for the fg highlight group.
@@ -51,6 +53,7 @@ return {
       hint = { 'DiagnosticHint', '#10B981' },
       default = { 'Identifier', '#7C3AED' },
       test = { 'Identifier', '#FF00FF' },
+      question = { '#FF9E33' },
     },
     search = {
       command = 'rg',

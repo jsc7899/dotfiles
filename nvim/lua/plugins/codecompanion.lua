@@ -12,10 +12,6 @@ return {
     { '<Leader>cc', '<cmd>CodeCompanionChat Toggle<cr>', mode = { 'n', 'v' }, desc = 'Toggle CodeCompanion Chat' },
     { 'ga', '<cmd>CodeCompanionChat Add<cr>', mode = 'v', desc = 'Add to CodeCompanion Chat' },
   },
-  event = 'InsertEnter', -- Lazy-load on entering insert mode
-  init = function()
-    require('plugins.codecompanion.fidget-spinner'):init()
-  end,
   config = function()
     require('codecompanion').setup {
       adapters = {

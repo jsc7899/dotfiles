@@ -14,6 +14,7 @@ return {
 
   'scottmckendry/cyberdream.nvim',
   priority = 1000, -- Make sure to load this before all the other start plugins.
+  event = 'VeryLazy',
   italic_comments = true,
   init = function()
     -- Load the colorscheme here.

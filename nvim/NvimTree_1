@@ -1,6 +1,0 @@
-/opt/dotfiles/nvim/..
-  lua
-  spell
-   .stylua.toml
-   init.lua
-   ✗ lazy-lock.json
