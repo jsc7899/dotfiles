@@ -8,3 +8,4 @@ find /opt/chomp -name 'Dockerfile' | parallel 'podman pull void-registry.infosec
 
 # list all docker registry images
 curl -s https://void-registry.infosec.utexas.edu/v2/_catalog | jq '.repositories[]'
+curl -s https://void-registry.infosec.utexas.edu/v2/_catalog | jq -r '.repositories[] | select(startswith("utexasiso-")) | sub("^utexasiso-"; "")'
