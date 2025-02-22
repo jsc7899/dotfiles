@@ -112,7 +112,7 @@ if [ "$arg_link" = true ]; then
 
     # aider
     if [ ! -L "$HOME/.aider.conf.yml" ]; then
-        ln -s "$dotfiles/ai/aider/aider.conf.yml" "$HOME/.aider.config.yml"
+        ln -s "$dotfiles/ai/aider/aider.conf.yml" "$HOME/.aider.conf.yml"
     fi
 
 fi
