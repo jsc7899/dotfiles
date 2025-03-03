@@ -146,3 +146,12 @@ gpr() {
         gh pr create -t "$pr_title" -b "$pr_body"
     fi
 }
+
+gsw() {
+    local repo=$1
+    local branch=$2
+    echo "switching $repo to $branch"
+    cd "/tmp/$repo" || echo $?
+    git switch "$branch" >/dev/null
+    cd - >/dev/null || echo $?
+}
