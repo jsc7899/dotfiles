@@ -237,6 +237,13 @@ return {
           },
         },
       },
+      tinymist = {
+        settings = {
+          formatterMode = 'typstyle',
+          exportPdf = 'onType',
+          semanticTokens = 'disable',
+        },
+      },
     }
 
     -- Ensure the servers and tools above are installed
@@ -272,11 +279,10 @@ return {
       -- language servers
       'lua-language-server',
       'ansible-language-server',
-      --'haskell-language-server',
       'pyright',
-      -- 'basedpyright',
       'bash-language-server',
       'gopls',
+      'tinymist',
       -- 'marksman',
     })
     require('mason-tool-installer').setup { ensure_installed = ensure_installed }
