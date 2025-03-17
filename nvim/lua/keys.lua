@@ -28,8 +28,15 @@ vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower win
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
 -- save and quit keymaps
-vim.api.nvim_set_keymap('n', '<leader>x', ':w<CR>', { noremap = true, silent = true })
-vim.keymap.set('n', '<leader>Q', ':qa<CR>', { desc = 'quit' })
+vim.api.nvim_set_keymap('n', '<leader>x', ':w<CR>', { desc = 'save', noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>xx', ':wa<CR>:q<CR>', { desc = 'save all', noremap = true, silent = true })
+vim.keymap.set('n', '<leader>Q', ':qa<CR>', { desc = 'quit all', noremap = true, silent = true })
+vim.keymap.set('n', '<leader>qa', ':qa!<CR>', { desc = 'quit all without saving', noremap = true, silent = true })
+
+-- notifications
+-- vim.keymap.set('n', '<leader>hh', function()
+--   require('notify').history()
+-- end, { desc = 'quit all without saving', noremap = true, silent = true })
 
 -- <space> ex opens file explorer
 vim.keymap.set('n', '<leader>ex', vim.cmd.Ex)
@@ -74,3 +81,42 @@ vim.keymap.set('n', '<leader>sh', function()
   vim.api.nvim_buf_set_lines(0, 0, 0, false, lines)
   vim.cmd 'startinsert'
 end, { silent = true, noremap = true, desc = 'Insert Bash header' })
+
+-- quickfix
+vim.keymap.set('n', '<leader>nn', '<cmd>cnext<CR>')
+vim.keymap.set('n', '<leader>pp', '<cmd>cnext<CR>')
+vim.keymap.set('n', '<leader>pp', '<cmd>cnext<CR>')
+
+-- registers
+-- Function to prompt for register and yank in normal mode
+vim.keymap.set('n', '<leader>y', function()
+  local reg = vim.fn.input 'Yank to register: '
+  if reg ~= '' then
+    vim.cmd('normal! "' .. reg .. 'yy')
+  end
+end, { noremap = true, silent = true, desc = 'Yank line to specified register' })
+
+-- Function to prompt for register and yank in visual mode
+vim.keymap.set('v', '<leader>y', function()
+  local reg = vim.fn.input 'Yank to register: '
+  if reg ~= '' then
+    vim.cmd('normal! "' .. reg .. 'y')
+  end
+end, { noremap = true, silent = true, desc = 'Yank selection to specified register' })
+
+-- Function to prompt for register and paste in normal mode
+vim.keymap.set('n', '<leader>p', function()
+  local reg = vim.fn.input 'Paste from register: '
+  if reg ~= '' then
+    vim.cmd('normal! "' .. reg .. 'p')
+  end
+end, { noremap = true, silent = true, desc = 'Paste from specified register' })
+
+-- View content of registers
+vim.keymap.set('n', '<leader>r', ':registers<CR>', { noremap = true, silent = true, desc = 'View registers' })
+
+-- Yank to system clipboard in normal and visual modes
+vim.keymap.set({ 'n', 'v' }, '<leader>Y', '"+y', { noremap = true, silent = true, desc = 'Yank to system clipboard' })
+
+-- Paste from system clipboard in normal mode
+vim.keymap.set('n', '<leader>P', '"+p', { noremap = true, silent = true, desc = 'Paste from system clipboard' })
