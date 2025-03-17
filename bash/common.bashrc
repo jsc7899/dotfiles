@@ -2,8 +2,9 @@
 
 # fix terminal/tmux for undercurl support - squigly line for errors
 # see https://dev.to/jibundit/undercurl-display-on-neovim-and-tmux-with-iterm2-3pi0
+# export TERM="xterm-ghostty"
 export TERM="xterm-256color"
-tic -x ~/.dotfiles/config/xterm-256color.ti
+# tic -x ~/.dotfiles/config/xterm-256color.ti
 
 ## PATH ##
 export PATH="/opt/homebrew/sbin:$PATH"
