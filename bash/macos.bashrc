@@ -53,8 +53,6 @@ alias rsync='/opt/homebrew/bin/rsync'
 alias vpn='cd ~/.dotfiles/scripts/ocgo && ./ocgo;./reset_dns.sh'
 alias gac='ai_git_commit'
 alias alf='ansible-lint --fix'
-alias mount_nas='sudo mount -o rw,resvport,noowners -t nfs impulse.local:/NAS/Notes /Volumes/NAS/notes'
-alias mount_nas="mount_smbfs //smbuser:$SMB_PASS@192.168.2.159/NAS /opt/NAS"
 
 # macos settings
 # disable displays have separate spaces
