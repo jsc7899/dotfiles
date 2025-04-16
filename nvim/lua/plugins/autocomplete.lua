@@ -25,7 +25,15 @@ return {
         -- ['<Tab>'] = cmp.mapping.confirm { select = true },
         -- If you prefer more traditional completion keymaps,
         -- you can uncomment the following lines
-        ['<CR>'] = cmp.mapping.confirm { select = true },
+        -- ['<CR>'] = cmp.mapping.confirm { select = true },
+        ['<CR>'] = cmp.mapping(function(fallback)
+          -- use the internal non-blocking call to check if cmp is visible
+          if cmp.core.view:visible() then
+            cmp.confirm { select = true }
+          else
+            fallback()
+          end
+        end),
         ['<Tab>'] = cmp.mapping.select_next_item(),
         ['<S-Tab>'] = cmp.mapping.select_prev_item(),
 
@@ -33,7 +41,7 @@ return {
         --  Generally you don't need this, because nvim-cmp will display
         --  completions whenever it has completion options available.
         -- ['<C-C>'] = cmp.mapping.complete {},
-        -- ['<C-M>'] = require('minuet').make_cmp_map(),
+        ['<C-a>'] = require('minuet').make_cmp_map(),
       },
       sources = {
         { name = 'nvim_lsp' },
@@ -41,15 +49,31 @@ return {
         per_filetype = {
           codecompanion = { 'codecompanion' },
         },
-        -- { name = 'minuet' },
+        -- {
+        --   name = 'minuet',
+        --   group_index = 1,
+        --   priority = 100,
+        -- },
       },
-      -- performance = {
-      -- It is recommended to increase the timeout duration due to
-      -- the typically slower response speed of LLMs compared to
-      -- other completion sources. This is not needed when you only
-      -- need manual completion.
-      -- fetching_timeout = 2000,
-      -- },
+
+      performance = {
+        -- It is recommended to increase the timeout duration due to
+        -- the typically slower response speed of LLMs compared to
+        -- other completion sources. This is not needed when you only
+        -- need manual completion.
+        fetching_timeout = 2000,
+      },
     }
+    -- Enable 'minuet' source for specific file types
+    local filetypes_with_minuet = { 'python', 'sh', 'lua' }
+    for _, ft in ipairs(filetypes_with_minuet) do
+      cmp.setup.filetype(ft, {
+        sources = cmp.config.sources {
+          { name = 'minuet', group_index = 1, priority = 100 },
+          { name = 'nvim_lsp' },
+          { name = 'path' },
+        },
+      })
+    end
   end,
 }
