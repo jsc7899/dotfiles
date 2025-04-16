@@ -4,3 +4,5 @@ tmux/plugins
 .venv/
 .secret*
 .aider*
+bash/local.bashrc
+nvim/lazy-lock.json
