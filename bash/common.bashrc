@@ -44,7 +44,7 @@ export EDITOR=nvim
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY="YES"
 
 if command -v security &>/dev/null; then
-    OPENAI_API_KEY=$(security find-generic-password -s openai -a autocomplete -w)
+    OPENAI_API_KEY=$(security find-generic-password -s openai -a jared -w)
 else
     source ~/.env
 fi
