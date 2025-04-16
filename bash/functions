@@ -68,7 +68,7 @@ ai_git_commit() {
         # Use -- to ensure correct file resolution even if file is deleted
         diff_output=$(git diff --cached -- "$file")
 
-        commit_message=$(echo "$diff_output" | llm -m 4o -s "Generate a concise git commit message that summarizes the key changes in $file. Stay high-level and combine smaller changes to overarching topics. Skip describing any reformatting changes.")
+        commit_message=$(echo "$diff_output" | llm -s "Generate a concise git commit message that summarizes the key changes in $file. Stay high-level and combine smaller changes to overarching topics. Skip describing any reformatting changes.")
 
         if [ "$dry_run" = true ]; then
             echo "Dry run: git commit -m \"$commit_message\" -- \"$file\""
@@ -104,11 +104,23 @@ You are a highly efficient CLI assistant. When processing a query, provide clear
 "
 
 ai() {
-    llm -s "$system_prompt" -m 4o "$*" | glow
+    llm -s "$system_prompt" "$*" | glow
+}
+
+ai4() {
+    llm -s "$system_prompt" -m openai/gpt-4.1 "$*" | glow
 }
 
 aim() {
-    llm -s "$system_prompt" -m 4o-mini "$*" | glow
+    llm -s "$system_prompt" -m openai/gpt-4.1-mini "$*" | glow
+}
+
+ain() {
+    llm -s "$system_prompt" -m openai/gpt-4.1-nano "$*" | glow
+}
+
+ai4() {
+    llm -s "$system_prompt" -m openai/gpt-4.1 "$*" | glow
 }
 
 ai1() {
