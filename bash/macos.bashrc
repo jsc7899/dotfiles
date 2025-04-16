@@ -51,8 +51,6 @@ alias vha="./site.yaml --limit=load_balancers --tags=haproxy"
 alias flush_dns="sudo killall -HUP mDNSResponder"
 alias rsync='/opt/homebrew/bin/rsync'
 alias vpn='cd ~/.dotfiles/scripts/ocgo && ./ocgo;./reset_dns.sh'
-alias gac='ai_git_commit'
-alias alf='ansible-lint --fix'
 
 # macos settings
 # disable displays have separate spaces
