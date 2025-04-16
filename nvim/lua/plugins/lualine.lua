@@ -40,7 +40,7 @@ return {
             file_stats = true, -- readonly/modified
           },
         },
-        lualine_x = { 'encoding', 'fileformat', 'filetype' },
+        lualine_x = { require 'minuet.lualine', 'encoding', 'fileformat', 'filetype' },
         lualine_y = { 'progress' },
         lualine_z = { 'location' },
       },
