@@ -34,7 +34,7 @@ if [ ! -f "$HOME/.local/share/blesh/ble.sh" ]; then
 fi
 # source ble.sh and config
 [[ $- == *i* ]] &&
-    source "$HOME/.local/share/blesh/ble.sh" --rcfile "$HOME/.blerc" --noattach
+source "$HOME/.local/share/blesh/ble.sh" --rcfile "$HOME/.blerc" --noattach
 
 set -o vi # use vi mode for bash keys
 # set -o emacs # use emacs mode (default) for bash keys
@@ -86,7 +86,7 @@ alias colors='/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/g
 alias node_elig='nomad node eligibility # -self -enable -disable'
 alias nomad_run='cd /opt/ansible && sleep 1 && ansible nomad_clients -b -m shell -a'
 alias nomad_secrets='cd /opt/ansible && /opt/ansible/plays/void/nomad/nomad_clients.yaml --tags=secrets --limit=nomad_clients && cd -'
-
+alias +x='chmod +x'
 # llm
 alias bashllm='llm -m o3-mini -o reasoning_effort low --system \
     "You are an expert in Bash scripting and Linux command-line operations. Your goal is to provide clear, accurate, and efficient solutions to user queries about accomplishing tasks in Bash." '

@@ -75,7 +75,7 @@ return {
         -- the default case_mode is "smart_case"
       },
       ['ui-select'] = {
-        require('telescope.themes').get_dropdown(),
+        -- require('telescope.themes').get_dropdown(),
       },
       cmdline = {
         -- Adjust telescope picker size and layout
@@ -124,6 +124,64 @@ return {
     --     vim.cmd('edit ' .. entry.path)
     --   end
     -- end
+    --
+    --
+    local default_opts = {}
+
+    require('telescope').setup {
+      defaults = require('telescope.themes').get_ivy {
+        sorting_strategy = 'ascending',
+        border = true,
+        winblend = 0,
+        -- layout_strategy = 'horizontal',
+        layout_config = {
+          -- horizontal = {
+          --   prompt_position = 'bottom',
+          --   preview_width = 0.6,
+          --   results_width = 0.4,
+          -- },
+          vertical = {
+            mirror = true,
+          },
+          width = 0.87,
+          --height = 0.80,
+          preview_cutoff = 100,
+        },
+        file_ignore_patterns = { '.git/' },
+        mappings = {
+          i = { ['<c-enter>'] = 'to_fuzzy_refine' },
+          -- ['<CR>'] = open_in_right_split
+          n = {},
+          -- ['<CR>'] = open_in_right_split
+        },
+      },
+      pickers = {
+        find_files = {
+          follow = true,
+          hidden = true,
+          -- theme = 'ivy',
+        },
+        live_grep = {
+          -- theme = 'ivy',
+        },
+        help_tags = { -- Customize behavior for 'help_tags' specifically
+          attach_mappings = function(prompt_bufnr, map)
+            actions.select_default:replace(function()
+              local selection = action_state.get_selected_entry()
+              actions.close(prompt_bufnr)
+              -- Open the selected help page in a right split
+              vim.cmd('vert rightbelow help ' .. vim.fn.fnameescape(selection.value))
+            end)
+            return true
+          end,
+        },
+      },
+      extensions = {
+        ['ui-select'] = {
+          require('telescope.themes').get_dropdown(),
+        },
+      },
+    }
 
     -- Enable Telescope extensions if they are installed
     require('telescope').load_extension 'fzf'

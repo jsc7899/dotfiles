@@ -15,7 +15,7 @@ return {
   opts = {
     adapters = {
       opts = {
-        show_defaults = false,
+        show_defaults = true,
       },
       openai = function()
         return require('codecompanion.adapters').extend('openai', {
@@ -76,6 +76,10 @@ return {
           is_slash_cmd = false,
           user_prompt = true,
           placement = 'add',
+          adapter = {
+            name = 'openai',
+            model = 'gpt-4o-mini',
+          },
         },
         prompts = {
           {
@@ -97,7 +101,7 @@ return {
         strategy = 'chat',
         description = 'Chat with 4o-mini',
         opts = {
-          index = 1,
+          index = 2,
         },
         prompts = {
           {
@@ -110,11 +114,41 @@ return {
           },
         },
       },
+      ['o3-mini inline'] = {
+        strategy = 'inline',
+        description = 'Prompt the LLM from Neovim',
+        opts = {
+          index = 3,
+          is_default = false,
+          is_slash_cmd = false,
+          user_prompt = true,
+          placement = 'add',
+          adapter = {
+            name = 'openai',
+            model = 'o3-mini',
+          },
+        },
+        prompts = {
+          {
+            role = 'system',
+            content = function(context)
+              return string.format(
+                [[I want you to act as a senior %s developer. I will ask you specific questions and I want you to return raw code only (no codeblocks and no explanations). If you can't respond with code, respond with nothing]],
+                context.filetype
+              )
+            end,
+            opts = {
+              visible = false,
+              tag = 'system_tag',
+            },
+          },
+        },
+      },
       ['o3-mini chat'] = {
         strategy = 'chat',
         description = 'Chat with o3-mini',
         opts = {
-          index = 3,
+          index = 4,
         },
         prompts = {
           {
@@ -133,6 +167,7 @@ return {
         opts = {
           -- mapping = '<Leader>ce',
           -- modes = { 'v' },
+          index = 5,
           short_name = 'expert',
           auto_submit = true,
           stop_context_insertion = true,
@@ -162,6 +197,7 @@ return {
         strategy = 'inline',
         description = 'Fix code',
         opts = {
+          index = 6,
           short_name = 'fixer',
           auto_submit = true,
           stop_context_insertion = true,
@@ -186,6 +222,7 @@ return {
         strategy = 'inline',
         description = 'Get ansible help from an LLM',
         opts = {
+          index = 7,
           visible = false,
           short_name = 'ansible',
           auto_submit = true,
@@ -234,4 +271,7 @@ return {
   --     require('codecompanion').prompt 'fixer'
   --   end, { noremap = true, silent = true, desc = 'ansible' })
   -- end,
+  init = function()
+    require('plugins.codecompanion.fidget-spinner'):init()
+  end,
 }
