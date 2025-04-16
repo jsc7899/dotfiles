@@ -64,25 +64,22 @@ return {
     --     vim.cmd('edit ' .. entry.path)
     --   end
     -- end
+    --
+    --
+    local default_opts = {}
 
     require('telescope').setup {
-      -- You can put your default mappings / updates / etc. in here
-      --  All the info you're looking for is in `:help telescope.setup()`
-      --
-      defaults = {
-        sorting_strategy = 'descending',
+      defaults = require('telescope.themes').get_ivy {
+        sorting_strategy = 'ascending',
         border = true,
-        borderchars = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' },
-        path_display = {},
         winblend = 0,
-        -- Defining the default layout
-        layout_strategy = 'horizontal',
+        -- layout_strategy = 'horizontal',
         layout_config = {
-          horizontal = {
-            prompt_position = 'bottom',
-            preview_width = 0.6,
-            results_width = 0.4,
-          },
+          -- horizontal = {
+          --   prompt_position = 'bottom',
+          --   preview_width = 0.6,
+          --   results_width = 0.4,
+          -- },
           vertical = {
             mirror = true,
           },
@@ -102,10 +99,10 @@ return {
         find_files = {
           follow = true,
           hidden = true,
-          theme = 'ivy',
+          -- theme = 'ivy',
         },
         live_grep = {
-          theme = 'ivy',
+          -- theme = 'ivy',
         },
         help_tags = { -- Customize behavior for 'help_tags' specifically
           attach_mappings = function(prompt_bufnr, map)
