@@ -22,7 +22,7 @@
 	<key>AlternateMouseScroll</key>
 	<true/>
 	<key>ChaseAnchoredScreen</key>
-	<true/>
+	<false/>
 	<key>Default Bookmark Guid</key>
 	<string>8D398061-E4B5-453A-8532-EF1F067FEA3A</string>
 	<key>DeleteProfile_SilenceUntil</key>
@@ -43,17 +43,18 @@
 	<string>consolas,MesloLGS</string>
 	<key>GlobalKeyMap</key>
 	<dict>
-		<key>0x70-0x40000-0x23</key>
+		<key>0x50-0x60000-0x23</key>
 		<dict>
 			<key>Action</key>
 			<integer>25</integer>
-			<key>Label</key>
-			<string></string>
+			<key>Apply Mode</key>
+			<integer>0</integer>
+			<key>Escaping</key>
+			<integer>2</integer>
 			<key>Text</key>
-			<string>Password Manager
-Password Manager</string>
+			<string></string>
 			<key>Version</key>
-			<integer>1</integer>
+			<integer>2</integer>
 		</dict>
 		<key>0xf700-0x280000-0x7e</key>
 		<dict>
@@ -209,6 +210,8 @@ Password Manager</string>
 	<key>HapticFeedbackForEsc</key>
 	<false/>
 	<key>HotkeyMigratedFromSingleToMulti</key>
+	<true/>
+	<key>HotkeyWindowsExcludedFromCycling</key>
 	<true/>
 	<key>LowFiCombiningMarks</key>
 	<true/>
@@ -2198,7 +2201,7 @@ Password Manager</string>
 			<key>HotKey Window Animates</key>
 			<true/>
 			<key>HotKey Window AutoHides</key>
-			<true/>
+			<false/>
 			<key>HotKey Window Dock Click Action</key>
 			<integer>0</integer>
 			<key>HotKey Window Floats</key>
@@ -2331,7 +2334,7 @@ Password Manager</string>
 			<key>Rows</key>
 			<integer>25</integer>
 			<key>Screen</key>
-			<integer>2</integer>
+			<integer>1</integer>
 			<key>Scrollback Lines</key>
 			<integer>0</integer>
 			<key>Selected Text Color</key>
@@ -6216,7 +6219,7 @@ Password Manager</string>
 			<key>Rows</key>
 			<integer>52</integer>
 			<key>Screen</key>
-			<integer>2</integer>
+			<integer>1</integer>
 			<key>Scrollback Lines</key>
 			<integer>0</integer>
 			<key>Selected Text Color</key>
@@ -8740,7 +8743,7 @@ Password Manager</string>
 				<real>1</real>
 			</dict>
 			<key>Minimum Contrast</key>
-			<real>0.0</real>
+			<real>0.28270089285714284</real>
 			<key>Minimum Contrast (Dark)</key>
 			<real>0.0</real>
 			<key>Minimum Contrast (Light)</key>
@@ -9107,7 +9110,7 @@ Password Manager</string>
 	<key>OpenArrangementAtStartup</key>
 	<false/>
 	<key>OpenNoWindowsAtStartup</key>
-	<false/>
+	<true/>
 	<key>PointerActions</key>
 	<dict>
 		<key>Button,1,1,,</key>
