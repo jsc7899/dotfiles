@@ -129,10 +129,10 @@ model: gpt-4.1-mini
 #architect: false
 
 ## Specify the model to use for commit messages and chat history summarization (default depends on --model)
-weak-model: 4o
+# weak-model: 4o
 
 ## Specify the model to use for editor tasks (default depends on --model)
-editor-model: 4o
+# editor-model: 4o
 
 ## Specify the edit format for the editor model (default: depends on editor model)
 #editor-edit-format: xxx
