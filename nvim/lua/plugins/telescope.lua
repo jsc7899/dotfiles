@@ -5,50 +5,110 @@ return {
   branch = '0.1.x',
   dependencies = {
     'nvim-lua/plenary.nvim',
-    { -- If encountering errors, see telescope-fzf-native README for installation instructions
-      'nvim-telescope/telescope-fzf-native.nvim',
-
-      -- `build` is used to run some command when the plugin is installed/updated.
-      -- This is only run then, not every time Neovim starts up.
-      build = 'make',
-
-      -- `cond` is a condition used to determine whether this plugin should be
-      -- installed and loaded.
-      cond = function()
-        return vim.fn.executable 'make' == 1
-      end,
-    },
-    { 'nvim-telescope/telescope-ui-select.nvim' },
-
-    -- Useful for getting pretty icons, but requires a Nerd Font.
+    'jonarrien/telescope-cmdline.nvim',
+    'nvim-telescope/telescope-ui-select.nvim',
+    { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
     { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
   },
-  config = function()
-    -- Telescope is a fuzzy finder that comes with a lot of different things that
-    -- it can fuzzy find! It's more than just a "file finder", it can search
-    -- many different aspects of Neovim, your workspace, LSP, and more!
-    --
-    -- The easiest way to use Telescope, is to start by doing something like:
-    --  :Telescope help_tags
-    --
-    -- After running this command, a window will open up and you're able to
-    -- type in the prompt window. You'll see a list of `help_tags` options and
-    -- a corresponding preview of the help.
-    --
-    -- Two important keymaps to use while in Telescope are:
-    --  - Insert mode: <c-/>
-    --  - Normal mode: ?
-    --
-    -- This opens a window that shows you all of the keymaps for the current
-    -- Telescope picker. This is really useful to discover what Telescope can
-    -- do as well as how to actually do it!
+  keys = {
+    { 'Q', '<cmd>Telescope cmdline<cr>', desc = 'Cmdline' },
+    { '<leader>;', '<cmd>Telescope cmdline<cr>', desc = 'Cmdline' },
+    { '<leader>N', '<cmd>Telescope notify<cr>', desc = 'Filter Notifications', noremap = true, silent = true },
+  },
+  opts = {
+    defaults = {
+      sorting_strategy = 'descending',
+      border = true,
+      borderchars = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' },
+      path_display = {},
+      winblend = 0,
+      -- Defining the default layout
+      layout_strategy = 'horizontal',
+      layout_config = {
+        horizontal = {
+          prompt_position = 'bottom',
+          preview_width = 0.6,
+          results_width = 0.4,
+        },
+        vertical = {
+          mirror = true,
+        },
+        width = 0.87,
+        height = 0.90,
+        preview_cutoff = 100,
+      },
+      file_ignore_patterns = { '.git/' },
+      mappings = {
+        i = { ['<c-enter>'] = 'to_fuzzy_refine' },
+        -- ['<CR>'] = open_in_right_split
+        n = {},
+        -- ['<CR>'] = open_in_right_split
+      },
+    },
+    pickers = {
+      find_files = {
+        follow = true,
+        hidden = true,
+        theme = 'ivy',
+      },
+      live_grep = {
+        theme = 'ivy',
+      },
+      help_tags = { -- Customize behavior for 'help_tags' specifically
+        -- attach_mappings = function(prompt_bufnr)
+        --   actions.select_default:replace(function()
+        --     local selection = action_state.get_selected_entry()
+        --     actions.close(prompt_bufnr)
+        --     -- Open the selected help page in a right split
+        --     vim.cmd('vert rightbelow help ' .. vim.fn.fnameescape(selection.value))
+        --   end)
+        --   return true
+        -- end,
+      },
+    },
+    extensions = {
+      fzf = {
+        fuzzy = true, -- false will only do exact matching
+        override_generic_sorter = true, -- override the generic sorter
+        override_file_sorter = true, -- override the file sorter
+        case_mode = 'smart_case', -- or "ignore_case" or "respect_case"
+        -- the default case_mode is "smart_case"
+      },
+      ['ui-select'] = {
+        -- require('telescope.themes').get_dropdown(),
+      },
+      cmdline = {
+        -- Adjust telescope picker size and layout
+        picker = {
+          layout_config = {
+            width = 120,
+            height = 25,
+          },
+        },
+        -- Adjust your mappings
+        mappings = {
+          complete = '<Tab>',
+          run_selection = '<C-CR>',
+          run_input = '<CR>',
+        },
+        -- Triggers any shell command using overseer.nvim (`:!`)
+        overseer = {
+          enabled = false,
+        },
+        output_pane = {
+          enabled = false,
+          min_lines = 5,
+          max_height = 25,
+        },
+      },
+    },
+  },
 
-    -- [[ Configure Telescope ]]
-    -- See `:help telescope` and `:help telescope.setup()`
-
-    local actions = require 'telescope.actions'
-    local action_state = require 'telescope.actions.state'
-    local action_set = require 'telescope.actions.set'
+  config = function(_, opts)
+    require('telescope').setup(opts)
+    -- local actions = require 'telescope.actions'
+    -- local action_state = require 'telescope.actions.state'
+    -- local action_set = require 'telescope.actions.set'
 
     -- Define a function to open files in a right split if the current buffer is not split
     -- local function open_in_right_split(prompt_bufnr)
@@ -124,8 +184,9 @@ return {
     }
 
     -- Enable Telescope extensions if they are installed
-    pcall(require('telescope').load_extension, 'fzf')
-    pcall(require('telescope').load_extension, 'ui-select')
+    require('telescope').load_extension 'fzf'
+    require('telescope').load_extension 'ui-select'
+    require('telescope').load_extension 'cmdline'
 
     -- See `:help telescope.builtin`
     local builtin = require 'telescope.builtin'

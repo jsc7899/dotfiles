@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-
 # macos
 ulimit -n 65536 # ansible needs to open lots of files
 
@@ -7,6 +6,22 @@ ulimit -n 65536 # ansible needs to open lots of files
 export SHELL="/opt/homebrew/bin/bash"
 export NOMAD_ADDR=http://192.168.1.41:4646
 export SMB_PASS="$(security find-generic-password -s smb -a smbuser -w)"
+
+# brew bash completion
+# https://docs.brew.sh/Shell-Completion
+if type brew &>/dev/null
+then
+  HOMEBREW_PREFIX="$(brew --prefix)"
+  if [[ -r "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh" ]]
+  then
+    source "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh"
+  else
+    for COMPLETION in "${HOMEBREW_PREFIX}/etc/bash_completion.d/"*
+    do
+      [[ -r "${COMPLETION}" ]] && source "${COMPLETION}"
+    done
+  fi
+fi
 
 # aliases
 alias update='$HOME/.dotfiles/scripts/update_macos.sh'
@@ -38,6 +53,11 @@ alias rsync='/opt/homebrew/bin/rsync'
 alias vpn='cd ~/.dotfiles/scripts/ocgo && ./ocgo;./reset_dns.sh'
 alias gac='ai_git_commit'
 alias alf='ansible-lint --fix'
-alias mount_nas='sudo mount -o rw,resvport,noowners -t nfs impulse.local:/NAS/Notes /Volumes/NAS/notes'
-alias mount_nas="mount_smbfs //smbuser:$SMB_PASS@192.168.2.159/NAS /opt/NAS"
+
+# macos settings
+# disable displays have separate spaces
+# defaults write com.apple.spaces spans-displays -bool true && killall SystemUIServer
+# move windows by holding ctrl+cmd and dragging any part of the window (not necessarily the window title)
+defaults write -g NSWindowShouldDragOnGesture -bool true
+
 

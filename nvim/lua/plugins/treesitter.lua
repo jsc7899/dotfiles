@@ -2,7 +2,10 @@
 return {
   'nvim-treesitter/nvim-treesitter',
   build = ':TSUpdate',
-  event = { 'BufReadPost', 'BufNewFile' },
+  event = { 'BufReadPre', 'BufNewFile' },
+  dependencies = {
+    'nvim-treesitter/nvim-treesitter-textobjects',
+  },
   opts = {
     ensure_installed = {
       'bash',
@@ -27,6 +30,15 @@ return {
       'gitattributes',
       'gitcommit',
       'gitignore',
+    },
+    incremental_selection = {
+      enable = true,
+      keymaps = {
+        init_selection = '<leader>tt',
+        node_incremental = '<leader>tt',
+        scope_incremental = false,
+        node_decremental = '<bs>',
+      },
     },
     -- Autoinstall languages that are not installed
     auto_install = true,
