@@ -105,6 +105,10 @@ vim.filetype.add {
   },
 }
 
+-- change register for delete
+vim.api.nvim_set_keymap('n', 'd', '"dd', { noremap = true })
+vim.api.nvim_set_keymap('x', 'd', '"dd', { noremap = true })
+
 vim.g.loaded_python_provider = 0
 vim.g.loaded_python3_provider = 0
 vim.g.loaded_ruby_provider = 0

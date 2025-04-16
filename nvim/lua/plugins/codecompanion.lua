@@ -21,7 +21,7 @@ return {
         return require('codecompanion.adapters').extend('openai', {
           schema = {
             model = {
-              default = 'gpt-4o',
+              default = 'gpt-4.1-mini',
             },
             reasoning_effort = {
               default = 'high',
@@ -67,7 +67,7 @@ return {
       },
     },
     prompt_library = {
-      ['4o-mini inline'] = {
+      ['4.1-mini inline'] = {
         strategy = 'inline',
         description = 'Prompt the LLM from Neovim',
         opts = {
@@ -78,7 +78,7 @@ return {
           placement = 'add',
           adapter = {
             name = 'openai',
-            model = 'gpt-4o-mini',
+            model = 'gpt-4.1-mini',
           },
         },
         prompts = {
@@ -97,9 +97,9 @@ return {
           },
         },
       },
-      ['4o-mini chat'] = {
+      ['4.1-mini chat'] = {
         strategy = 'chat',
-        description = 'Chat with 4o-mini',
+        description = 'Chat with 4.1-mini',
         opts = {
           index = 2,
         },
@@ -232,7 +232,7 @@ return {
           ignore_system_prompt = true,
           adapter = {
             name = 'openai',
-            model = 'gpt-4o',
+            model = 'gpt-4.1-mini',
             -- reasoning_effort = {
             --   default = 'medium',
             -- },

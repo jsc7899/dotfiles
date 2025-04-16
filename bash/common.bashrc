@@ -42,6 +42,9 @@ set -o vi # use vi mode for bash keys
 ## EXPORT ##
 export EDITOR=nvim
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY="YES"
+export HISTCONTROL=ignorespace
+export HISTSIZE=100000
+export HISTFILESIZE=100000
 
 if command -v security &>/dev/null; then
     OPENAI_API_KEY=$(security find-generic-password -s openai -a jared -w)
