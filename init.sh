@@ -15,6 +15,10 @@ while [[ $# -gt 0 ]]; do
         arg_link=true
         shift
         ;;
+    -m | --llm)
+        arg_llm=true
+        shift
+        ;;
     *)
         shift
         ;;
@@ -74,6 +78,22 @@ fi
 # source "$HOME/.dotfiles/.venv/bin/activate"
 # pip install -r "$HOME/.dotfiles/config/requirements.txt"
 # deactivate
+
+# https://llm.datasette.io/en/stable/plugins/directory.html
+llm_plugins=(
+    "llm-openai-plugin"    # needed for newer openai models
+    "llm-cmd"              # creates a bash command - `llm cmd undo last git commit`
+    "llm-cmd-comp"         # creates a bash command inline with a alt-\
+    "llm-jq"               # lets you pipe in JSON data and a prompt describing a `jq` program, then executes the generated program against the JSON.
+    "llm-templates-fabric" # https://github.com/danielmiessler/fabric: `llm -t fabric:summarize -f https://en.wikipedia.org/wiki/Application_software`
+    "llm-fragments-github" #  can load entire GitHub repositories in a single operation: `llm -f github:simonw/files-to-prompt 'explain this code'`
+)
+
+# install llm plugins if llm exists
+if [ "$arg_llm" = true ] && command -v llm >/dev/null 2>&1; then
+    echo "Installing llm plugins: ${llm_plugins[*]}"
+    llm install "${llm_plugins[@]}"
+fi
 
 if [ "$arg_link" = true ]; then
     echo "Linking config files"
