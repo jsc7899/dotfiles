@@ -68,7 +68,7 @@ return {
       proxy = nil,
       provider_options = {
         openai = {
-          model = 'gpt-4o-mini',
+          model = 'gpt-4.1-nano',
           -- system = 'see [Prompt] section for the default value',
           -- few_shots = 'see [Prompt] section for the default value',
           -- chat_input = 'See [Prompt Section for default value]',
