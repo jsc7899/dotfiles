@@ -12,7 +12,7 @@ export PATH="/opt/homebrew/bin:$PATH"
 export PATH="$PATH:/opt/nvim-linux64/bin"
 export PATH="$PATH:/Library/NessusAgent/run/sbin"
 export PATH="$PATH:$HOME/.dotfiles/scripts"
-export PATH="/Users/jared/.local/bin:$PATH" # uv
+export PATH="$HOME/.local/bin:$PATH" # uv
 
 ## Update Dotfiles ##
 if [ -d "$HOME/.dotfiles" ]; then
@@ -96,6 +96,8 @@ alias node_elig='nomad node eligibility # -self -enable -disable'
 alias nomad_run='cd /opt/ansible && sleep 1 && ansible nomad_clients -b -m shell -a'
 alias nomad_secrets='cd /opt/ansible && /opt/ansible/plays/void/nomad/nomad_clients.yaml --tags=secrets --limit=nomad_clients && cd -'
 alias +x='chmod +x'
+alias gac='ai_git_commit'
+alias alf='ansible-lint --fix'
 # llm
 alias bashllm='llm -m o3-mini -o reasoning_effort low --system \
     "You are an expert in Bash scripting and Linux command-line operations. Your goal is to provide clear, accurate, and efficient solutions to user queries about accomplishing tasks in Bash." '
