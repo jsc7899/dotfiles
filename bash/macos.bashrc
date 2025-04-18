@@ -24,7 +24,7 @@ then
 fi
 
 # aliases
-alias update='$HOME/.dotfiles/scripts/update_macos.sh'
+alias update='$HOME/.dotfiles/scripts/macos/update_macos.sh'
 alias start_meeting="/Users/jared/Documents/scripts/redlight.sh"
 alias stop_meeting="/Users/jared/Documents/scripts/bluelight.sh"
 alias tacc='ssh -i $HOME/.ssh/tacc_id_ras jsc3642@stampede2.tacc.utexas.edu'
@@ -51,6 +51,7 @@ alias vha="./site.yaml --limit=load_balancers --tags=haproxy"
 alias flush_dns="sudo killall -HUP mDNSResponder"
 alias rsync='/opt/homebrew/bin/rsync'
 alias vpn='cd ~/.dotfiles/scripts/ocgo && ./ocgo;./reset_dns.sh'
+alias hi='highlight --syntax=markdown --out-format=ansi'
 
 # macos settings
 # disable displays have separate spaces
