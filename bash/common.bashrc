@@ -57,7 +57,7 @@ export OPENAI_API_KEY
 export DEFAULT_LLM='gpt-4.1-mini'
 
 # set default model for llm
-llm models default "openai/$DEFAULT_LLM"
+# llm models default "openai/$DEFAULT_LLM"
 
 ## Functions ##
 source "$HOME/.dotfiles/bash/functions"
