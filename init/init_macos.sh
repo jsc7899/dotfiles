@@ -21,6 +21,7 @@ macos_pkgs=(
     "duf"                    # df alternative
     "fzf"                    # command-line fuzzy finder
     "uv"                     # python package manager
+    "highlight"              # cli syntax highlighter
 )
 
 install_macos() {
