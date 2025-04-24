@@ -17,7 +17,7 @@ vim.g.have_nerd_font = true
 
 -- Make line numbers default
 vim.opt.number = true
-vim.opt.relativenumber = true
+vim.opt.relativenumber = false
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = 'a'
@@ -105,9 +105,28 @@ vim.filetype.add {
   },
 }
 
+-- Set tab width to 2 specifically for markdown files
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'markdown',
+  callback = function()
+    vim.bo.tabstop = 2
+    vim.bo.shiftwidth = 2
+    vim.bo.expandtab = true
+  end,
+})
+
 -- change register for delete
-vim.api.nvim_set_keymap('n', 'd', '"dd', { noremap = true })
-vim.api.nvim_set_keymap('x', 'd', '"dd', { noremap = true })
+-- vim.api.nvim_set_keymap('n', 'd', '"dd', { noremap = true })
+-- vim.api.nvim_set_keymap('x', 'd', '"dd', { noremap = true })
+
+-- set paste mode so that text is pasted to the left of the cursor (on the block cursor) automatically
+-- Normal mode remaps
+-- vim.keymap.set('n', 'p', 'P', { noremap = true })
+-- vim.keymap.set('n', 'P', 'p', { noremap = true })
+
+-- Visual mode remaps
+-- vim.keymap.set('v', 'p', 'P', { noremap = true })
+-- vim.keymap.set('v', 'P', 'p', { noremap = true })
 
 vim.g.loaded_python_provider = 0
 vim.g.loaded_python3_provider = 0

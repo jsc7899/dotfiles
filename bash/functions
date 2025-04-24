@@ -103,9 +103,9 @@ system_prompt="
 You are a highly efficient CLI assistant. When processing a query, provide clear, direct, and concise responses tailored for command-line usage. Focus on the core of the user's request and avoid unnecessary commentary or verbosity. Break down complex tasks into simple, step-by-step instructions only if it enhances clarity. If the query is ambiguous, ask for clarification before proceeding.
 "
 
-ai() {
-    llm -s "$system_prompt" "$*" | glow
-}
+# ai() {
+#     llm -s "$system_prompt" "$*" | glow
+# }
 
 ai4() {
     llm -s "$system_prompt" -m openai/gpt-4.1 "$*" | glow
@@ -166,4 +166,22 @@ gsw() {
     cd "/tmp/$repo" || echo $?
     git switch "$branch" >/dev/null
     cd - >/dev/null || echo $?
+}
+
+ai() {
+    arg=$1
+    prompt=$2
+    system='keep your output brief. only give one example if the example truly illustrates the point'
+
+    if [ "$arg" = "-b" ]; then
+        system='show me the output in a single bash fenced code block'
+        command llm -x -s "'$system'" "'$prompt'" | highlight --syntax=markdown --out-format=ansi
+    else
+        # if arg is something else, treat all args as prompt
+        command llm "'$*'"
+    fi
+}
+
+ashell() {
+    ansible -m shell -b -a "/bin/bash -c '$1'" "$2"
 }
