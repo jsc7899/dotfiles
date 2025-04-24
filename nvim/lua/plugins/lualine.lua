@@ -36,7 +36,7 @@ return {
         lualine_c = {
           {
             'filename',
-            path = 1, -- 0 filename, 1 relative path, 2 absolute path
+            path = 2, -- 0 filename, 1 relative path, 2 absolute path
             file_stats = true, -- readonly/modified
           },
         },
