@@ -87,6 +87,7 @@ llm_plugins=(
     "llm-jq"               # lets you pipe in JSON data and a prompt describing a `jq` program, then executes the generated program against the JSON.
     "llm-templates-fabric" # https://github.com/danielmiessler/fabric: `llm -t fabric:summarize -f https://en.wikipedia.org/wiki/Application_software`
     "llm-fragments-github" #  can load entire GitHub repositories in a single operation: `llm -f github:simonw/files-to-prompt 'explain this code'`
+    "llm-docs"             # adds llm -f docs: fragment
 )
 
 # install llm plugins if llm exists
