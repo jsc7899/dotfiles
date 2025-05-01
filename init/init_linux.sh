@@ -59,11 +59,23 @@ install_nvim() {
     fi
 }
 
+install_op() {
+    # https://support.1password.com/install-linux/#get-1password-for-linux
+    curl -sS https://downloads.1password.com/linux/keys/1password.asc | sudo gpg --dearmor --output /usr/share/keyrings/1password-archive-keyring.gpg
+    echo 'deb [arch=amd64 signed-by=/usr/share/keyrings/1password-archive-keyring.gpg] https://downloads.1password.com/linux/debian/amd64 stable main' | sudo tee /etc/apt/sources.list.d/1password.list
+    sudo mkdir -p /etc/debsig/policies/AC2D62742012EA22/
+    curl -sS https://downloads.1password.com/linux/debian/debsig/1password.pol | sudo tee /etc/debsig/policies/AC2D62742012EA22/1password.pol
+    sudo mkdir -p /usr/share/debsig/keyrings/AC2D62742012EA22
+    curl -sS https://downloads.1password.com/linux/keys/1password.asc | sudo gpg --dearmor --output /usr/share/debsig/keyrings/AC2D62742012EA22/debsig.gpg
+    $(check_sudo) apt update && $(check_sudo) apt install 1password
+}
+
 if [[ -f /etc/debian_version ]]; then
     echo "OS is debian"
     install_debian
     install_fzf
     install_nvim
+    install_op
 elif [[ -f /etc/redhat-release ]]; then
     echo "OS is redhat"
     install_redhat
