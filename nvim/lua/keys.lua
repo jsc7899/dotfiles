@@ -75,12 +75,19 @@ vim.keymap.set('n', '<leader>toc', ':MDToc<CR><C-W>L:vertical resize 35<CR>', { 
 -- seach next newline
 -- vim.keymap.set('n', '<leader>n', '/^\\n<CR>', { noremap = true, silent = true })
 
--- insert bash header
+-- bash shebang
 vim.keymap.set('n', '<leader>sh', function()
   local lines = { '#!/usr/bin/env bash', 'set -euo pipefail', '' }
   vim.api.nvim_buf_set_lines(0, 0, 0, false, lines)
   vim.cmd 'startinsert'
-end, { silent = true, noremap = true, desc = 'Insert Bash header' })
+end, { silent = true, noremap = true, desc = 'Insert Bash shebang' })
+
+-- python shebang
+vim.keymap.set('n', '<leader>py', function()
+  local lines = { '#!/usr/bin/env python', '' }
+  vim.api.nvim_buf_set_lines(0, 0, 0, false, lines)
+  vim.cmd 'startinsert'
+end, { silent = true, noremap = true, desc = 'Insert Python shebang' })
 
 -- quickfix
 vim.keymap.set('n', '<leader>nn', '<cmd>cnext<CR>')
@@ -105,7 +112,7 @@ vim.keymap.set('v', '<leader>y', function()
 end, { noremap = true, silent = true, desc = 'Yank selection to specified register' })
 
 -- Function to prompt for register and paste in normal mode
-vim.keymap.set('n', '<leader>p', function()
+vim.keymap.set({ 'n', 'v' }, '<leader>p', function()
   local reg = vim.fn.input 'Paste from register: '
   if reg ~= '' then
     vim.cmd('normal! "' .. reg .. 'p')
