@@ -4,6 +4,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 arg_link=false
 arg_install=false
+arg_llm=false
 
 while [[ $# -gt 0 ]]; do
     case $1 in
@@ -71,14 +72,6 @@ if [ "$arg_install" = true ]; then
     fi
 fi
 
-# # create default venv if it does not exist
-# if [ ! -d "$HOME/.dotfiles/.venv" ]; then
-#     python3 -m venv "$HOME/.dotfiles/.venv"
-# fi
-# source "$HOME/.dotfiles/.venv/bin/activate"
-# pip install -r "$HOME/.dotfiles/config/requirements.txt"
-# deactivate
-
 # install llm
 # uv tool install --python python3.12 llm
 
@@ -112,7 +105,7 @@ if [ "$arg_llm" = true ] && command -v llm >/dev/null 2>&1; then
 fi
 
 # setup .env
-cat "$HOME/.env.tmpl" <<EOF
+cat >"$HOME/.env.tmpl" <<EOF
 OPENAI_API_KEY="op://employee/openai infs-risk jared/api key"
 EOF
 # use op to inject secrets
