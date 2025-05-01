@@ -53,12 +53,6 @@ export HISTFILESIZE=100000
 # fi
 # OPENAI_API_KEY=$(op read "op://employee/openai infs-risk jared/api key")j
 # export OPENAI_API_KEY
-
-cat "$HOME/.env.tmpl" <<EOF
-OPENAI_API_KEY="op://employee/openai infs-risk jared/api key"
-EOF
-
-op inject -i "$HOME/.env.tmpl" -o ~/.env
 source "$HOME/.env"
 
 # default model for all ai tools
