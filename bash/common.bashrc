@@ -82,6 +82,8 @@ alias lg='lazygit'
 alias x='exit'
 alias ta='tmux a -t'
 alias v='nvim'
+alias d='nvim -c "lua require(\"telescope.builtin\").find_files({cwd = vim.fn.getcwd()})"'
+alias o='nvim -c "lua require(\"telescope.builtin\").oldfiles()"'
 alias jq='jq -C'
 alias less='less -R'
 alias gb='go build -v'
@@ -115,5 +117,6 @@ eval "$(direnv hook bash)"
 # set up fzf key bindings and fuzzy completion
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
+eval "$(zoxide init bash)"
 # needs to be at end of file
 [[ ! ${BLE_VERSION-} ]] || ble-attach
