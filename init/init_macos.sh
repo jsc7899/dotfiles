@@ -22,6 +22,7 @@ macos_pkgs=(
     "fzf"                    # command-line fuzzy finder
     "uv"                     # python package manager
     "highlight"              # cli syntax highlighter
+    "op"                     # 1password cli
 )
 
 install_macos() {

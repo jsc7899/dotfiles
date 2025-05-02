@@ -46,12 +46,14 @@ export HISTCONTROL=ignorespace
 export HISTSIZE=100000
 export HISTFILESIZE=100000
 
-if command -v security &>/dev/null; then
-    OPENAI_API_KEY=$(security find-generic-password -s openai -a jared -w)
-else
-    source ~/.env
-fi
-export OPENAI_API_KEY
+# if command -v security &>/dev/null; then
+#     OPENAI_API_KEY=$(security find-generic-password -s openai -a jared -w)
+# else
+#     source ~/.env
+# fi
+# OPENAI_API_KEY=$(op read "op://employee/openai infs-risk jared/api key")j
+# export OPENAI_API_KEY
+source "$HOME/.env"
 
 # default model for all ai tools
 export DEFAULT_LLM='gpt-4.1-mini'
@@ -68,6 +70,10 @@ export GOPATH="$HOME/go"
 export GOCACHE="$HOME/.cache/go"
 export GOMAXPROCS=$(nproc)
 export PATH="$PATH:$GOPATH/bin"
+
+## TmuxAI config ##
+export TMUXAI_OPENROUTER_API_KEY="$OPENAI_API_KEY"
+export TMUXAI_OPENROUTER_MODEL="$DEFAULT_LLM"
 
 ## ALIAS ##
 # common

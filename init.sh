@@ -4,6 +4,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 arg_link=false
 arg_install=false
+arg_llm=false
 
 while [[ $# -gt 0 ]]; do
     case $1 in
@@ -71,13 +72,8 @@ if [ "$arg_install" = true ]; then
     fi
 fi
 
-# # create default venv if it does not exist
-# if [ ! -d "$HOME/.dotfiles/.venv" ]; then
-#     python3 -m venv "$HOME/.dotfiles/.venv"
-# fi
-# source "$HOME/.dotfiles/.venv/bin/activate"
-# pip install -r "$HOME/.dotfiles/config/requirements.txt"
-# deactivate
+# install llm
+# uv tool install --python python3.12 llm
 
 # https://llm.datasette.io/en/stable/plugins/directory.html
 llm_plugins=(
@@ -101,14 +97,19 @@ llm_plugins=(
 )
 
 # install llm plugins if llm exists
-# install llm
-# uv tool install --python python3.12 llm
 if [ "$arg_llm" = true ] && command -v llm >/dev/null 2>&1; then
     echo "Updating llm"
     uv tool install --python python3.12 --upgrade llm
     echo "Installing and upgrading llm plugins: ${llm_plugins[*]}"
     llm install -U "${llm_plugins[@]}"
 fi
+
+# setup .env
+cat >"$HOME/.env.tmpl" <<EOF
+OPENAI_API_KEY="op://employee/openai infs-risk jared/api key"
+EOF
+# use op to inject secrets
+op inject -i "$HOME/.env.tmpl" -o "$HOME"/.env
 
 if [ "$arg_link" = true ]; then
     echo "Linking config files"
