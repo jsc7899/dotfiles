@@ -20,6 +20,10 @@ while [[ $# -gt 0 ]]; do
         arg_llm=true
         shift
         ;;
+    -o | --op)
+        arg_op=true
+        shift
+        ;;
     *)
         shift
         ;;
@@ -97,19 +101,30 @@ llm_plugins=(
 )
 
 # install llm plugins if llm exists
-if [ "$arg_llm" = true ] && command -v llm >/dev/null 2>&1; then
-    echo "Updating llm"
-    uv tool install --python python3.12 --upgrade llm
-    echo "Installing and upgrading llm plugins: ${llm_plugins[*]}"
-    llm install -U "${llm_plugins[@]}"
+if [ "$arg_llm" = true ] && (command -v llm >/dev/null 2>&1 || echo "llm not installed"); then
+    echo -e "\033[0;32mUpdating llm\033[0m"
+    uv tool upgrade --python python3.12 llm
+    echo -e "\033[0;32mInstalling and upgrading llm plugins: ${llm_plugins[*]}\033[0m"
+
+    # if command -v parallel >/dev/null 2>&1; then
+    #     echo -e "\033[33musing parallel\033[0m"
+    #     printf "%s\n" "${llm_plugins[@]}" | parallel --linebuffer --tag 'llm install -U "{}"'
+    # else
+    for plugin in "${llm_plugins[@]}"; do
+        echo -e "\033[32m$plugin\033[0m"
+        llm install -U "$plugin"
+    done
+    # fi
+
 fi
 
-# setup .env
-cat >"$HOME/.env.tmpl" <<EOF
+if [ "$arg_op" = true ] && (command -v op >/dev/null 2>&1 || echo "op not installed"); then
+    setup .env
+    cat >"$HOME/.env.tmpl" <<EOF
 OPENAI_API_KEY="op://employee/openai infs-risk jared/api key"
 EOF
-# use op to inject secrets
-op inject -i "$HOME/.env.tmpl" -o "$HOME"/.env
+    op inject -i "$HOME/.env.tmpl" -o "$HOME"/.env
+fi
 
 if [ "$arg_link" = true ]; then
     echo "Linking config files"
