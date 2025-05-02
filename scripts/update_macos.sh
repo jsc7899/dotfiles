@@ -67,12 +67,20 @@ update_zsh_plugins() {
     zsh -c 'source ~/.zshrc && antidote'
 }
 
+update_llm_plugins() {
+    for plugin in $(llm plugins | jq -M .[].name | tr -d '"'); do
+        echo "Updating plugin: $plugin"
+    done
+
+}
+
 print_help() {
     echo "Usage: $0 [OPTIONS]"
     echo "Options:"
     echo "  -b, --brew     Update brew packages"
     echo "  -v, --venvs    Update virtual environments"
-    echo "  -z, --zsh      Update zsh plugins"
+    # echo "  -z, --zsh      Update zsh plugins"
+    echo "  -l, --llm      Update LLM plugins"
     echo "  -a, --all      Update everything"
     echo "  -h, --help     Show this help message"
 }
@@ -83,6 +91,7 @@ while [[ "$#" -gt 0 ]]; do
     -b | --brew) BREW=true ;;
     -p | --python) VENVS=true ;;
     # -z | --zsh) ZSH=true ;;
+    -l | --llm) LLM=true ;;
     -a | --all) ALL=true ;;
     -h | --help)
         print_help
@@ -105,6 +114,10 @@ fi
 if [[ "$ALL" == true || "$VENVS" == true ]]; then
     update_local_pip
     # update_venvs
+fi
+
+if [[ "$ALL" == true || "$LLM" == true ]]; then
+    update_llm_plugins
 fi
 
 # if [[ "$ALL" == true || "$ZSH" == true ]]; then
