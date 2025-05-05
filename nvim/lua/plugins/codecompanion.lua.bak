@@ -5,19 +5,34 @@ return {
     'nvim-treesitter/nvim-treesitter',
     'j-hui/fidget.nvim',
   },
-  -- cmd = { 'CodeCompanion', 'CodeCompanionActions', 'CodeCompanionChat' }, -- Load only when commands are used
+  cmd = { 'CodeCompanion', 'CodeCompanionActions', 'CodeCompanionChat' }, -- Load only when commands are used
   keys = {
+    { '<Leader>cv', '<cmd>CodeCompanion<cr>', mode = { 'n', 'v' }, desc = 'Run CodeCompanion' },
     { '<Leader>ca', '<cmd>CodeCompanionActions<cr>', mode = { 'n', 'v' }, desc = 'CodeCompanion Actions' },
     { '<Leader>cc', '<cmd>CodeCompanionChat Toggle<cr><cmd>set ft=markdown<cr>', mode = { 'n', 'v' }, desc = 'Toggle CodeCompanion Chat' },
-    { '<Leader>cv', '<cmd>CodeCompanion<cr>', mode = { 'n', 'v' }, desc = 'CodeCompanion Inline' },
+    { 'ga', '<cmd>CodeCompanionChat Add<cr>', mode = 'v', desc = 'Add to CodeCompanion Chat' },
+    -- {
+    --   '<Leader>cvt',
+    --   function()
+    --     require('codecompanion').prompt 'o3-mini'
+    --   end,
+    --   mode = { 'n', 'v' },
+    --   desc = 'Inline Assistant (o3-mini prompt)',
+    -- },
   },
   opts = {
     adapters = {
+      opts = {
+        show_defaults = true,
+      },
       openai = function()
         return require('codecompanion.adapters').extend('openai', {
           schema = {
             model = {
               default = 'gpt-4.1-mini',
+            },
+            reasoning_effort = {
+              default = 'high',
             },
           },
         })
@@ -59,11 +74,10 @@ return {
         enabled = false,
       },
     },
-
     prompt_library = {
-      ['4.1-nano'] = {
+      ['4.1-mini inline'] = {
         strategy = 'inline',
-        description = 'inline 4.1-nano',
+        description = 'Prompt the LLM from Neovim',
         opts = {
           index = 1,
           is_default = false,
@@ -72,28 +86,39 @@ return {
           placement = 'add',
           adapter = {
             name = 'openai',
-            model = '4.1-nano',
+            model = 'gpt-4.1-mini',
           },
         },
         prompts = {
           {
             role = 'system',
             content = function(context)
-              return 'I want you to act as a senior '
-                .. context.filetype
-                .. ' developer. I will ask you specific questions and I want you to return concise explanations and codeblock examples.'
+              return string.format(
+                [[I want you to act as a senior %s developer. I will ask you specific questions and I want you to return raw code only (no codeblocks and no explanations). If you can't respond with code, respond with nothing]],
+                context.filetype
+              )
             end,
+            opts = {
+              visible = false,
+              tag = 'system_tag',
+            },
+          },
+        },
+      },
+      ['4.1-mini chat'] = {
+        strategy = 'chat',
+        description = 'Chat with 4.1-mini',
+        opts = {
+          index = 2,
+        },
+        prompts = {
+          {
+            role = 'system',
+            content = '',
           },
           {
             role = 'user',
-            content = function(context)
-              local text = require('codecompanion.helpers.actions').get_code(context.start_line, context.end_line)
-
-              return 'I have the following code:\n\n```' .. context.filetype .. '\n' .. text .. '\n```\n\n'
-            end,
-            opts = {
-              contains_code = true,
-            },
+            content = '',
           },
         },
       },

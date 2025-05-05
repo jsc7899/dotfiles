@@ -9,3 +9,5 @@ elif [ "$(uname)" == "Linux" ]; then
     # Linux specific configuration
     source "$HOME/.dotfiles/bash/linux.bashrc"
 fi
+
+[ -f "$HOME/.dotfiles/bash/local.bashrc" ] && . "$HOME/.dotfiles/bash/local.bashrc"

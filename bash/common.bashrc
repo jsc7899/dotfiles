@@ -2,8 +2,9 @@
 
 # fix terminal/tmux for undercurl support - squigly line for errors
 # see https://dev.to/jibundit/undercurl-display-on-neovim-and-tmux-with-iterm2-3pi0
+# export TERM="xterm-ghostty"
 export TERM="xterm-256color"
-tic -x ~/.dotfiles/config/xterm-256color.ti
+# tic -x ~/.dotfiles/config/xterm-256color.ti
 
 ## PATH ##
 export PATH="/opt/homebrew/sbin:$PATH"
@@ -11,7 +12,7 @@ export PATH="/opt/homebrew/bin:$PATH"
 export PATH="$PATH:/opt/nvim-linux64/bin"
 export PATH="$PATH:/Library/NessusAgent/run/sbin"
 export PATH="$PATH:$HOME/.dotfiles/scripts"
-export PATH="/Users/jared/.local/bin:$PATH" # uv
+export PATH="$HOME/.local/bin:$PATH" # uv
 
 ## Update Dotfiles ##
 if [ -d "$HOME/.dotfiles" ]; then
@@ -33,7 +34,7 @@ if [ ! -f "$HOME/.local/share/blesh/ble.sh" ]; then
 fi
 # source ble.sh and config
 [[ $- == *i* ]] &&
-    source "$HOME/.local/share/blesh/ble.sh" --rcfile "$HOME/.blerc" --noattach
+source "$HOME/.local/share/blesh/ble.sh" --rcfile "$HOME/.blerc" --noattach
 
 set -o vi # use vi mode for bash keys
 # set -o emacs # use emacs mode (default) for bash keys
@@ -41,13 +42,24 @@ set -o vi # use vi mode for bash keys
 ## EXPORT ##
 export EDITOR=nvim
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY="YES"
+export HISTCONTROL=ignorespace
+export HISTSIZE=100000
+export HISTFILESIZE=100000
 
-if command -v security &>/dev/null; then
-    OPENAI_API_KEY=$(security find-generic-password -s openai -a autocomplete -w)
-else
-    source ~/.env
-fi
-export OPENAI_API_KEY
+# if command -v security &>/dev/null; then
+#     OPENAI_API_KEY=$(security find-generic-password -s openai -a jared -w)
+# else
+#     source ~/.env
+# fi
+# OPENAI_API_KEY=$(op read "op://employee/openai infs-risk jared/api key")j
+# export OPENAI_API_KEY
+source "$HOME/.env"
+
+# default model for all ai tools
+export DEFAULT_LLM='gpt-4.1-mini'
+
+# set default model for llm
+# llm models default "openai/$DEFAULT_LLM"
 
 ## Functions ##
 source "$HOME/.dotfiles/bash/functions"
@@ -58,6 +70,10 @@ export GOPATH="$HOME/go"
 export GOCACHE="$HOME/.cache/go"
 export GOMAXPROCS=$(nproc)
 export PATH="$PATH:$GOPATH/bin"
+
+## TmuxAI config ##
+export TMUXAI_OPENROUTER_API_KEY="$OPENAI_API_KEY"
+export TMUXAI_OPENROUTER_MODEL="$DEFAULT_LLM"
 
 ## ALIAS ##
 # common
@@ -72,6 +88,8 @@ alias lg='lazygit'
 alias x='exit'
 alias ta='tmux a -t'
 alias v='nvim'
+alias d='nvim -c "lua require(\"telescope.builtin\").find_files({cwd = vim.fn.getcwd()})"'
+alias o='nvim -c "lua require(\"telescope.builtin\").oldfiles()"'
 alias jq='jq -C'
 alias less='less -R'
 alias gb='go build -v'
@@ -85,7 +103,9 @@ alias colors='/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/g
 alias node_elig='nomad node eligibility # -self -enable -disable'
 alias nomad_run='cd /opt/ansible && sleep 1 && ansible nomad_clients -b -m shell -a'
 alias nomad_secrets='cd /opt/ansible && /opt/ansible/plays/void/nomad/nomad_clients.yaml --tags=secrets --limit=nomad_clients && cd -'
-
+alias +x='chmod +x'
+alias gac='ai_git_commit'
+alias alf='ansible-lint --fix'
 # llm
 alias bashllm='llm -m o3-mini -o reasoning_effort low --system \
     "You are an expert in Bash scripting and Linux command-line operations. Your goal is to provide clear, accurate, and efficient solutions to user queries about accomplishing tasks in Bash." '
@@ -103,5 +123,6 @@ eval "$(direnv hook bash)"
 # set up fzf key bindings and fuzzy completion
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
+eval "$(zoxide init bash)"
 # needs to be at end of file
 [[ ! ${BLE_VERSION-} ]] || ble-attach

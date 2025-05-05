@@ -4,6 +4,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 arg_link=false
 arg_install=false
+arg_llm=false
 
 while [[ $# -gt 0 ]]; do
     case $1 in
@@ -13,6 +14,10 @@ while [[ $# -gt 0 ]]; do
         ;;
     -l | --link)
         arg_link=true
+        shift
+        ;;
+    -m | --llm)
+        arg_llm=true
         shift
         ;;
     *)
@@ -67,13 +72,44 @@ if [ "$arg_install" = true ]; then
     fi
 fi
 
-# # create default venv if it does not exist
-# if [ ! -d "$HOME/.dotfiles/.venv" ]; then
-#     python3 -m venv "$HOME/.dotfiles/.venv"
-# fi
-# source "$HOME/.dotfiles/.venv/bin/activate"
-# pip install -r "$HOME/.dotfiles/config/requirements.txt"
-# deactivate
+# install llm
+# uv tool install --python python3.12 llm
+
+# https://llm.datasette.io/en/stable/plugins/directory.html
+llm_plugins=(
+    "llm-openai-plugin"     # needed for newer openai models
+    "llm-cmd"               # creates a bash command - `llm cmd undo last git commit`
+    "llm-cmd-comp"          # creates a bash command inline with a alt-\
+    "llm-jq"                # lets you pipe in JSON data and a prompt describing a `jq` program, then executes the generated program against the JSON.
+    "llm-templates-fabric"  # https://github.com/danielmiessler/fabric: `llm -t fabric:summarize -f https://en.wikipedia.org/wiki/Application_software`
+    "llm-fragments-github"  #  can load entire GitHub repositories in a single operation: `llm -f github:simonw/files-to-prompt 'explain this code'`
+    "llm-docs"              # adds llm -f docs: fragment
+    "llm-openai-plugin"     # needed for newer openai models
+    "llm-cmd"               # creates a bash command - `llm cmd undo last git commit`
+    "llm-cmd-comp"          # creates a bash command inline with a alt-\
+    "llm-jq"                # lets you pipe in JSON data and a prompt describing a `jq` program, then executes the generated program against the JSON.
+    "llm-templates-fabric"  # https://github.com/danielmiessler/fabric: `llm -t fabric:summarize -f https://en.wikipedia.org/wiki/Application_software`
+    "llm-fragments-github"  #  can load entire GitHub repositories in a single operation: `llm -f github:simonw/files-to-prompt 'explain this code'`
+    "llm-bedrock"           # https://github.com/simonw/llm-bedrock
+    "llm-bedrock-anthropic" # https://github.com/sblakey/llm-bedrock-anthropic
+    "llm-mlx"               # https://github.com/simonw/llm-mlx
+    "llm-docs"              # adds llm -f docs: fragment
+)
+
+# install llm plugins if llm exists
+if [ "$arg_llm" = true ] && command -v llm >/dev/null 2>&1; then
+    echo "Updating llm"
+    uv tool install --python python3.12 --upgrade llm
+    echo "Installing and upgrading llm plugins: ${llm_plugins[*]}"
+    llm install -U "${llm_plugins[@]}"
+fi
+
+# setup .env
+cat >"$HOME/.env.tmpl" <<EOF
+OPENAI_API_KEY="op://employee/openai infs-risk jared/api key"
+EOF
+# use op to inject secrets
+op inject -i "$HOME/.env.tmpl" -o "$HOME"/.env
 
 if [ "$arg_link" = true ]; then
     echo "Linking config files"

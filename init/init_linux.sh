@@ -61,11 +61,29 @@ install_nvim() {
     fi
 }
 
+install_op() {
+    # https://developer.1password.com/docs/cli/get-started
+    curl -sS https://downloads.1password.com/linux/keys/1password.asc |
+        $(check_sudo) gpg --dearmor --output /usr/share/keyrings/1password-archive-keyring.gpg &&
+        echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/1password-archive-keyring.gpg] https://downloads.1password.com/linux/debian/$(dpkg --print-architecture) stable main" |
+        $(check_sudo) tee /etc/apt/sources.list.d/1password.list &&
+        $(check_sudo) mkdir -p /etc/debsig/policies/AC2D62742012EA22/ &&
+        curl -sS https://downloads.1password.com/linux/debian/debsig/1password.pol |
+        $(check_sudo) tee /etc/debsig/policies/AC2D62742012EA22/1password.pol &&
+        $(check_sudo) mkdir -p /usr/share/debsig/keyrings/AC2D62742012EA22 &&
+        curl -sS https://downloads.1password.com/linux/keys/1password.asc |
+        $(check_sudo) gpg --dearmor --output /usr/share/debsig/keyrings/AC2D62742012EA22/debsig.gpg &&
+        $(check_sudo) apt update && $(check_sudo) apt install 1password-cli
+}
+
 if [[ -f /etc/debian_version ]]; then
     echo "OS is debian"
     install_debian
-    install_fzf
+    if [ ! -d "$HOME"/.fzf ]; then
+        install_fzf
+    fi
     install_nvim
+    # install_op
 elif [[ -f /etc/redhat-release ]]; then
     echo "OS is redhat"
     install_redhat
