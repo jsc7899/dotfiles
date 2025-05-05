@@ -13,16 +13,16 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 })
 
 -- automatically determine filetype for ansible
-vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
-  pattern = { '/opt/ansible*/*.yaml' },
-  command = 'set filetype=yaml.ansible',
-})
+-- vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
+--   pattern = { '/opt/ansible*/*.yaml' },
+--   command = 'set filetype=yaml.ansible',
+-- })
 
 -- Create an autocommand to adjust tab settings for yaml.ansible files
 vim.api.nvim_create_autocmd({ 'BufEnter', 'FileType' }, {
   pattern = { '*.yml', '*.yaml' },
   callback = function()
-    if vim.bo.filetype == 'yaml.ansible' then
+    if vim.bo.filetype == 'ansible' then
       vim.bo.expandtab = true -- Use spaces instead of tabs
       vim.bo.shiftwidth = 2 -- Size of an indent
       vim.bo.tabstop = 2 -- Number of spaces tabs count for
