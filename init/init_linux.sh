@@ -4,6 +4,8 @@ set -euo pipefail
 debian_pkgs=(
     "python3-pip"
     "python3-venv"
+    "ansible-lint"
+    "lazygit"
 )
 
 redhat_pkgs=()

@@ -76,48 +76,36 @@ if [ "$arg_install" = true ]; then
     fi
 fi
 
-# install llm
-# uv tool install --python python3.12 llm
-
 # https://llm.datasette.io/en/stable/plugins/directory.html
 llm_plugins=(
     "llm-openai-plugin"     # needed for newer openai models
     "llm-cmd"               # creates a bash command - `llm cmd undo last git commit`
     "llm-cmd-comp"          # creates a bash command inline with a alt-\
     "llm-jq"                # lets you pipe in JSON data and a prompt describing a `jq` program, then executes the generated program against the JSON.
-    "llm-templates-fabric"  # https://github.com/danielmiessler/fabric: `llm -t fabric:summarize -f https://en.wikipedia.org/wiki/Application_software`
-    "llm-fragments-github"  #  can load entire GitHub repositories in a single operation: `llm -f github:simonw/files-to-prompt 'explain this code'`
     "llm-docs"              # adds llm -f docs: fragment
-    "llm-openai-plugin"     # needed for newer openai models
-    "llm-cmd"               # creates a bash command - `llm cmd undo last git commit`
-    "llm-cmd-comp"          # creates a bash command inline with a alt-\
-    "llm-jq"                # lets you pipe in JSON data and a prompt describing a `jq` program, then executes the generated program against the JSON.
     "llm-templates-fabric"  # https://github.com/danielmiessler/fabric: `llm -t fabric:summarize -f https://en.wikipedia.org/wiki/Application_software`
     "llm-fragments-github"  #  can load entire GitHub repositories in a single operation: `llm -f github:simonw/files-to-prompt 'explain this code'`
     "llm-bedrock"           # https://github.com/simonw/llm-bedrock
     "llm-bedrock-anthropic" # https://github.com/sblakey/llm-bedrock-anthropic
     "llm-mlx"               # https://github.com/simonw/llm-mlx
-    "llm-docs"              # adds llm -f docs: fragment
 )
 
-# install llm plugins if llm exists
+# install aider, llm, and llm plugins
 if [ "$arg_llm" = true ] && (command -v llm >/dev/null 2>&1 || echo "llm not installed"); then
-    echo -e "\033[0;32mUpdating llm\033[0m"
-    uv tool upgrade --python python3.12 llm
-    echo -e "\033[0;32mInstalling and upgrading llm plugins: ${llm_plugins[*]}\033[0m"
 
-    # if command -v parallel >/dev/null 2>&1; then
-    #     echo -e "\033[33musing parallel\033[0m"
-    #     printf "%s\n" "${llm_plugins[@]}" | parallel --linebuffer --tag 'llm install -U "{}"'
-    # else
+    if command -v uv >/dev/null 2>&1; then
+        echo -e "\033[0;32mInstalling and upgrading uv tools\033[0m"
+        uv tool install --python python3.12 --upgrade llm
+        uv tool install --force --python python3.12 aider-chat@latest
+    fi
+    echo -e "\033[0;32mInstalling and upgrading llm plugins: ${llm_plugins[*]}\033[0m"
     for plugin in "${llm_plugins[@]}"; do
         echo -e "\033[32m$plugin\033[0m"
         llm install -U "$plugin"
     done
-    # fi
-
 fi
 
+# use op to inject secrets
 if [ "$arg_op" = true ] && (command -v op >/dev/null 2>&1 || echo "op not installed"); then
     setup .env
     cat >"$HOME/.env.tmpl" <<EOF

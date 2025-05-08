@@ -111,6 +111,8 @@ alias bashllm='llm -m o3-mini -o reasoning_effort low --system \
     "You are an expert in Bash scripting and Linux command-line operations. Your goal is to provide clear, accurate, and efficient solutions to user queries about accomplishing tasks in Bash." '
 alias ansiblellm='llm -m o3-mini -o reasoning_effort low --system \
     "You are an expert in Ansible. Your goal is to write Ansible tasks. Only output the task. Use fully qualified module names and lint appropriately ." '
+alias cd='z'
+alias dc='docker compose'
 
 # attach to tmux on SSH
 if [[ -z $TMUX ]] && [[ -n $SSH_TTY ]]; then

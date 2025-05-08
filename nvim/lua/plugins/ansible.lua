@@ -1,6 +1,6 @@
 return {
   'mfussenegger/nvim-ansible',
-  ft = { 'yaml', 'yaml.ansible' },
+  ft = { 'yaml', 'yaml.ansible', 'ansible' },
   config = function()
     if vim.filetype then
       vim.filetype.add {

@@ -101,6 +101,7 @@ vim.filetype.add {
   pattern = {
     ['/opt/.*/searches/.*'] = 'spl',
     ['[.]?blerc'] = 'bash',
+    ['.*/ansible/.*.ya?ml'] = 'yaml.ansible',
     ['.*.typ?st'] = 'typst',
   },
 }
