@@ -18,64 +18,13 @@
 # Main model:
 
 ## Specify the model to use for the main chat
-model: gpt-4.1
-
-## Use claude-3-opus-20240229 model for the main chat
-#opus: false
-
-## Use claude-3-5-sonnet-20241022 model for the main chat
-#sonnet: false
-
-## Use claude-3-5-haiku-20241022 model for the main chat
-#haiku: false
-
-## Use gpt-4-0613 model for the main chat
-#4: false
-
-## Use gpt-4o model for the main chat
-#4o: false
-
-## Use gpt-4o-mini model for the main chat
-#mini: false
-
-## Use gpt-4-1106-preview model for the main chat
-#4-turbo: false
-
-## Use gpt-3.5-turbo model for the main chat
-#35turbo: false
-
-## Use deepseek/deepseek-chat model for the main chat
-#deepseek: false
-
-## Use o1-mini model for the main chat
-#o1-mini: false
-
-## Use o1-preview model for the main chat
-#o1-preview: false
+model: o3
 
 ########################
 # API Keys and settings:
 
 ## Specify the OpenAI API key
 #openai-api-key: xxx
-
-## Specify the Anthropic API key
-#anthropic-api-key: xxx
-
-## Specify the api base url
-#openai-api-base: xxx
-
-## (deprecated, use --set-env OPENAI_API_TYPE=<value>)
-#openai-api-type: xxx
-
-## (deprecated, use --set-env OPENAI_API_VERSION=<value>)
-#openai-api-version: xxx
-
-## (deprecated, use --set-env OPENAI_API_DEPLOYMENT_ID=<value>)
-#openai-api-deployment-id: xxx
-
-## (deprecated, use --set-env OPENAI_ORGANIZATION=<value>)
-#openai-organization-id: xxx
 
 ## Set an environment variable (to control API settings, can be used multiple times)
 #set-env: xxx
@@ -114,7 +63,7 @@ model: gpt-4.1
 #  - zzz
 
 ## Set the reasoning_effort API parameter (default: not set)
-# reasoning-effort: high
+reasoning-effort: high
 
 ## Verify the SSL cert when connecting to models (default: True)
 #verify-ssl: true
@@ -126,19 +75,19 @@ model: gpt-4.1
 #edit-format: xxx
 
 ## Use architect edit format for the main chat
-#architect: false
+architect: false
 
 ## Specify the model to use for commit messages and chat history summarization (default depends on --model)
-# weak-model: 4o
+weak-model: gpt-4.1
 
 ## Specify the model to use for editor tasks (default depends on --model)
-# editor-model: 4o
+editor-model: gpt-4.1
 
 ## Specify the edit format for the editor model (default: depends on editor model)
 #editor-edit-format: xxx
 
 ## Only work with models that have meta-data available (default: True)
-#show-model-warnings: true
+show-model-warnings: true
 
 ## Soft limit on tokens for chat history, after which summarization begins. If unspecified, defaults to the model's max_chat_history_tokens.
 #max-chat-history-tokens: xxx
@@ -243,7 +192,7 @@ stream: true
 #subtree-only: false
 
 ## Enable/disable auto commit of LLM changes (default: True)
-auto-commits: false
+auto-commits: true
 
 ## Enable/disable commits when repo is found dirty (default: True)
 #dirty-commits: true
@@ -282,15 +231,16 @@ auto-commits: false
 # lint: true
 
 ## Specify lint commands to run for different languages, eg: "python: flake8 --select=..." (can be used multiple times)
-#lint-cmd: xxx
+# lint-cmd:
 ## Specify multiple values like this:
-#lint-cmd:
-#  - xxx
+lint-cmd:
+  - "python: ruff --fix check"
+  - "python: ruff format"
 #  - yyy
 #  - zzz
 
 ## Enable/disable automatic linting after changes (default: True)
-#auto-lint: true
+auto-lint: true
 
 ## Specify command to run tests
 #test-cmd: xxx
@@ -305,13 +255,13 @@ auto-commits: false
 # Analytics:
 
 ## Enable/disable analytics for current session (default: random)
-#analytics: xxx
+analytics: false
 
 ## Specify a file to log analytics events
 #analytics-log: xxx
 
 ## Permanently disable analytics
-#analytics-disable: false
+analytics-disable: true
 
 ############
 # Upgrading:
@@ -344,7 +294,7 @@ auto-commits: false
 #message-file: xxx
 
 ## Run aider in your browser (default: False)
-#gui: false
+gui: false
 
 ## Enable automatic copy/paste of chat between aider and web UI (default: False)
 #copy-paste: false
@@ -371,7 +321,7 @@ auto-commits: false
 #voice-format: wav
 
 ## Specify the language for voice using ISO 639-1 code (default: auto)
-#voice-language: en
+voice-language: en
 
 ## Specify the input device name for voice recording
 #voice-input-device: xxx
@@ -390,8 +340,8 @@ auto-commits: false
 ## specify a read-only file (can be used multiple times)
 #read: xxx
 ## Specify multiple values like this:
-#read:
-#  - xxx
+read:
+ - ~/.dotfiles/ai/aider/conventions.md
 #  - yyy
 #  - zzz
 
@@ -399,7 +349,7 @@ auto-commits: false
 vim: true
 
 ## Specify the language to use in the chat (default: None, uses system settings)
-#chat-language: xxx
+chat-language: en
 
 ## Always say yes to every confirmation
 #yes-always: false
