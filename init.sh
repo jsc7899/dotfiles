@@ -72,7 +72,6 @@ if [ "$arg_install" = true ]; then
     fi
 fi
 
-# install llm
 # uv tool install --python python3.12 llm
 
 # https://llm.datasette.io/en/stable/plugins/directory.html
@@ -98,8 +97,11 @@ llm_plugins=(
 
 # install llm plugins if llm exists
 if [ "$arg_llm" = true ] && command -v llm >/dev/null 2>&1; then
-    echo "Updating llm"
-    uv tool install --python python3.12 --upgrade llm
+    if command -v uv >/dev/null 2>&1; then
+        uv tool install --python python3.12 --upgrade llm
+        uv tool install --python python3.12 --upgrade aider
+    fi
+
     echo "Installing and upgrading llm plugins: ${llm_plugins[*]}"
     llm install -U "${llm_plugins[@]}"
 fi
