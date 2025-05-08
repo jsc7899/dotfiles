@@ -90,7 +90,7 @@ llm_plugins=(
 if [ "$arg_llm" = true ]; then
     if command -v uv >/dev/null 2>&1; then
         uv tool install --python python3.12 --upgrade llm
-        uv tool install --python python3.12 --upgrade aider
+        uv tool install --force --python python3.12 aider-chat@latest
     fi
 
     echo "Installing and upgrading llm plugins: ${llm_plugins[*]}"
