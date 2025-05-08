@@ -80,19 +80,12 @@ llm_plugins=(
     "llm-cmd"               # creates a bash command - `llm cmd undo last git commit`
     "llm-cmd-comp"          # creates a bash command inline with a alt-\
     "llm-jq"                # lets you pipe in JSON data and a prompt describing a `jq` program, then executes the generated program against the JSON.
-    "llm-templates-fabric"  # https://github.com/danielmiessler/fabric: `llm -t fabric:summarize -f https://en.wikipedia.org/wiki/Application_software`
-    "llm-fragments-github"  #  can load entire GitHub repositories in a single operation: `llm -f github:simonw/files-to-prompt 'explain this code'`
     "llm-docs"              # adds llm -f docs: fragment
-    "llm-openai-plugin"     # needed for newer openai models
-    "llm-cmd"               # creates a bash command - `llm cmd undo last git commit`
-    "llm-cmd-comp"          # creates a bash command inline with a alt-\
-    "llm-jq"                # lets you pipe in JSON data and a prompt describing a `jq` program, then executes the generated program against the JSON.
     "llm-templates-fabric"  # https://github.com/danielmiessler/fabric: `llm -t fabric:summarize -f https://en.wikipedia.org/wiki/Application_software`
     "llm-fragments-github"  #  can load entire GitHub repositories in a single operation: `llm -f github:simonw/files-to-prompt 'explain this code'`
     "llm-bedrock"           # https://github.com/simonw/llm-bedrock
     "llm-bedrock-anthropic" # https://github.com/sblakey/llm-bedrock-anthropic
     "llm-mlx"               # https://github.com/simonw/llm-mlx
-    "llm-docs"              # adds llm -f docs: fragment
 )
 
 # install llm plugins if llm exists
