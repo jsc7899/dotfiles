@@ -99,12 +99,14 @@ if [ "$arg_llm" = true ] && command -v llm >/dev/null 2>&1; then
     llm install -U "${llm_plugins[@]}"
 fi
 
-# setup .env
-cat >"$HOME/.env.tmpl" <<EOF
+if command -v op >/dev/null 2>&1; then
+    # setup .env
+    cat >"$HOME/.env.tmpl" <<EOF
 OPENAI_API_KEY="op://employee/openai infs-risk jared/api key"
 EOF
-# use op to inject secrets
-op inject -i "$HOME/.env.tmpl" -o "$HOME"/.env
+    # use op to inject secrets
+    op inject -i "$HOME/.env.tmpl" -o "$HOME"/.env
+fi
 
 if [ "$arg_link" = true ]; then
     echo "Linking config files"
