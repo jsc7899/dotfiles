@@ -72,8 +72,6 @@ if [ "$arg_install" = true ]; then
     fi
 fi
 
-# uv tool install --python python3.12 llm
-
 # https://llm.datasette.io/en/stable/plugins/directory.html
 llm_plugins=(
     "llm-openai-plugin"     # needed for newer openai models
@@ -89,7 +87,7 @@ llm_plugins=(
 )
 
 # install llm plugins if llm exists
-if [ "$arg_llm" = true ] && command -v llm >/dev/null 2>&1; then
+if [ "$arg_llm" = true ]; then
     if command -v uv >/dev/null 2>&1; then
         uv tool install --python python3.12 --upgrade llm
         uv tool install --python python3.12 --upgrade aider
