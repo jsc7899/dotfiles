@@ -23,6 +23,7 @@ macos_pkgs=(
     "uv"                     # python package manager
     "highlight"              # cli syntax highlighter
     "op"                     # 1password cli
+    "sesh"                   # tmux session manager
 )
 
 install_macos() {
