@@ -1,5 +1,10 @@
 # When writing python code, you MUST follow these principles
 
+## General
+
+- DO NOT remove any comments unless asked
+- ONLY make requested changes. DO NOT make any changes unless they are directly related to the user's request
+
 ## Python Libraries
 
 - Always create a `requirements.txt` file if one does not already exist
