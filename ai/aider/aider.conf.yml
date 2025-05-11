@@ -386,3 +386,10 @@ chat-language: en
 
 ## Specify which editor to use for the /editor command
 editor: neovim
+
+# Enable notifications
+notifications: true
+
+# Optional custom notification command
+# notifications_command: "your-custom-command"
+
