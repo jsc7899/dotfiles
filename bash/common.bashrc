@@ -111,8 +111,13 @@ alias bashllm='llm -m o3-mini -o reasoning_effort low --system \
     "You are an expert in Bash scripting and Linux command-line operations. Your goal is to provide clear, accurate, and efficient solutions to user queries about accomplishing tasks in Bash." '
 alias ansiblellm='llm -m o3-mini -o reasoning_effort low --system \
     "You are an expert in Ansible. Your goal is to write Ansible tasks. Only output the task. Use fully qualified module names and lint appropriately ." '
-alias cd='z'
 alias dc='docker compose'
+
+# setup zoxide if available
+if command -v zoxide 2>&1 >/dev/null; then
+    eval "$(zoxide init bash)"
+    alias cd='z'
+fi
 
 # attach to tmux on SSH
 if [[ -z $TMUX ]] && [[ -n $SSH_TTY ]]; then
@@ -125,6 +130,5 @@ eval "$(direnv hook bash)"
 # set up fzf key bindings and fuzzy completion
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
-eval "$(zoxide init bash)"
 # needs to be at end of file
 [[ ! ${BLE_VERSION-} ]] || ble-attach
