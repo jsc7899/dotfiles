@@ -51,6 +51,7 @@ common_pkgs=(
     "nmap"            # network exploration tool and security scanner
     "iperf3"          # tool for measuring TCP, UDP, and SCTP bandwidth performance
     "htop"            # interactive resources viewer
+    "zoxide"          # cd alternative
 )
 
 # use sudo if it's installed - sometimes it's not like containers and first boot debs

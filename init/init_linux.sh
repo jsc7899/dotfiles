@@ -6,6 +6,7 @@ debian_pkgs=(
     "python3-venv"
     "ansible-lint"
     "lazygit"
+    "shellcheck"
 )
 
 redhat_pkgs=()
