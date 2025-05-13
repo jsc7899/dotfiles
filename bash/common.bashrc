@@ -9,7 +9,7 @@ export TERM="xterm-256color"
 ## PATH ##
 export PATH="/opt/homebrew/sbin:$PATH"
 export PATH="/opt/homebrew/bin:$PATH"
-export PATH="$PATH:/opt/nvim-linux64/bin"
+export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
 export PATH="$PATH:/Library/NessusAgent/run/sbin"
 export PATH="$PATH:$HOME/.dotfiles/scripts"
 export PATH="$HOME/.local/bin:$PATH" # uv
@@ -46,13 +46,7 @@ export HISTCONTROL=ignorespace
 export HISTSIZE=100000
 export HISTFILESIZE=100000
 
-# if command -v security &>/dev/null; then
-#     OPENAI_API_KEY=$(security find-generic-password -s openai -a jared -w)
-# else
-#     source ~/.env
-# fi
-# OPENAI_API_KEY=$(op read "op://employee/openai infs-risk jared/api key")j
-# export OPENAI_API_KEY
+# put secrets here
 source "$HOME/.env"
 
 # default model for all ai tools
