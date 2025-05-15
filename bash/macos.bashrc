@@ -52,6 +52,7 @@ alias flush_dns="sudo killall -HUP mDNSResponder"
 alias rsync='/opt/homebrew/bin/rsync'
 alias vpn='cd ~/.dotfiles/scripts/ocgo && ./ocgo;./reset_dns.sh'
 alias hi='highlight --syntax=markdown --out-format=ansi'
+alias n='v "/opt/notes/daily/note_$(date +%F).md'
 
 # macos settings
 # disable displays have separate spaces
