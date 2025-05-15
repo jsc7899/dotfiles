@@ -154,4 +154,8 @@ if [ "$arg_link" = true ]; then
         ln -s "$dotfiles/ai/aider/aider.conf.yml" "$HOME/.aider.conf.yml"
     fi
 
+    #tmux ai
+    if [ ! -L "$HOME/.config/tmuxai/config.yaml" ]; then
+        ln -s "$dotfiles/ai/tmuxai/config.yaml" "$HOME/.config/tmuxai/config.yaml"
+    fi
 fi

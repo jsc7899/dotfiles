@@ -72,8 +72,9 @@ export GOMAXPROCS=$(nproc)
 export PATH="$PATH:$GOPATH/bin"
 
 ## TmuxAI config ##
+# https://github.com/alvinunreal/tmuxai
 export TMUXAI_OPENROUTER_API_KEY="$OPENAI_API_KEY"
-export TMUXAI_OPENROUTER_MODEL="$DEFAULT_LLM"
+export TMUXAI_OPENROUTER_MODEL="gpt-4.1" # "$DEFAULT_LLM"
 
 ## ALIAS ##
 # common
