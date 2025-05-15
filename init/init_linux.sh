@@ -5,7 +5,8 @@ debian_pkgs=(
     "python3-pip"
     "python3-venv"
     "ansible-lint"
-    "lazygit"
+    # "lazygit"
+    "shellcheck"
 )
 
 redhat_pkgs=()
@@ -38,15 +39,16 @@ install_nvim() {
     if command -v nvim &>/dev/null; then
         nvim_installed=true
         # Get the installed version of Neovim
-        nvim_version=$(nvim --version | head -n 1 | awk '{print $2}')
+        nvim_version="0.11.1"
+        cur_version=$(nvim --version | head -n 1 | awk '{print $2}')
 
         # Convert version to comparable format (e.g., 0.10.0 -> 00010)
         convert_version() {
             echo "$1" | awk -F. '{printf("%d%02d%02d\n", $1,$2,$3)}'
         }
 
-        installed_version=$(convert_version "$nvim_version")
-        required_version=$(convert_version "0.10.0")
+        installed_version=$(convert_version "$cur_version")
+        required_version=$(convert_version "$nvim_version")
     else
         nvim_installed=false
     fi
@@ -56,8 +58,8 @@ install_nvim() {
         $(check_sudo) apt-get remove -y neovim
         echo "Installing latest version of Neovim..."
         cd /tmp || exit 1
-        curl -s -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz
-        $(check_sudo) tar -C /opt -xzf nvim-linux64.tar.gz
+        curl -s -LO "https://github.com/neovim/neovim/releases/download/v$nvim_version/nvim-linux-x86_64.tar.gz"
+        $(check_sudo) tar -C /opt -xzf nvim-linux-x86_64.tar.gz
     fi
 }
 
@@ -83,7 +85,7 @@ if [[ -f /etc/debian_version ]]; then
         install_fzf
     fi
     install_nvim
-    # install_op
+    install_op
 elif [[ -f /etc/redhat-release ]]; then
     echo "OS is redhat"
     install_redhat

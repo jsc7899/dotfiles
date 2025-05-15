@@ -9,7 +9,7 @@ export TERM="xterm-256color"
 ## PATH ##
 export PATH="/opt/homebrew/sbin:$PATH"
 export PATH="/opt/homebrew/bin:$PATH"
-export PATH="$PATH:/opt/nvim-linux64/bin"
+export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
 export PATH="$PATH:/Library/NessusAgent/run/sbin"
 export PATH="$PATH:$HOME/.dotfiles/scripts"
 export PATH="$HOME/.local/bin:$PATH" # uv
@@ -46,13 +46,7 @@ export HISTCONTROL=ignorespace
 export HISTSIZE=100000
 export HISTFILESIZE=100000
 
-# if command -v security &>/dev/null; then
-#     OPENAI_API_KEY=$(security find-generic-password -s openai -a jared -w)
-# else
-#     source ~/.env
-# fi
-# OPENAI_API_KEY=$(op read "op://employee/openai infs-risk jared/api key")j
-# export OPENAI_API_KEY
+# put secrets here
 source "$HOME/.env"
 
 # default model for all ai tools
@@ -112,8 +106,13 @@ alias bashllm='llm -m o3-mini -o reasoning_effort low --system \
     "You are an expert in Bash scripting and Linux command-line operations. Your goal is to provide clear, accurate, and efficient solutions to user queries about accomplishing tasks in Bash." '
 alias ansiblellm='llm -m o3-mini -o reasoning_effort low --system \
     "You are an expert in Ansible. Your goal is to write Ansible tasks. Only output the task. Use fully qualified module names and lint appropriately ." '
-alias cd='z'
 alias dc='docker compose'
+
+# setup zoxide if available
+if command -v zoxide 2>&1 >/dev/null; then
+    eval "$(zoxide init bash)"
+    alias cd='z'
+fi
 
 # attach to tmux on SSH
 if [[ -z $TMUX ]] && [[ -n $SSH_TTY ]]; then
@@ -126,6 +125,5 @@ eval "$(direnv hook bash)"
 # set up fzf key bindings and fuzzy completion
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
-eval "$(zoxide init bash)"
 # needs to be at end of file
 [[ ! ${BLE_VERSION-} ]] || ble-attach
