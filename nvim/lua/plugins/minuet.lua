@@ -65,8 +65,108 @@ return {
           model = 'gpt-4.1-nano',
           stream = true,
           api_key = 'OPENAI_API_KEY',
-          system = 
-          chat_input =
+
+          -- 1) System prompt – picked at runtime per filetype
+          system = {
+            prompt = function()
+              local ft = vim.bo.filetype
+              if ft == 'python' then
+                return 'You are the backend of an AI-powered code completion engine specialised in Python. Provide idiomatic Python code and comment completions.'
+              elseif ft == 'bash' or ft == 'sh' then
+                return 'You are the backend of an AI-powered code completion engine specialised in Bash. Provide POSIX-compliant shell script lines and comments that match the existing indentation.'
+              elseif ft == 'lua' then
+                return 'You are the backend of an AI-powered code completion engine specialised in Lua. Provide clean Lua code and comment completions following the user indentation.'
+              else
+                return require('minuet.config').default_system.prompt
+              end
+            end,
+          },
+
+          -- 2) One-shot few-shot examples – one per supported language
+          few_shots = function()
+            local ft = vim.bo.filetype
+            if ft == 'python' then
+              return {
+                {
+                  role = 'user',
+                  content = [[
+# language: python
+<contextAfterCursor>
+
+fib(5)
+<contextBeforeCursor>
+def fibonacci(n):
+    <cursorPosition>]],
+                },
+                {
+                  role = 'assistant',
+                  content = [[
+    '''
+    Recursive Fibonacci implementation
+    '''
+    if n < 2:
+        return n
+    return fibonacci(n - 1) + fibonacci(n - 2)
+<endCompletion>]],
+                },
+              }
+            elseif ft == 'bash' or ft == 'sh' then
+              return {
+                {
+                  role = 'user',
+                  content = [[
+# language: bash
+<contextAfterCursor>
+
+say_hello
+<contextBeforeCursor>
+function say_hello() {
+    <cursorPosition>
+}]],
+                },
+                {
+                  role = 'assistant',
+                  content = [[
+    echo "Hello, world!"
+<endCompletion>]],
+                },
+              }
+            elseif ft == 'lua' then
+              return {
+                {
+                  role = 'user',
+                  content = [[
+# language: lua
+<contextAfterCursor>
+
+fib(5)
+<contextBeforeCursor>
+local function fib(n)
+    <cursorPosition>
+end]],
+                },
+                {
+                  role = 'assistant',
+                  content = [[
+    if n < 2 then
+        return n
+    end
+    return fib(n - 1) + fib(n - 2)
+<endCompletion>]],
+                },
+              }
+            else
+              return require('minuet.config').default_few_shots
+            end
+          end,
+
+          -- 3) Chat-input section – override only the {{language}} placeholder
+          chat_input = {
+            language = function()
+              return ('# language: %s'):format(vim.bo.filetype)
+            end,
+          },
+
           optional = {
             temperature = 0.4,
             top_p = 0.95,
