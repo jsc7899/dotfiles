@@ -97,7 +97,7 @@ if [ "$arg_llm" = true ] && (command -v llm >/dev/null 2>&1 || echo "llm not ins
     if command -v uv >/dev/null 2>&1; then
         echo -e "\033[0;32mInstalling and upgrading uv tools\033[0m"
         uv tool install --python python3.12 --upgrade llm
-        uv tool install --force --python python3.12 aider-chat@latest
+        uv tool install --force --python python3.12 --with pip aider-chat@latest
     fi
     echo -e "\033[0;32mInstalling and upgrading llm plugins: ${llm_plugins[*]}\033[0m"
     for plugin in "${llm_plugins[@]}"; do
