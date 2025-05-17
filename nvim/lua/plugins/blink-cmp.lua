@@ -28,6 +28,9 @@ return {
       -- See :h blink-cmp-config-keymap for defining your own keymap
       keymap = {
         preset = 'enter',
+        ['<Tab>'] = { 'select_next', 'fallback' },
+        ['<S-Tab>'] = { 'select_prev', 'fallback' },
+        ['<C-h>'] = { 'show', 'show_documentation', 'hide_documentation' },
         -- Manually invoke minuet completion.
         ['<C-a>'] = require('minuet').make_blink_map(),
       },

@@ -5,6 +5,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 arg_link=false
 arg_install=false
 arg_llm=false
+arg_op=false
 
 while [[ $# -gt 0 ]]; do
     case $1 in
@@ -98,6 +99,9 @@ if [ "$arg_llm" = true ] && (command -v llm >/dev/null 2>&1 || echo "llm not ins
         echo -e "\033[0;32mInstalling and upgrading uv tools\033[0m"
         uv tool install --python python3.12 --upgrade llm
         uv tool install --force --python python3.12 --with pip aider-chat@latest
+    else
+        echo "uv is not installed! install uv manually"
+        exit 1
     fi
     echo -e "\033[0;32mInstalling and upgrading llm plugins: ${llm_plugins[*]}\033[0m"
     for plugin in "${llm_plugins[@]}"; do
@@ -108,11 +112,14 @@ fi
 
 # use op to inject secrets
 if [ "$arg_op" = true ] && (command -v op >/dev/null 2>&1 || echo "op not installed"); then
-    setup .env
-    cat >"$HOME/.env.tmpl" <<EOF
-OPENAI_API_KEY="op://employee/openai infs-risk jared/api key"
-EOF
-    op inject -i "$HOME/.env.tmpl" -o "$HOME"/.env
+    if ! grep -q '^export OP_SERVICE_ACCOUNT_TOKEN' "$HOME/.env"; then
+        echo "add the OP_SERVICE_ACCOUNT_TOKEN to ~/.env and source first"
+        exit 1
+    fi
+    if ! grep -q '^export OPENAI_API_KEY=' "$HOME/.env"; then
+        source "$HOME/.env"
+        echo "export OPENAI_API_KEY=$(op read "op://private/openai infs-risk jared/api key")" >>"$HOME/.env"
+    fi
 fi
 
 if [ "$arg_link" = true ]; then
@@ -155,4 +162,8 @@ if [ "$arg_link" = true ]; then
         ln -s "$dotfiles/ai/aider/aider.conf.yml" "$HOME/.aider.conf.yml"
     fi
 
+    #tmux ai
+    if [ ! -L "$HOME/.config/tmuxai/config.yaml" ]; then
+        ln -s "$dotfiles/ai/tmuxai/config.yaml" "$HOME/.config/tmuxai/config.yaml"
+    fi
 fi
