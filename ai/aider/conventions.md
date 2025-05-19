@@ -7,6 +7,28 @@
 
 ## Python Libraries
 
+### Use the `uv` tool
+
+- `uv` is a fast, modern Python package manager and should be preferred over `pip` for all operations.
+- Always use the [`uv`](https://github.com/astral-sh/uv) tool for Python package management and installation.
+- To install dependencies from `requirements.txt`, use:
+
+  ```bash
+  uv pip install -r requirements.txt
+  ```
+
+- To add a new package and update `requirements.txt`, use:
+
+  ```bash
+  uv pip install <package-name>
+  ```
+
+- To run a python script use:
+
+  ```bash
+  uv run <script-name>
+  ```
+
 - Always create a `requirements.txt` file if one does not already exist
 - When adding libraries to `requirements.txt` do not include specific versions, always use the latest. For example:
 
