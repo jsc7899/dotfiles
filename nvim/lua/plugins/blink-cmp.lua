@@ -14,6 +14,10 @@ return {
   ---@type blink.cmp.Config
   opts = function()
     return {
+      enabled = function()
+        return not vim.tbl_contains({ 'text', 'markdown' }, vim.bo.filetype)
+      end,
+
       -- 'default' (recommended) for mappings similar to built-in completions (C-y to accept)
       -- 'super-tab' for mappings similar to vscode (tab to accept)
       -- 'enter' for enter to accept
@@ -58,7 +62,7 @@ return {
 
       sources = {
         -- Enable minuet for autocomplete
-        default = { 'lsp', 'path', 'buffer', 'snippets', 'minuet' },
+        default = { 'minuet', 'lsp', 'path', 'buffer', 'snippets' },
         -- For manual completion only, remove 'minuet' from default
         providers = {
           minuet = {
