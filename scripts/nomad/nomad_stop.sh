@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Check if job name is passed as argument
 if [ -z "$1" ]; then

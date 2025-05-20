@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 color() {
     for c; do
         printf '\e[48;5;%dm%03d' $c $c

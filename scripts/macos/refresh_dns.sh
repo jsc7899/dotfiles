@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Define the new DNS servers
 DNS_SERVERS=("192.168.2.106" "128.83.185.40" "192.168.1.24" "1.1.1.1" "128.83.185.41")

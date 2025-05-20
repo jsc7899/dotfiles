@@ -1,1 +1,4 @@
 shell_gpt
+openai
+httpx
+requests

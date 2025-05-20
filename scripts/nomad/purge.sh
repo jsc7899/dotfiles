@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 NAMESPACE="default"  # Default namespace if none is provided
 

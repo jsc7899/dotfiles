@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Usage: ./dispatch_in_batches.sh <job_name> <total_dispatches> <batch_size> <batch_delay>
 

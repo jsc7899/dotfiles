@@ -1,6 +1,0 @@
-
-require 'custom.options'
-require 'custom.key'
-require 'custom.autocmds'
-
-

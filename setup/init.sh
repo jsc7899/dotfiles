@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 install_macos() {
     echo "Installing prerequisites for macOS..."

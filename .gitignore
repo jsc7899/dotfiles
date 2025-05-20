@@ -6,3 +6,4 @@ tmux/plugins
 .aider*
 bash/local.bashrc
 nvim/lazy-lock.json
+*.bak*

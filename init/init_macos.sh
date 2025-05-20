@@ -1,30 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-macos_pkgs=(
-    "neovim"                 # text editor
-    "font-hasklug-nerd-font" # font for terminal
-    "font-0xproto-nerd-font" # font for terminal
-    "fd"                     # find alternative
-    "lazygit"                # git terminal UI
-    "lsd"                    # ls alternative
-    "tpm"                    # tmux plugin manager
-    "coreutils"              # basic file, shell utilities
-    "ruff"                   # network troubleshooting
-    "ansible-lint"           # linting for Ansible
-    "httpie"                 # HTTP client
-    "tlsx"                   # TLS scanner
-    "httpx"                  # HTTP discovery
-    "naabu"                  # port scanner
-    "hyperfine"              # measure runtime
-    "dust"                   # du alternative
-    "duf"                    # df alternative
-    "fzf"                    # command-line fuzzy finder
-    "uv"                     # python package manager
-    "highlight"              # cli syntax highlighter
-    "op"                     # 1password cli
-    "sesh"                   # tmux session manager
-)
+source "$(dirname "${BASH_SOURCE[0]}")/packages.sh"
 
 install_macos() {
     echo "Installing prerequisites for macOS..."

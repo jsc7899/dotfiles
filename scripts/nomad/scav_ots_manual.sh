@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 export NOMAD_ADDR="http://nomad-server-1:4646"
 

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
@@ -30,30 +30,8 @@ while [[ $# -gt 0 ]]; do
         ;;
     esac
 done
+source "$SCRIPT_DIR/init/packages.sh"
 
-common_pkgs=(
-    # shell-related
-    "bash"            # install latest version of the Bourne Again SHell
-    "bash-completion" # programmable completion for the Bourne Again SHell
-    "direnv"          # environment switcher for the shell
-    "gawk"            # GNU awk, required for ble.sh
-    "make"            # GNU make, required for ble.sh
-    "git"             # distributed version control system
-    "unzip"           # extraction utility for ZIP archives
-    "watch"           # execute a program periodically
-    "tree"            # display directory tree structure
-    "tmux"            # terminal multiplexer
-    "parallel"        # command-line CPU load balancer
-    "bat"             # cat clone with syntax highlighting
-    "curl"            # command-line tool for transferring data with URLs
-    "wget"            # network utility to retrieve files from the web
-    "jq"              # lightweight and flexible command-line JSON processor
-    "ripgrep"         # line-oriented search tool
-    "nmap"            # network exploration tool and security scanner
-    "iperf3"          # tool for measuring TCP, UDP, and SCTP bandwidth performance
-    "htop"            # interactive resources viewer
-    "zoxide"          # cd alternative
-)
 
 # use sudo if it's installed - sometimes it's not like containers and first boot debs
 check_sudo() {

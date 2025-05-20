@@ -1,15 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-debian_pkgs=(
-    "python3-pip"
-    "python3-venv"
-    "ansible-lint"
-    # "lazygit"
-    "shellcheck"
-)
-
-redhat_pkgs=()
+source "$(dirname "${BASH_SOURCE[0]}")/packages.sh"
 
 install_debian() {
     echo "Installing prerequisites for Debian-based systems..."

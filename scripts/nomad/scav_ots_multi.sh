@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Path to the file containing the srcip and port pairs
 file="targets.txt"
