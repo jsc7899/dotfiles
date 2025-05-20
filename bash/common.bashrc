@@ -95,7 +95,7 @@ alias sshkeygen='ssh-keygen -t ed25519 -a 100'
 alias makepasswd='openssl passwd -6 --salt'
 alias tput.sh='~/.dotfiles/scripts/tput.sh'
 alias colors='/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/gawin/bash-colors-256/master/colors)"'
-alias node_elig='nomad node eligibility # -self -enable -disable'
+alias node_elig='nomad node eligibility' # -self -enable -disable
 alias nomad_run='cd /opt/ansible && sleep 1 && ansible nomad_clients -b -m shell -a'
 alias nomad_secrets='cd /opt/ansible && /opt/ansible/plays/void/nomad/nomad_clients.yaml --tags=secrets --limit=nomad_clients && cd -'
 alias +x='chmod +x'
