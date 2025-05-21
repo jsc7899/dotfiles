@@ -30,6 +30,7 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 -- save and quit keymaps
 vim.api.nvim_set_keymap('n', '<leader>x', ':w<CR>', { desc = 'save', noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>xx', ':wa<CR>:q<CR>', { desc = 'save all', noremap = true, silent = true })
+vim.keymap.set('n', '<leader>q', ':qa<CR>', { desc = 'quit', noremap = true, silent = true })
 vim.keymap.set('n', '<leader>Q', ':qa<CR>', { desc = 'quit all', noremap = true, silent = true })
 vim.keymap.set('n', '<leader>qa', ':qa!<CR>', { desc = 'quit all without saving', noremap = true, silent = true })
 
