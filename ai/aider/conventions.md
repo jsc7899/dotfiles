@@ -96,3 +96,9 @@ stream = client.responses.create(
 for event in stream:
     print(event)
 ```
+
+# When writing ansible code, you MUST follow these principles
+
+## General
+
+- Use the fully-qualified collection names (fqcn). for example: `ansible.builtin.shell`
