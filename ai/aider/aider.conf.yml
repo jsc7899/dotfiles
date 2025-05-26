@@ -75,7 +75,7 @@ reasoning-effort: high
 #edit-format: xxx
 
 ## Use architect edit format for the main chat
-architect: false
+architect: true
 
 ## Specify the model to use for commit messages and chat history summarization (default depends on --model)
 weak-model: gpt-4.1
@@ -192,7 +192,7 @@ stream: true
 #subtree-only: false
 
 ## Enable/disable auto commit of LLM changes (default: True)
-auto-commits: true
+auto-commits: false
 
 ## Enable/disable commits when repo is found dirty (default: True)
 #dirty-commits: true
@@ -297,7 +297,7 @@ analytics-disable: true
 gui: false
 
 ## Enable automatic copy/paste of chat between aider and web UI (default: False)
-#copy-paste: false
+copy-paste: false
 
 ## Apply the changes from the given file instead of running the chat (debug)
 #apply: xxx
