@@ -8,7 +8,8 @@ return {
     require('markview').setup {
       preview = {
         enable = true,
-        filetypes = { 'md', 'rmd', 'quarto', 'typst', 'markdown', 'html' },
+        -- filetypes = { 'md', 'rmd', 'quarto', 'typst', 'markdown', 'html' },
+        filetypes = {},
         -- ignore_buftypes = { 'nofile' },
         ignore_buftypes = {},
         ignore_previews = {},
