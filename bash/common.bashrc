@@ -43,8 +43,8 @@ set -o vi # use vi mode for bash keys
 export EDITOR=nvim
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY="YES"
 export HISTCONTROL=ignorespace
-export HISTSIZE=100000
-export HISTFILESIZE=100000
+export HISTSIZE=10000
+export HISTFILESIZE=10000
 
 # put secrets here
 source "$HOME/.env"
