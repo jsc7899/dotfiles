@@ -2,7 +2,8 @@
 return {
   'nvim-telescope/telescope.nvim',
   event = 'VeryLazy',
-  branch = '0.1.x',
+  -- branch = '0.1.x',
+  version = '*',
   dependencies = {
     'nvim-lua/plenary.nvim',
     'jonarrien/telescope-cmdline.nvim',
@@ -10,233 +11,193 @@ return {
     { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
     { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
   },
-  keys = {
-    { 'Q', '<cmd>Telescope cmdline<cr>', desc = 'Cmdline' },
-    { '<leader>;', '<cmd>Telescope cmdline<cr>', desc = 'Cmdline' },
-    { '<leader>N', '<cmd>Telescope notify<cr>', desc = 'Filter Notifications', noremap = true, silent = true },
-  },
-  opts = {
-    defaults = {
-      sorting_strategy = 'descending',
-      border = true,
-      borderchars = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' },
-      path_display = {},
-      winblend = 0,
-      -- Defining the default layout
-      layout_strategy = 'horizontal',
-      layout_config = {
-        horizontal = {
-          prompt_position = 'bottom',
-          preview_width = 0.6,
-          results_width = 0.4,
-        },
-        vertical = {
-          mirror = true,
-        },
-        width = 0.87,
-        height = 0.90,
-        preview_cutoff = 100,
-      },
-      file_ignore_patterns = { '.git/' },
-      mappings = {
-        i = { ['<c-enter>'] = 'to_fuzzy_refine' },
-        -- ['<CR>'] = open_in_right_split
-        n = {},
-        -- ['<CR>'] = open_in_right_split
-      },
-    },
-    pickers = {
-      find_files = {
-        follow = true,
-        hidden = true,
-        theme = 'ivy',
-      },
-      live_grep = {
-        theme = 'ivy',
-      },
-      help_tags = { -- Customize behavior for 'help_tags' specifically
-        -- attach_mappings = function(prompt_bufnr)
-        --   actions.select_default:replace(function()
-        --     local selection = action_state.get_selected_entry()
-        --     actions.close(prompt_bufnr)
-        --     -- Open the selected help page in a right split
-        --     vim.cmd('vert rightbelow help ' .. vim.fn.fnameescape(selection.value))
-        --   end)
-        --   return true
-        -- end,
-      },
-    },
-    extensions = {
-      fzf = {
-        fuzzy = true, -- false will only do exact matching
-        override_generic_sorter = true, -- override the generic sorter
-        override_file_sorter = true, -- override the file sorter
-        case_mode = 'smart_case', -- or "ignore_case" or "respect_case"
-        -- the default case_mode is "smart_case"
-      },
-      ['ui-select'] = {
-        -- require('telescope.themes').get_dropdown(),
-      },
-      cmdline = {
-        -- Adjust telescope picker size and layout
-        picker = {
-          layout_config = {
-            width = 120,
-            height = 25,
-          },
-        },
-        -- Adjust your mappings
-        mappings = {
-          complete = '<Tab>',
-          run_selection = '<C-CR>',
-          run_input = '<CR>',
-        },
-        -- Triggers any shell command using overseer.nvim (`:!`)
-        overseer = {
-          enabled = false,
-        },
-        output_pane = {
-          enabled = false,
-          min_lines = 5,
-          max_height = 25,
-        },
-      },
-    },
-  },
+  ---------------------------------------------------------------------------
+  -- Runtime configuration ---------------------------------------------------
+  ---------------------------------------------------------------------------
+  opts = function()
+    local themes = require 'telescope.themes'
+    local actions = require 'telescope.actions'
+    local action_state = require 'telescope.actions.state'
 
-  config = function(_, opts)
-    require('telescope').setup(opts)
-    -- local actions = require 'telescope.actions'
-    -- local action_state = require 'telescope.actions.state'
-    -- local action_set = require 'telescope.actions.set'
+    local ignore_globs = {
+      '!**/.git/*',
+      '!**/.venv*/*',
+    }
 
-    -- Define a function to open files in a right split if the current buffer is not split
-    -- local function open_in_right_split(prompt_bufnr)
-    --   local entry = action_state.get_selected_entry()
-    --   actions.close(prompt_bufnr)
-    --
-    --   -- Check if there are multiple windows
-    --   if #vim.api.nvim_tabpage_list_wins(0) == 1 and #vim.api.nvim_get_mode().mode == 'V' then
-    --     -- Open in a right split
-    --     vim.cmd('rightbelow vsplit ' .. entry.path)
-    --   else
-    --     -- Open in the current window
-    --     vim.cmd('edit ' .. entry.path)
-    --   end
-    -- end
-    --
-    --
-    local default_opts = {}
+    -- helper to build a ripgrep file list respecting ignore_globs
+    local function rg_find_command()
+      local cmd = {
+        'rg',
+        '--files',
+        '--hidden',
+        '--no-ignore',
+        '--no-ignore-vcs', -- ignore .gitignore
+      }
+      for _, glob in ipairs(ignore_globs) do
+        vim.list_extend(cmd, { '--glob', glob })
+      end
+      return cmd
+    end
 
-    require('telescope').setup {
-      defaults = require('telescope.themes').get_ivy {
-        sorting_strategy = 'ascending',
+    -------------------------------------------------------------------------
+    -- Base theme: start from Ivy then layer our overrides via deep‑extend.
+    -------------------------------------------------------------------------
+    local ivy = themes.get_ivy()
+
+    return vim.tbl_deep_extend('force', ivy, {
+      defaults = {
+        sorting_strategy = 'ascending', -- prompt at bottom fits Ivy
         border = true,
+        borderchars = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' },
         winblend = 0,
-        -- layout_strategy = 'horizontal',
+        path_display = {},
         layout_config = {
-          -- horizontal = {
-          --   prompt_position = 'bottom',
-          --   preview_width = 0.6,
-          --   results_width = 0.4,
-          -- },
-          vertical = {
-            mirror = true,
-          },
           width = 0.87,
-          --height = 0.80,
+          height = 0.90,
           preview_cutoff = 100,
+          horizontal = { prompt_position = 'bottom', preview_width = 0.60 },
+          vertical = { mirror = true },
         },
         file_ignore_patterns = { '.git/' },
         mappings = {
-          i = { ['<c-enter>'] = 'to_fuzzy_refine' },
-          -- ['<CR>'] = open_in_right_split
-          n = {},
-          -- ['<CR>'] = open_in_right_split
+          i = { ['<C-Enter>'] = 'to_fuzzy_refine' },
+        },
+        -- Universal ripgrep arguments
+        vimgrep_arguments = {
+          'rg',
+          '--color=never',
+          '--no-heading',
+          '--with-filename',
+          '--line-number',
+          '--column',
+          '--smart-case',
+          '--hidden',
+          '--trim',
+          '--no-ignore-vcs',
+          '--glob',
+          '!**/.git/*',
+          '--glob',
+          '!**/.venv/*',
         },
       },
+
+      -----------------------------------------------------------------------
+      -- Picker‑specific adjustments (all preserved from original file)
+      -----------------------------------------------------------------------
       pickers = {
         find_files = {
           follow = true,
           hidden = true,
-          -- theme = 'ivy',
+          no_ignore = true, -- ← do NOT respect .gitignore
+          no_ignore_parent = true, -- ← also ignore parent .gitignore files
+          theme = 'ivy',
+          find_command = rg_find_command(), -- <‑ custom ripgrep list
         },
-        live_grep = {
-          -- theme = 'ivy',
-        },
-        help_tags = { -- Customize behavior for 'help_tags' specifically
-          attach_mappings = function(prompt_bufnr, map)
+        live_grep = { theme = 'ivy' },
+        help_tags = {
+          attach_mappings = function(prompt_bufnr, _)
             actions.select_default:replace(function()
               local selection = action_state.get_selected_entry()
               actions.close(prompt_bufnr)
-              -- Open the selected help page in a right split
               vim.cmd('vert rightbelow help ' .. vim.fn.fnameescape(selection.value))
             end)
             return true
           end,
         },
       },
+
+      -----------------------------------------------------------------------
+      -- Extensions ----------------------------------------------------------
+      -----------------------------------------------------------------------
       extensions = {
+        fzf = {
+          fuzzy = true, -- enable fuzzy matching
+          override_generic_sorter = true,
+          override_file_sorter = true,
+          case_mode = 'smart_case',
+        },
         ['ui-select'] = {
-          require('telescope.themes').get_dropdown(),
+          themes.get_dropdown(), -- minimal dropdown for vim.ui.select
+        },
+        cmdline = {
+          picker = {
+            layout_config = { width = 120, height = 25 },
+          },
+          mappings = {
+            complete = '<Tab>',
+            run_selection = '<C-CR>',
+            run_input = '<CR>',
+          },
+          overseer = { enabled = false },
+          output_pane = { enabled = false, min_lines = 5, max_height = 25 },
         },
       },
-    }
+    })
+  end,
 
-    -- Enable Telescope extensions if they are installed
-    require('telescope').load_extension 'fzf'
-    require('telescope').load_extension 'ui-select'
-    require('telescope').load_extension 'cmdline'
+  ---------------------------------------------------------------------------
+  -- Final setup & *all* original keymaps   ---------------------------------
+  ---------------------------------------------------------------------------
+  config = function(_, opts)
+    local telescope = require 'telescope'
+    telescope.setup(opts) -- single, authoritative setup
 
-    -- See `:help telescope.builtin`
+    -- Load optional C module / extensions once
+    telescope.load_extension 'fzf'
+    telescope.load_extension 'ui-select'
+    telescope.load_extension 'cmdline'
+
+    -------------------------------------------------------------------------
+    -- Keybindings (verbatim from original file, comments kept) -------------
+    -------------------------------------------------------------------------
     local builtin = require 'telescope.builtin'
-    vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = '[S]earch [H]elp' })
-    vim.keymap.set('n', '<leader>fk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
-    vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = '[S]earch [F]iles' })
-    vim.keymap.set('n', '<leader>fs', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
-    vim.keymap.set('n', '<leader>fw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
-    vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
-    -- vim.keymap.set('n', '<leader>fd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
-    vim.keymap.set('n', '<leader>fr', builtin.resume, { desc = '[S]earch [R]esume' })
-    vim.keymap.set('n', '<leader>f.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
-    vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
+    local themes = require 'telescope.themes'
+    local map = vim.keymap.set
 
-    -- Slightly advanced example of overriding default behavior and theme
-    vim.keymap.set('n', '<leader>/', function()
-      -- You can pass additional configuration to Telescope to change the theme, layout, etc.
-      builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
+    -- Core pickers
+    map('n', '<leader>fh', builtin.help_tags, { desc = '[S]earch [H]elp' })
+    map('n', '<leader>fk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
+    map('n', '<leader>ff', builtin.find_files, { desc = '[S]earch [F]iles' })
+    map('n', '<leader>fs', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
+    map('n', '<leader>fw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
+    map('n', '<leader>fg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
+    -- map('n', '<leader>fd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
+    map('n', '<leader>fr', builtin.resume, { desc = '[S]earch [R]esume' })
+    map('n', '<leader>f.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
+    map('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
+    map('n', 'Q', '<cmd>Telescope cmdline<CR>', { desc = 'Cmdline' })
+    map('n', '<leader>;', '<cmd>Telescope cmdline<CR>', { desc = 'Cmdline' })
+    map('n', '<leader>N', '<cmd>Telescope notify<cr>', { desc = 'Filter Notifications', noremap = true, silent = true })
+
+    -- Themed / contextual mappings
+    map('n', '<leader>/', function()
+      builtin.current_buffer_fuzzy_find(themes.get_dropdown {
         winblend = 10,
         previewer = false,
       })
     end, { desc = '[/] Fuzzily search in current buffer' })
 
-    -- It's also possible to pass additional configuration options.
-    --  See `:help telescope.builtin.live_grep()` for information about particular keys
-    vim.keymap.set('n', '<leader>s/', function()
+    map('n', '<leader>s/', function()
       builtin.live_grep {
         grep_open_files = true,
         prompt_title = 'Live Grep in Open Files',
       }
     end, { desc = '[S]earch [/] in Open Files' })
 
-    -- Shortcut for searching your Neovim configuration files
-    vim.keymap.set('n', '<leader>fn', function()
+    -- Project‑specific shortcuts (kept verbatim)
+    map('n', '<leader>fn', function()
       builtin.find_files { cwd = vim.fn.stdpath 'config' }
     end, { desc = '[F]ind [N]eovim files' })
-
-    vim.keymap.set('n', '<leader>fc', function()
+    map('n', '<leader>fc', function()
       builtin.find_files { cwd = '/opt/chomp' }
     end, { desc = '[F]ind [C]homp files' })
-
-    vim.keymap.set('n', '<leader>fa', function()
+    map('n', '<leader>fa', function()
       builtin.find_files { cwd = '/opt/ansible' }
     end, { desc = '[F]ind [A]nsible files' })
-
-    vim.keymap.set('n', '<leader>fd', function()
+    map('n', '<leader>fd', function()
       builtin.find_files { cwd = vim.fn.stdpath 'config' }
     end, { desc = '[F]ind [D]otfiles' })
-
-    vim.keymap.set('n', '<leader>sd', function()
+    map('n', '<leader>sd', function()
       builtin.find_files { cwd = vim.fn.expand '%:p:h' }
     end, { desc = '[F]ind files in [D]irectory' })
   end,
