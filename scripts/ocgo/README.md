@@ -22,7 +22,7 @@ own preferred nameserver: `./reset_dns.sh 8.8.8.8`
 
 Then you can save the entire command as an alias by adding the following to your `~/.bashrc` or `~/.zshrc`:
 `alias vpn='cd path_to_ocgo && ./ocgo || ./reset_dns.sh'`
-where `patch_to_ocgo` is the path to the place where you downloaded `ocgo` and `reset_dns.sh`
+where `path_to_ocgo` is the path to the place where you downloaded `ocgo` and `reset_dns.sh`
 
 ## Operation
 
